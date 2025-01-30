@@ -4,30 +4,100 @@
 #include <math.h>
 #include "player.h"
 
+
 using namespace sf;
 using namespace std;
 
-Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s, p) {}
+Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s, p) 
+{
+
+    if (!textureWalk.loadFromFile("C:/Users/Abyssin/Desktop/ProjetZeldaLike/ProjetZeldaLike/Assets/GladiatorBlue/SeparateAnim/Walk.png")) {
+        throw std::runtime_error("Erreur de chargement de la texture");
+    }
+    if (!textureIdle.loadFromFile("C:/Users/Abyssin/Desktop/ProjetZeldaLike/ProjetZeldaLike/Assets/GladiatorBlue/SeparateAnim/Idle.png")) {
+        throw std::runtime_error("Erreur de chargement de la texture");
+    }
+
+    sprite.setTexture(textureIdle);
+    sprite.setScale(Vector2f(4, 4));
+}
 
 void Player::update(float deltaTime, vector<Player> p, RenderWindow& window)
 {
     move(deltaTime);
     attack(p, window);
+    animationUpdate(deltaTime);
+}
+
+void Player::animationUpdate(float deltaTime) 
+{
+    timer += deltaTime;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Q) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
+    {
+        isMoving = true;
+    }
+    else
+    {
+        isMoving = false;
+    }
+
+    if (isMoving)
+    {
+        animState = "Walk";
+    }
+    else
+    {
+        animState = "Idle";
+    }
+
+    if (animState == "Idle")
+    {
+        frameCount = 1;
+        sprite.setTexture(textureIdle);
+
+    }
+    else if (animState == "Walk")
+    {
+        frameCount = 4;
+        sprite.setTexture(textureWalk);
+    }
+
+    if (animState != animStateBackup)
+    {
+        animStateBackup = animState;
+        sprite.setTextureRect(IntRect(((getOrientation() + 90) / 90 % 4) * frameHeight, 0, frameWidth, frameHeight));
+    }
+
+    if (timer > frameDuration)
+    {
+        timer = 0;
+        currentFrame = (currentFrame + 1) % frameCount;
+        sprite.setTextureRect(IntRect(((getOrientation() + 90) / 90 % 4) * frameHeight, currentFrame * frameWidth, frameWidth, frameHeight));
+        cout << (getOrientation() + 90) / 90 % 4 * frameHeight << ", " << currentFrame * frameWidth << endl;
+    }
 }
 
 void Player::move(float deltaTime)
 {
     if (Keyboard::isKeyPressed(sf::Keyboard::Z)) {
-        setPos(Vector2f(getPos().x, getPos().y - getSpeed()*deltaTime));
+        setPos(Vector2f(getPos().x, getPos().y - getSpeed()* deltaTime));
+        setOrientation(270);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         setPos(Vector2f(getPos().x, getPos().y + getSpeed() * deltaTime));
+        setOrientation(90);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
         setPos(Vector2f(getPos().x - getSpeed() * deltaTime, getPos().y));
+        setOrientation(180);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         setPos(Vector2f(getPos().x + getSpeed() * deltaTime, getPos().y));
+        setOrientation(0);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
@@ -39,18 +109,25 @@ void Player::move(float deltaTime)
 }
 
 
-bool isInside(Vector2f edges[4], Vector2f posPoint)
-{
+bool isInside(Vector2f edges[4], Vector2f posPoint) {
     int count = 0;
-    for (int i = 0; i < 4; i++)
-    {
-        if ((posPoint.y < edges[i].y != posPoint.y < edges[i % 4].y)/* && (posPoint.x < edges[i].x + ((posPoint.y - edges[i].y) / (edges[i % 4].y - edges[i].y)) * (edges[i % 4].x - edges[i].x))*/)
-        {
-            count += 1;
+    for (int i = 0; i < 4; i++) {
+        Vector2f a = edges[i];
+        Vector2f b = edges[(i + 1) % 4];
+
+        if ((a.y > posPoint.y) != (b.y > posPoint.y)) {
+            float intersectX = a.x + (b.x - a.x) * (posPoint.y - a.y) / (b.y - a.y);
+
+            if (posPoint.x < intersectX) {
+                count++;
+            }
         }
     }
+
     return count % 2 == 1;
 }
+
+
 
 
 void Player::attack(vector<Player> ennemy, RenderWindow& window)
@@ -62,38 +139,21 @@ void Player::attack(vector<Player> ennemy, RenderWindow& window)
     {
         Vector2f(pPos.x + (sin(radO) * attackSize), pPos.y - (cos(radO) * attackSize)),
         Vector2f(pPos.x - (sin(radO) * attackSize), pPos.y + (cos(radO) * attackSize)),
-        Vector2f((pPos.x + (cos(radO)*100)) + (sin(radO) * attackSize), (pPos.y + (sin(radO)*100)) - (cos(radO) * attackSize)),
-        Vector2f((pPos.x + (cos(radO) * 100)) - (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) + (cos(radO) * attackSize))
+        Vector2f((pPos.x + (cos(radO) * 100)) - (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) + (cos(radO) * attackSize)),
+        Vector2f((pPos.x + (cos(radO) * 100)) + (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) - (cos(radO) * attackSize))
     };
 
-    for (auto a : attackHitBox)
+    for (auto e : ennemy)
     {
-        CircleShape c(4);
-        c.setPosition(a);
-        window.draw(c);
+        if (isInside(attackHitBox, e.getPos()))
+        {
+            //e.takeDamage(getDamage());
+        }
     }
-
-    Vector2f tempPos = Vector2f(250, 700);
-
-    CircleShape c2(4);
-    c2.setPosition(tempPos);
-    if (isInside(attackHitBox, tempPos))
-    {
-        c2.setFillColor(Color::Green);
-    }
-    else
-    {
-        c2.setFillColor(Color::Red);
-    }
-    window.draw(c2);
-
-    /*for (auto e : ennemy)
-    {
-        if ()
-    }*/
 }
 
 void Player::draw(RenderWindow& window)
 {
-    return;
+    sprite.setPosition(getPos());
+    window.draw(sprite);
 }

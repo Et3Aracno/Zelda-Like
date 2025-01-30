@@ -25,4 +25,6 @@ public:
 	float getSpeed();
 	void setOrientation(int o);
 	int getOrientation();
+	void setDamage(int d);
+	int getDamage();
 };

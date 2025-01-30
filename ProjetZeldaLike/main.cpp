@@ -12,12 +12,13 @@ using namespace sf;
 
 bool running = true;
 float deltaTime = 0;
-Player player(100, 5, 1, Vector2f(0, 0));
+Player player(100, 5, 0.35f, Vector2f(0, 0));
 
 int main()
 {
     //TEMP
-    deltaTime = 1;
+    player.setPos(Vector2f(200, 200));
+    Clock clock;
     sf::RenderWindow window(sf::VideoMode(800, 800), "Test");
     window.setFramerateLimit(60);
 
@@ -31,25 +32,21 @@ int main()
                 window.close();
         }
 
+        float deltaTime = clock.restart().asMilliseconds();
+
         window.clear();
         vector<Player> p;
         player.update(deltaTime, p, window);
-        circle.setPosition(player.getPos());
-        circle.setOrigin(Vector2f(5, 5));
-        player.setPos(Vector2f(300, 300));
-        window.draw(circle);
+        player.draw(window);
+        
         window.display();
-        cout << "Orientation (Degres) : " << player.getOrientation() << " - Sinus : " << sin(player.getOrientation() * (M_PI / 180))  << " - Cosinus : " <<  cos(player.getOrientation() * (M_PI / 180)) << endl << endl;
         //cout << player.getPos().x << ", " << player.getPos().y << endl;
-
+        // FPS : cout << 1000/deltaTime << endl;
     }
 
     //FIN TEMP
     cout << "Hello World !";
-    while (running)
-    {
-        
-    }
+
 }
 
 

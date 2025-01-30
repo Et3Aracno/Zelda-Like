@@ -36,3 +36,12 @@ int Entity::getOrientation()
 {
 	return orientation;
 }
+
+void Entity::setDamage(int d)
+{
+	damage = d;
+}
+int Entity::getDamage()
+{
+	return damage;
+}

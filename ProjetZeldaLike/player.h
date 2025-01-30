@@ -9,6 +9,22 @@ private:
 	void move(float deltaTime);
 	void attack(vector<Player> ennemy, RenderWindow& window); //changer player to enemy
 	void usePowerUp();
+	void animationUpdate(float deltaTime);
+
+	Texture textureWalk;
+	Texture textureIdle;
+	Sprite sprite;
+
+	int frameHeight = 16;
+	int frameWidth = 16;
+	int frameCount = 4;
+	int currentFrame = 0;
+	float frameDuration = 100.0f;
+	float timer = 0;
+
+	string animState = "Idle";
+	string animStateBackup = "Idle";
+	bool isMoving = false;
 
 public:
 	Player(int health, int dmg, float s, Vector2f p);
