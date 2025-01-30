@@ -17,7 +17,5 @@ private:
 public:
 	Entity(int health, int dmg, float x, float y);
 
-	virtual void update(float deltatime) = 0;
 	virtual void draw(RenderWindow& game) = 0;
-
 };
