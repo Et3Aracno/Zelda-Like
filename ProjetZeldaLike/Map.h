@@ -12,14 +12,14 @@ using namespace sf;
 
 class Map{
 protected:
-	string fileM;
 	
 public:
 	void initTxt();
 	void initSprt();
-	void initM();
+	void initM(string);
 	void DrawM();
 	void initall();
+	void updatemap();
 
 
 
@@ -30,6 +30,6 @@ public:
 	vector<RectangleShape>vMur;
 	vector<RectangleShape>vSol;
 	vector<RectangleShape>vPorte;
-
+	vector< RectangleShape>vTp;
 	
 };

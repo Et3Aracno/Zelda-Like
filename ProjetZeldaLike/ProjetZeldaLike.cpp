@@ -5,13 +5,20 @@
 #include "Map.h"
 int main()
 {
-    Map map;
-    map.initM();
-    map.DrawM();
-    while (map.window->isOpen())
-    {
-        map.window->display();
-    }
+	Map map;
+	map.initM("Assets/hub.txt");
+	map.DrawM();
+	while (map.window) {
+		Event gameEvent;
+		while (map.window->pollEvent(gameEvent)) {
+			if (gameEvent.type == Event::Closed) {
+				map.window->close();
+			}
+		}
+		map.window->clear();
+		map.updatemap();
+		map.window->display();
+	}
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
