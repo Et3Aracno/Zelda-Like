@@ -1,24 +1,18 @@
 #include "Map.h"
-void Map::initM(){
-
-}
-void Map::DrawM(){
+void Map::initTxt() {
+	if (!txtArbre.loadFromFile("arbre.png")or
+		txtPnj.loadFromFile("PNJ.png")or
+		txtTombe.loadFromFile("tombe.png")or
 
 }
 void Map::initArbre(){
-
+	sprtArbre.setTexture(txtArbre);
 }
 void Map::initSext(){
-
+	txtSext.loadFromFile("");
 }
 void Map::initTour(){
-
-}
-void Map::initPnj(){
-
-}
-void Map::initTombe(){
-
+	txtTour.loadFromFile("");
 }
 void Map::initChemin(){
 

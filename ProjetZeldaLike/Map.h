@@ -15,6 +15,7 @@ protected:
 	string fileM;
 	
 public:
+	void initTxt();
 	void initM();
 	void DrawM();
 	void initArbre();
