@@ -1,4 +1,3 @@
 #include <iostream>
-#include "player.h"
 
-Player::
+#include "player.h"
