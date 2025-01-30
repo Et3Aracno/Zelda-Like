@@ -6,7 +6,12 @@
 int main()
 {
     Map map;
-    map.initArbre();
+    map.initM();
+    map.DrawM();
+    while (map.window->isOpen())
+    {
+        map.window->display();
+    }
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
