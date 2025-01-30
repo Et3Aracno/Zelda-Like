@@ -12,9 +12,17 @@ private:
 	int health;
 	int damage;
 	Vector2f pos;
+	float speed;
+	int orientation = 180;
 
 public:
-	Entity(int health, int dmg, Vector2f p);
+	Entity(int health, int dmg,float s, Vector2f p);
 
-	virtual void draw(RenderWindow& game) = 0;
+	virtual void draw(RenderWindow& window) = 0;
+	void setPos(Vector2f p);
+	Vector2f getPos();
+	void setSpeed(float s);
+	float getSpeed();
+	void setOrientation(int o);
+	int getOrientation();
 };
