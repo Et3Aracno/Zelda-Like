@@ -1,10 +1,10 @@
 #include "Entity.h"
 
+using namespace sf;
 
-Entity::Entity(int pv, int dmg, float x, float y)
+Entity::Entity(int pv, int dmg, Vector2f p)
 {
 	health = pv;
 	damage = dmg;
-	posX = x;
-	posY = y;
+	Vector2f pos = p;
 }

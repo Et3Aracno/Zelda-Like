@@ -1,8 +1,4 @@
 #include <iostream>
+#include "player.h"
 
-#include "Entity.h"
-
-class Player : public Entity
-{
-
-};
+Player::

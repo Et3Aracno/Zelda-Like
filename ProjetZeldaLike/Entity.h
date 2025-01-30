@@ -11,11 +11,10 @@ class Entity
 private:
 	int health;
 	int damage;
-	float posX;
-	float posY;
+	Vector2f pos;
 
 public:
-	Entity(int health, int dmg, float x, float y);
+	Entity(int health, int dmg, Vector2f p);
 
 	virtual void draw(RenderWindow& game) = 0;
 };
