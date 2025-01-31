@@ -31,5 +31,5 @@ public:
 	Player(int health, int dmg, float s, Vector2f p);
 	void update(float deltaTime, vector<Player> p);
 
-	void draw(RenderWindow& window);
+	void draw(RenderWindow& window, View& view);
 };

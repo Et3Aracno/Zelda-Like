@@ -11,6 +11,10 @@ Player player(100, 5, 0.35f, Vector2f(0, 0));
 int main()
 {
     RenderWindow window(VideoMode(1920, 1080), "zelda");
+    View view;
+    view.setSize(Vector2f(1920, 1080));
+    view.zoom(0.5f);
+    window.setView(view);
     //TEMP
     Map mapp(window);
     player.setPos(Vector2f(200, 200));
@@ -32,8 +36,8 @@ int main()
         mapp.updatemap();
         vector<Player> p;
         player.update(deltaTime, p);
-        player.draw(mapp.window);
-        
+        player.draw(mapp.window, view);
+        window.setView(view);
         window.display();
         //cout << player.getPos().x << ", " << player.getPos().y << endl;
         // FPS : cout << 1000/deltaTime << endl;
