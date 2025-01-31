@@ -18,6 +18,6 @@ public:
 	void draw(RenderWindow& game) override;
 	void update(float deltaTime) override;
 	void attack(Player& player_) override;
-	void takeHit(Player& player_) override;
+	void takeHit(int damage) override;
 
 };

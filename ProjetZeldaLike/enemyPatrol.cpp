@@ -46,7 +46,8 @@ void Patroler::attack(Player& player_)
 
 }
 
-void Patroler::takeHit(Player& player_)
+void Patroler::takeHit(int damage)
 {
+	health += -damage;
 	sprite.setFillColor(Color::Red);
 }
