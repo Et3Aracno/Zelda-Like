@@ -33,13 +33,19 @@
     <ClCompile Include="enemyPatrol.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="item.cpp">
+    <ClCompile Include="itemEntity.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="potion.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="potionDMG.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,7 +65,7 @@
     <ClInclude Include="enemyPatrol.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="item.h">
+    <ClInclude Include="itemEntity.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="potion.h">
@@ -69,6 +75,12 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="test.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
