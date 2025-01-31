@@ -18,7 +18,7 @@ protected:
 
 
 public:
-	Entity(int health, int dmg,float s, Vector2f p);
+	Entity(int health, int dmg, float s, Vector2f p);
 
 	virtual void draw(RenderWindow& window, View& view) = 0;
 	void setPos(Vector2f p);
