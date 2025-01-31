@@ -32,4 +32,6 @@ public:
 	void update(float deltaTime, vector<Player> p);
 
 	void draw(RenderWindow& window, View& view);
+
+	Sprite getSprite();
 };

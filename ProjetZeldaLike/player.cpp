@@ -138,9 +138,6 @@ bool isInside(Vector2f edges[4], Vector2f posPoint) {
     return count % 2 == 1;
 }
 
-
-
-
 void Player::attack(vector<Player> ennemy)
 {
     float attackSize = 30;
@@ -168,4 +165,9 @@ void Player::draw(RenderWindow& window, View& view)
     sprite.setPosition(getPos());
     view.setCenter(getPos());
     window.draw(sprite);
+}
+
+Sprite Player::getSprite()
+{
+    return sprite;
 }
