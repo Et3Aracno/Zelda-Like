@@ -18,6 +18,9 @@ Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s
     if (!textureIdle.loadFromFile("../ProjetZeldaLike/Assets/GladiatorBlue/SeparateAnim/Idle.png")) {
         throw std::runtime_error("Erreur de chargement de la texture");
     }
+    if (!textureAttack.loadFromFile("../ProjetZeldaLike/Assets/GladiatorBlue/SeparateAnim/Attack.png")) {
+        throw std::runtime_error("Erreur de chargement de la texture");
+    }
 
     sprite.setTexture(textureIdle);
     sprite.setScale(Vector2f(4, 4));
@@ -26,7 +29,10 @@ Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s
 void Player::update(float deltaTime, vector<Player> p)
 {
     move(deltaTime);
-    attack(p);
+    if (Mouse::isButtonPressed(Mouse::Left))
+    {
+        attack(p);
+    }
     animationUpdate(deltaTime);
 }
 
@@ -34,37 +40,37 @@ void Player::animationUpdate(float deltaTime)
 {
     timer += deltaTime;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::Q) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
-    {
-        isMoving = true;
-    }
-    else
-    {
-        isMoving = false;
-    }
+    if (Keyboard::isKeyPressed(Keyboard::Z) ||
+        Keyboard::isKeyPressed(Keyboard::Q) ||
+        Keyboard::isKeyPressed(Keyboard::S) ||
+        Keyboard::isKeyPressed(Keyboard::D)) 
+    { isMoving = true; }
+    else { isMoving = false; }
 
-    if (isMoving)
+    if (isMoving) { animState = "Walk"; }
+    else { animState = "Idle"; }
+    if (Mouse::isButtonPressed(Mouse::Left))
     {
-        animState = "Walk";
+        animState = "Attack";
     }
-    else
-    {
-        animState = "Idle";
-    }
+    
+    
+
 
     if (animState == "Idle")
     {
         frameCount = 1;
         sprite.setTexture(textureIdle);
-
     }
     else if (animState == "Walk")
     {
         frameCount = 4;
         sprite.setTexture(textureWalk);
+    }
+    else if (animState == "Attack")
+    {
+        frameCount = 1;
+        sprite.setTexture(textureAttack);
     }
 
     if (animState != animStateBackup)
