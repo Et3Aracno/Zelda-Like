@@ -1,10 +1,10 @@
 #include <iostream>
+
 #include <vector>
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "player.h"
 #include <SFML/Graphics/View.hpp>
-
 
 using namespace sf;
 using namespace std;

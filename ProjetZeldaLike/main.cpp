@@ -1,8 +1,20 @@
+
+#include <iostream>
+#include<SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
+
+#include "enemyPatrol.h"
+#include "potion.h"
+#include "potionDMG.h"
+
+
 #define _USE_MATH_DEFINES
 #include "Map.h"
 
+
 using namespace std;
 using namespace sf;
+
 
 bool running = true;
 float deltaTime = 0;
@@ -41,5 +53,4 @@ int main()
     }
 
     //FIN TEMP
-
 }

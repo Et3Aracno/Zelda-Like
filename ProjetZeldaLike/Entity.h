@@ -8,15 +8,19 @@ using namespace sf;
 
 class Entity
 {
-private:
+protected:
 	int health;
 	int damage;
 	Vector2f pos;
+	RectangleShape sprite;
 	float speed;
 	int orientation = 180;
 
+
 public:
 	Entity(int health, int dmg,float s, Vector2f p);
+
+
 
 	virtual void draw(RenderWindow& window, View& view) = 0;
 	void setPos(Vector2f p);
