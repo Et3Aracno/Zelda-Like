@@ -6,7 +6,7 @@
 class enemy : public Entity
 {
 public:
-	enemy(int health, int damage, Vector2f pos) : Entity(health, damage, pos) {}
+	enemy(int health, int damage, Vector2f pos) : Entity(health, damage, speed, pos) {}
 
 	virtual void draw(RenderWindow& game) = 0;
 	virtual void update(float deltaTime) = 0;

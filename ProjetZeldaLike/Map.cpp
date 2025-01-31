@@ -209,6 +209,4 @@ void Map::updatemap() {
 	for (auto& tp : vTp) {
 		window.draw(tp);
 	}
-	player.update(deltaTime, p);
-	player.draw(window, view);
 }

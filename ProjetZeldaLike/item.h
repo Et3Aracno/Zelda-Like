@@ -6,7 +6,7 @@
 class Item : public Entity
 {
 public:
-	Item(Vector2f pos) : Entity(health,damage,pos) {}
+	Item(Vector2f pos) : Entity(health,damage, speed, pos) {}
 
 	virtual void draw(RenderWindow& game) = 0;
 	virtual void itmget() = 0;
