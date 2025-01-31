@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include<SFML/Graphics.hpp>
 #include<SFML/Audio.hpp>
@@ -7,35 +8,49 @@
 #include "potionDMG.h"
 
 
+#define _USE_MATH_DEFINES
+#include "Map.h"
+
+
 using namespace std;
 using namespace sf;
 
 
+bool running = true;
+float deltaTime = 0;
+
+
 int main()
 {
-    Patroler test(5, 5, { 400,300 });
-    Potion pot({ 10,10 });
-    PotionDMG potDMg({ 50,50 });
- 
-    sf::RenderWindow window(sf::VideoMode(1700, 1000), "Fenêtre SFML");
+    RenderWindow window(VideoMode(1920, 1080), "zelda");
+    View view;
+    view.setSize(Vector2f(1920, 1080));
+    view.zoom(0.5f);
+    window.setView(view);
+    //TEMP
+    Map mapp(window);
+    Clock clock;
+    mapp.initM("Assets/hub.txt");
+    mapp.DrawM();
 
     while (window.isOpen()) {
+        window.setFramerateLimit(60);
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
-                window.close(); 
+                window.close();
         }
-        window.clear();
-        test.draw(window);
-        test.movementVER(1,1);
-        pot.draw(window);
-        potDMg.draw(window);
 
+        float deltaTime = clock.restart().asMilliseconds();
+
+        window.clear();
+        mapp.updatemap();
+        vector<Player> p;
+        window.setView(view);
         window.display();
+        //cout << player.getPos().x << ", " << player.getPos().y << endl;
+        // FPS : cout << 1000/deltaTime << endl;
     }
 
-    return 0;
-
+    //FIN TEMP
 }
-
-
