@@ -1,37 +1,37 @@
 #include "Map.h"
 void Map::initTxt() {
 	if (!txtArbre.loadFromFile("Assets/arbre.png")) {
-		cout << "Erreur de chargement de arbre.png" << endl;
+		cout << "Erreur de chargement de l'arbre" << endl;
 	}
 	if (!txtPnj.loadFromFile("Assets/mob.png")) {
-		cout << "Erreur de chargement de PNJ.png" << endl;
+		cout << "Erreur de chargement du PNJ" << endl;
 	}
 	if (!txtTombe.loadFromFile("Assets/tombe pnj.png")) {
-		cout << "Erreur de chargement de tombe.png" << endl;
+		cout << "Erreur de chargement de la tombe" << endl;
 	}
 	if (!txtTour.loadFromFile("Assets/Tower 1.png")) {
-		cout << "Erreur de chargement de Tower.png" << endl;
+		cout << "Erreur de chargement de la Tower" << endl;
 	}
 	if (!txtKeyB.loadFromFile("Assets/Golden Key.png")) {
-		cout << "Erreur de chargement de Golden Key.png" << endl;
+		cout << "Erreur de chargement de la Golden Key" << endl;
 	}
 	if (!txtP.loadFromFile("Assets/porte open.png")) {
-		cout << "Erreur de chargement de porte open.png" << endl;
+		cout << "Erreur de chargement de la porte open" << endl;
 	}
 	if (!txtSext.loadFromFile("Assets/sol ext (2).png")) {
-		cout << "Erreur de chargement de sol ext.png" << endl;
+		cout << "Erreur de chargement du sol ext" << endl;
 	}
 	if (!txtChemin.loadFromFile("Assets/chemin (2).png")) {
-		cout << "Erreur de chargement de chemin.png" << endl;
+		cout << "Erreur de chargement du chemin" << endl;
 	}
 	if (!txtTpG.loadFromFile("Assets/tp gauche.png")) {
-		cout << "Erreur de chargement de tp gauche.png" << endl;
+		cout << "Erreur de chargement du tp gauche" << endl;
 	}
 	if (!txtTpD.loadFromFile("Assets/tp droite.png")) {
-		cout << "Erreur de chargement de tp droite.png" << endl;
+		cout << "Erreur de chargement du tp droit" << endl;
 	}
 	if (!txtMu.loadFromFile("Assets/mur.png")) {
-		cout << "Erreur de chargement de mur.png" << endl;
+		cout << "Erreur de chargement du mur" << endl;
 	}
 }
 void Map::initSprt() {
@@ -54,7 +54,7 @@ void Map::initall(){
 }
 void Map::initM(string fileM) {
 	initall();
-	window = new RenderWindow(VideoMode(1920, 1080), "Steam Purgator");
+	window = new RenderWindow(VideoMode(1920, 1080), "Zelda like");
 	ifstream file(fileM);
 	if (!file.is_open()) {
 		cout << endl << "Impossible de lire le fichier txt" << fileM << endl;
