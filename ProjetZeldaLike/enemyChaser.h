@@ -9,7 +9,8 @@ public:
 	Chaser(int health, int damage, Vector2f pos) : enemy( health, damage, pos) {}
 	void update(float deltaTime) override;
 	void attack(Player& player_) override;
-	void takeHit(Player& player_) override;
+	void takeHit(int damage) override;
 
-	void movement();
+	void movement(Player& p);
+
 };
