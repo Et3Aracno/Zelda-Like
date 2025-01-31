@@ -8,7 +8,7 @@ void Chaser::attack(Player& player_)
 {
 }
 
-void Chaser::takeHit(const Color& color)
+void Chaser::takeHit(Player& player_)
 {
 }
 

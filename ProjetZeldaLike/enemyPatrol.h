@@ -1,5 +1,6 @@
 #pragma once
 #include "enemy.h"
+#include "player.h"
 
 class Patroler : public enemy
 {
@@ -17,6 +18,6 @@ public:
 	void draw(RenderWindow& game) override;
 	void update(float deltaTime) override;
 	void attack(Player& player_) override;
-	void takeHit(const Color& color) override;
+	void takeHit(Player& player_) override;
 
 };
