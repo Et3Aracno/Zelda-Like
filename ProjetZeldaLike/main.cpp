@@ -1,5 +1,16 @@
+
+#include <iostream>
+#include<SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
+
+#include "enemyPatrol.h"
+#include "potion.h"
+#include "potionDMG.h"
+
+
 #define _USE_MATH_DEFINES
 #include "Game.h"
+
 
 using namespace std;
 

@@ -35,4 +35,5 @@ public:
 	vector<RectangleShape>vPorte;
 	vector< RectangleShape>vTp;
 	
+	
 };

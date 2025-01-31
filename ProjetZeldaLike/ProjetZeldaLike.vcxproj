@@ -75,8 +75,11 @@
     <LibraryPath>C:\SFML-2.6.2\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PublicIncludeDirectories>C:\SFML-2.6.2\include</PublicIncludeDirectories>
+
     <IncludePath>C:\SFML-2.6.2\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\SFML-2.6.2\lib;$(LibraryPath)</LibraryPath>
+
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -148,14 +151,25 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Map.h" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="enemyChaser.cpp" />
+    <ClCompile Include="enemyPatrol.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="potion.cpp" />
+    <ClCompile Include="potionDMG.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemyChaser.h" />
+    <ClInclude Include="enemyPatrol.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="item.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="potion.h" />
+    <ClInclude Include="potionDMG.h" />
+    <ClInclude Include="test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
