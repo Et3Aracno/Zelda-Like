@@ -11,10 +11,10 @@ using namespace std;
 Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s, p) 
 {
 
-    if (!textureWalk.loadFromFile("C:/Users/Abyssin/Desktop/ProjetZeldaLike/ProjetZeldaLike/Assets/GladiatorBlue/SeparateAnim/Walk.png")) {
+    if (!textureWalk.loadFromFile("../ProjetZeldaLike/Assets/GladiatorBlue/SeparateAnim/Walk.png")) {
         throw std::runtime_error("Erreur de chargement de la texture");
     }
-    if (!textureIdle.loadFromFile("C:/Users/Abyssin/Desktop/ProjetZeldaLike/ProjetZeldaLike/Assets/GladiatorBlue/SeparateAnim/Idle.png")) {
+    if (!textureIdle.loadFromFile("../ProjetZeldaLike/Assets/GladiatorBlue/SeparateAnim/Idle.png")) {
         throw std::runtime_error("Erreur de chargement de la texture");
     }
 
@@ -77,7 +77,6 @@ void Player::animationUpdate(float deltaTime)
         timer = 0;
         currentFrame = (currentFrame + 1) % frameCount;
         sprite.setTextureRect(IntRect(((getOrientation() + 90) / 90 % 4) * frameHeight, currentFrame * frameWidth, frameWidth, frameHeight));
-        cout << (getOrientation() + 90) / 90 % 4 * frameHeight << ", " << currentFrame * frameWidth << endl;
     }
 }
 
