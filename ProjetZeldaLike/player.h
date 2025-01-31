@@ -14,6 +14,7 @@ private:
 
 	Texture textureWalk;
 	Texture textureIdle;
+	Texture textureAttack;
 	Sprite sprite;
 
 	int frameHeight = 16;
