@@ -1,13 +1,13 @@
 #pragma once
 
-#include "item.h"
+#include "itemEntity.h"
 
-class Potion : public Item
+class Potion : public ItemEntity
 {
 public:
 	Sprite potions;
 	Texture potTex;
-	Potion(Vector2f pos) : Item(pos) {
+	Potion(Vector2f pos) : ItemEntity(pos) {
 		if (!potTex.loadFromFile("assets/vie.png")) {
 			cout << "Erreur de chargement de la texture!" << endl;
 		}

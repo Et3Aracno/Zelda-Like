@@ -1,13 +1,13 @@
 #pragma once
 
-#include "item.h"
+#include "itemEntity.h"
 
-class PotionDMG : public Item
+class PotionDMG : public ItemEntity
 {
 public:
 	Sprite potDMG;
 	Texture potDMGtext;
-	PotionDMG(Vector2f pos) : Item(pos) {
+	PotionDMG(Vector2f pos) : ItemEntity(pos) {
 		if (!potDMGtext.loadFromFile("assets/potDMG.png")) {
 			cout << "Erreur de chargement de la texture!" << endl;
 		}

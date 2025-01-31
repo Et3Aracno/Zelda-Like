@@ -166,6 +166,10 @@ void Player::attack(vector<Player> ennemy)
     }
 }
 
+void Player::usePowerUp()
+{
+}
+
 void Player::draw(RenderWindow& window, View& view)
 {
     sprite.setPosition(getPos());

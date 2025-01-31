@@ -3,10 +3,10 @@
 #include "Entity.h"
 #include "player.h"
 
-class Item : public Entity
+class ItemEntity
 {
 public:
-	Item(Vector2f pos) : Entity(health,damage, speed, pos) {}
+	ItemEntity(Vector2f pos) {}
 
 	virtual void draw(RenderWindow& game) = 0;
 	virtual void itmget() = 0;
