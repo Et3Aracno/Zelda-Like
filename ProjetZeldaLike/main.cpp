@@ -1,33 +1,50 @@
-// ProjetZeldaLike.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
-//
-
 #include <iostream>
-#include "Map.h"
+#include<SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
+#define _USE_MATH_DEFINES
+#include <math.h>
+
+#include "Player.h"
+
+
+using namespace std;
+using namespace sf;
+
+bool running = true;
+float deltaTime = 0;
+Player player(100, 5, 0.35f, Vector2f(0, 0));
+
 int main()
 {
-	Map map;
-	map.initM("Assets/hub.txt");
-	map.DrawM();
-	while (map.window) {
-		Event gameEvent;
-		while (map.window->pollEvent(gameEvent)) {
-			if (gameEvent.type == Event::Closed) {
-				map.window->close();
-			}
-		}
-		map.window->clear();
-		map.updatemap();
-		map.window->display();
-	}
+    //TEMP
+    player.setPos(Vector2f(200, 200));
+    Clock clock;
+    sf::RenderWindow window(sf::VideoMode(800, 800), "Test");
+    window.setFramerateLimit(60);
+
+    CircleShape circle(10);
+    circle.setFillColor(Color::Yellow);
+    
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        float deltaTime = clock.restart().asMilliseconds();
+
+        window.clear();
+        vector<Player> p;
+        player.update(deltaTime, p, window);
+        player.draw(window);
+        
+        window.display();
+        //cout << player.getPos().x << ", " << player.getPos().y << endl;
+        // FPS : cout << 1000/deltaTime << endl;
+    }
+
+    //FIN TEMP
+    cout << "Hello World !";
+
 }
-
-// Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
-// Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
-
-// Astuces pour bien démarrer : 
-//   1. Utilisez la fenêtre Explorateur de solutions pour ajouter des fichiers et les gérer.
-//   2. Utilisez la fenêtre Team Explorer pour vous connecter au contrôle de code source.
-//   3. Utilisez la fenêtre Sortie pour voir la sortie de la génération et d'autres messages.
-//   4. Utilisez la fenêtre Liste d'erreurs pour voir les erreurs.
-//   5. Accédez à Projet > Ajouter un nouvel élément pour créer des fichiers de code, ou à Projet > Ajouter un élément existant pour ajouter des fichiers de code existants au projet.
-//   6. Pour rouvrir ce projet plus tard, accédez à Fichier > Ouvrir > Projet et sélectionnez le fichier .sln.
