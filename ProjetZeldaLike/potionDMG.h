@@ -8,7 +8,7 @@ public:
 	Sprite potDMG;
 	Texture potDMGtext;
 	PotionDMG(Vector2f pos) : Item(pos) {
-		if (!potDMGtext.loadFromFile("asset/potDMG.png")) {
+		if (!potDMGtext.loadFromFile("assets/potDMG.png")) {
 			cout << "Erreur de chargement de la texture!" << endl;
 		}
 		potDMG.setPosition(pos);
