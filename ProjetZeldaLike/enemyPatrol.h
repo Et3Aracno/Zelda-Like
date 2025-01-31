@@ -11,7 +11,8 @@ public:
 		sprite.setSize({ 40,40 });
 	}
 
-	void movement(int x, int y);
+	void movementHOR(int x, int y);
+	void movementVER(int x, int y);
 
 	void draw(RenderWindow& game) override;
 	void update(float deltaTime) override;

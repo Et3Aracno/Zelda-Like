@@ -1,9 +1,7 @@
 #include "enemyPatrol.h"
 
 float X = 0.1f;
-float Y = 0.0f;
-bool hor = true;
-bool ver = false;
+float Y = 0.1f;
 
 void Patroler::draw(RenderWindow& game)
 {
@@ -14,44 +12,33 @@ void Patroler::update(float deltaTime)
 {
 }
 
-void Patroler::movement(int x, int y)
+void Patroler::movementHOR(int x, int y)
 {
-	sprite.move(X, Y);
-	if (sprite.getPosition().x > 600 && hor == true)
+	sprite.move(X, 0);
+	if (sprite.getPosition().x > 600)
 	{
 		X = -0.1f;
 	}
 
-	if (sprite.getPosition().x < 300 && hor == true)
+	if (sprite.getPosition().x < 300)
 	{
 		X = 0.1f;
-		ver = true;
 	}
+}
 
-	if (sprite.getPosition().x == 400 && ver == true)
-	{
-		X = 0.0f;
-		Y = 0.1f;
-	}
-
-	if (sprite.getPosition().y > 500 && ver == true)
-	{
-		Y = -0.1f;
-		ver = false;
-		hor = false;
-	}
+void Patroler::movementVER(int x, int y)
+{
+	sprite.move(0, Y);
 
 	if (sprite.getPosition().y < 300)
 	{
 		Y = 0.1f;
-		hor = true;
 	}
 
-
-
-
-
-
+	if (sprite.getPosition().y > 600)
+	{
+		Y = -0.1f;
+	}
 }
 
 void Patroler::attack(Player& player_)
@@ -61,4 +48,5 @@ void Patroler::attack(Player& player_)
 
 void Patroler::takeHit()
 {
+
 }
