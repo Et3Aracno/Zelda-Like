@@ -19,7 +19,7 @@ void Game::run()
 
 	Map mapp(window);
 	mapp.initM("Assets/hub.txt");
-	mapp.DrawM();
+	mapp.DrawM(player);
 
 	while (window.isOpen()) {
 		Event event;
@@ -31,7 +31,7 @@ void Game::run()
 
 		window.clear();
 
-		mapp.updatemap();
+		mapp.updatemap(view,player);
 		player.update(deltaTime, p);
 		player.draw(mapp.window, view);
 

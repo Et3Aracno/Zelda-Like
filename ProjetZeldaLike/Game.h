@@ -17,8 +17,8 @@ public:
 
 	Clock clock;
 	float deltaTime;
-
 	Game();
+
 
 	void run();
 };

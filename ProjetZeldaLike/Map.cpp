@@ -66,7 +66,7 @@ void Map::initM(string fileM) {
 		vM.push_back(line);
 	}
 }
-void Map::DrawM() {
+void Map::DrawM(Player& p) {
 	float Width = static_cast<float>(window.getSize().x) / vM[0].size();
 	float Height = static_cast<float>(window.getSize().y) / vM.size();
 	for (size_t i = 0; i < vM.size(); i++) {
@@ -184,9 +184,7 @@ void Map::DrawM() {
 				solext.setTexture(&txtSext);
 				solext.setPosition(j * Width, i * Height);
 				vSol.push_back(solext);
-				Player player(100, 5, 0.35f, Vector2f(0, 0));
-				
-				player.setPos(Vector2f(j* Width, i* Height));
+				p.setPos(Vector2f(j * Width, i * Height));
 				break;
 			}
 			default:
@@ -194,19 +192,32 @@ void Map::DrawM() {
 			}
 		}
 	}
-	updatemap();
 }
-void Map::updatemap() {
-	
+void Map::coliM(Player& p) {
+	for (auto& mur : vMur) {
+		if (p.getSprite().getGlobalBounds().intersects(mur.getGlobalBounds())) {
+			p.setPos(Vector2f(p.getPos().x, p.getPos().y));
+		}
+	//	else {
+	//		p.update(deltaTime, vE);
+	//		p.update(deltaTime, vE);
+	//	}
+	}
+}
+void Map::updatemap(View& v, Player& p) {
+
 	for (auto& sol : vSol) {
 		window.draw(sol);
 	}
 
 	for (auto& mur : vMur) {
 		window.draw(mur);
+
 	}
-	
+
 	for (auto& tp : vTp) {
 		window.draw(tp);
 	}
+
+	p.draw(window, v);
 }

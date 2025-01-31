@@ -12,13 +12,13 @@ using namespace std;
 Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s, p) 
 {
 
-    if (!textureWalk.loadFromFile("../ProjetZeldaLike/Assets/GladiatorBlue/SeparateAnim/Walk.png")) {
+    if (!textureWalk.loadFromFile("Assets/GladiatorBlue/SeparateAnim/Walk.png")) {
         throw std::runtime_error("Erreur de chargement de la texture");
     }
-    if (!textureIdle.loadFromFile("../ProjetZeldaLike/Assets/GladiatorBlue/SeparateAnim/Idle.png")) {
+    if (!textureIdle.loadFromFile("Assets/GladiatorBlue/SeparateAnim/Idle.png")) {
         throw std::runtime_error("Erreur de chargement de la texture");
     }
-    if (!textureAttack.loadFromFile("../ProjetZeldaLike/Assets/GladiatorBlue/SeparateAnim/Attack.png")) {
+    if (!textureAttack.loadFromFile("Assets/GladiatorBlue/SeparateAnim/Attack.png")) {
         throw std::runtime_error("Erreur de chargement de la texture");
     }
 
