@@ -11,5 +11,5 @@ public:
 	virtual void draw(RenderWindow& game) = 0;
 	virtual void update(float deltaTime) = 0;
 	virtual void attack(Player& player_) = 0;
-	virtual void takeHit() = 0;
+	virtual void takeHit(const Color& color) = 0;
 };

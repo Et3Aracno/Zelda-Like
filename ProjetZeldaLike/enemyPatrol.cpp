@@ -46,7 +46,7 @@ void Patroler::attack(Player& player_)
 
 }
 
-void Patroler::takeHit()
+void Patroler::takeHit(const Color& color)
 {
-
+	sprite.setFillColor(Color::Red);
 }

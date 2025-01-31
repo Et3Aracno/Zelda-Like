@@ -17,5 +17,6 @@ public:
 	void draw(RenderWindow& game) override;
 	void update(float deltaTime) override;
 	void attack(Player& player_) override;
-	void takeHit() override;
+	void takeHit(const Color& color) override;
+
 };
