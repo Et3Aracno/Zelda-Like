@@ -11,13 +11,20 @@ class Entity
 private:
 	int health;
 	int damage;
-	float posX;
-	float posY;
+	Vector2f pos;
+	float speed;
+	int orientation = 180;
 
 public:
-	Entity(int health, int dmg, float x, float y);
+	Entity(int health, int dmg,float s, Vector2f p);
 
-	virtual void update(float deltatime) = 0;
-	virtual void draw(RenderWindow& game) = 0;
-
+	virtual void draw(RenderWindow& window) = 0;
+	void setPos(Vector2f p);
+	Vector2f getPos();
+	void setSpeed(float s);
+	float getSpeed();
+	void setOrientation(int o);
+	int getOrientation();
+	void setDamage(int d);
+	int getDamage();
 };
