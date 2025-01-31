@@ -15,7 +15,7 @@ public:
 	void movementHOR(int x, int y);
 	void movementVER(int x, int y);
 
-	void draw(RenderWindow& game) override;
+	void draw(RenderWindow& game, View& view) override;
 	void update(float deltaTime) override;
 	void attack(Player& player_) override;
 	void takeHit(Player& player_) override;

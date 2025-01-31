@@ -3,7 +3,7 @@
 float X = 0.1f;
 float Y = 0.1f;
 
-void Patroler::draw(RenderWindow& game)
+void Patroler::draw(RenderWindow& game, View& view)
 {
 	game.draw(sprite);
 }
