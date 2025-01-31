@@ -5,11 +5,15 @@
 class Potion : public Item
 {
 public:
-	RectangleShape potions;
+	Sprite potions;
+	Texture potTex;
 	Potion(Vector2f pos) : Item(pos) {
+		if (!potTex.loadFromFile("asset/vie.png")) {
+			cout << "Erreur de chargement de la texture!" << endl;
+		}
 		potions.setPosition(pos);
-		potions.setSize({ 10,10 });
-		potions.setFillColor(Color::Blue);
+		potions.setTexture(potTex);
+		potions.setPosition(pos);
 	}
 
 	void draw(RenderWindow& game) override;

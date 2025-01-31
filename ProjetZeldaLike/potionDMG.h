@@ -5,11 +5,15 @@
 class PotionDMG : public Item
 {
 public:
-	RectangleShape potDMG;
+	Sprite potDMG;
+	Texture potDMGtext;
 	PotionDMG(Vector2f pos) : Item(pos) {
+		if (!potDMGtext.loadFromFile("asset/potDMG.png")) {
+			cout << "Erreur de chargement de la texture!" << endl;
+		}
 		potDMG.setPosition(pos);
-		potDMG.setSize({ 10,10 });
-		potDMG.setFillColor(Color::Red);
+		potDMG.setTexture(potDMGtext);
+		potDMG.setPosition(pos);
 	}
 
 	void draw(RenderWindow& game) override;
