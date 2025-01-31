@@ -6,7 +6,7 @@ using namespace sf;
 
 bool running = true;
 float deltaTime = 0;
-Player player(100, 5, 0.35f, Vector2f(0, 0));
+
 
 int main()
 {
@@ -17,7 +17,6 @@ int main()
     window.setView(view);
     //TEMP
     Map mapp(window);
-    player.setPos(Vector2f(200, 200));
     Clock clock;
     mapp.initM("Assets/hub.txt");
     mapp.DrawM();
@@ -35,8 +34,6 @@ int main()
         window.clear();
         mapp.updatemap();
         vector<Player> p;
-        player.update(deltaTime, p);
-        player.draw(mapp.window, view);
         window.setView(view);
         window.display();
         //cout << player.getPos().x << ", " << player.getPos().y << endl;

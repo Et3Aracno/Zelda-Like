@@ -177,6 +177,18 @@ void Map::DrawM() {
 				vTp.push_back(tpG);
 				break;
 			}
+			case'P':
+			{
+				RectangleShape solext(Vector2f(67, 54));
+				solext.setPosition(Vector2f(67 * j, 54 * i));
+				solext.setTexture(&txtSext);
+				solext.setPosition(j * Width, i * Height);
+				vSol.push_back(solext);
+				Player player(100, 5, 0.35f, Vector2f(0, 0));
+				
+				player.setPos(Vector2f(j* Width, i* Height));
+				break;
+			}
 			default:
 				break;
 			}
@@ -197,4 +209,6 @@ void Map::updatemap() {
 	for (auto& tp : vTp) {
 		window.draw(tp);
 	}
+	player.update(deltaTime, p);
+	player.draw(window, view);
 }
