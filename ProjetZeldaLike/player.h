@@ -2,12 +2,13 @@
 #include <iostream>
 #include <vector>
 #include "Entity.h"
+#include <math.h>
 
 class Player : public Entity
 {
 private:
 	void move(float deltaTime);
-	void attack(vector<Player> ennemy, RenderWindow& window); //changer player to enemy
+	void attack(vector<Player> ennemy); //changer player to enemy
 	void usePowerUp();
 	void animationUpdate(float deltaTime);
 
@@ -28,7 +29,7 @@ private:
 
 public:
 	Player(int health, int dmg, float s, Vector2f p);
-	void update(float deltaTime, vector<Player> p, RenderWindow& window);
+	void update(float deltaTime, vector<Player> p);
 
 	void draw(RenderWindow& window);
 };

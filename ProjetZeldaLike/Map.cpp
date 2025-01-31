@@ -1,4 +1,7 @@
 #include "Map.h"
+Map::Map(RenderWindow& w) : window(w) {
+
+};
 void Map::initTxt() {
 	if (!txtArbre.loadFromFile("Assets/arbre.png")) {
 		cout << "Erreur de chargement de l'arbre" << endl;
@@ -54,7 +57,6 @@ void Map::initall(){
 }
 void Map::initM(string fileM) {
 	initall();
-	window = new RenderWindow(VideoMode(1920, 1080), "Zelda like");
 	ifstream file(fileM);
 	if (!file.is_open()) {
 		cout << endl << "Impossible de lire le fichier txt" << fileM << endl;
@@ -65,8 +67,8 @@ void Map::initM(string fileM) {
 	}
 }
 void Map::DrawM() {
-	float Width = static_cast<float>(window->getSize().x) / vM[0].size();
-	float Height = static_cast<float>(window->getSize().y) / vM.size();
+	float Width = static_cast<float>(window.getSize().x) / vM[0].size();
+	float Height = static_cast<float>(window.getSize().y) / vM.size();
 	for (size_t i = 0; i < vM.size(); i++) {
 		for (size_t j = 0; j < vM[0].size(); j++) {
 			switch (vM[i][j])
@@ -185,14 +187,14 @@ void Map::DrawM() {
 void Map::updatemap() {
 	
 	for (auto& sol : vSol) {
-		window->draw(sol);
+		window.draw(sol);
 	}
 
 	for (auto& mur : vMur) {
-		window->draw(mur);
+		window.draw(mur);
 	}
 	
 	for (auto& tp : vTp) {
-		window->draw(tp);
+		window.draw(tp);
 	}
 }

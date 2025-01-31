@@ -5,15 +5,18 @@
 #include <vector>
 #include<fstream>
 #include<sstream>
+#include "Player.h"
+#include<SFML/Audio.hpp>
+
 using namespace std;
 using namespace sf;
 
 
 
 class Map{
-protected:
-	
+
 public:
+	Map(RenderWindow& w);
 	void initTxt();
 	void initSprt();
 	void initM(string);
@@ -23,7 +26,7 @@ public:
 
 
 
-	RenderWindow* window;//ajouter ça dans le game pour appeler la window et commencer la boucle de jeux  Map map; /*map.initM(); while (map.window) {}*/
+	RenderWindow& window;//ajouter ça dans le game pour appeler la window et commencer la boucle de jeux  Map map; /*map.initM(); while (map.window) {}*/
 	Texture txtArbre, txtSext, txtTour, txtPnj, txtTombe, txtChemin, txtMu, txtS, txtP, txtKeyB, txtTpG,txtTpD;
 	Sprite sprtMu, sprtS, sprtP, sprtKeyB, sprtArbre, sprtSext, sprtPnj, sprtTombe, sprtChemin, sprtTour,sprtTpG,sprtTpD;
 	vector<string>vM;

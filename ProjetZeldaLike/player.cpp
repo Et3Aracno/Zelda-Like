@@ -22,10 +22,10 @@ Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s
     sprite.setScale(Vector2f(4, 4));
 }
 
-void Player::update(float deltaTime, vector<Player> p, RenderWindow& window)
+void Player::update(float deltaTime, vector<Player> p)
 {
     move(deltaTime);
-    attack(p, window);
+    attack(p);
     animationUpdate(deltaTime);
 }
 
@@ -129,7 +129,7 @@ bool isInside(Vector2f edges[4], Vector2f posPoint) {
 
 
 
-void Player::attack(vector<Player> ennemy, RenderWindow& window)
+void Player::attack(vector<Player> ennemy)
 {
     float attackSize = 30;
     float radO = getOrientation() * (M_PI / 180);
