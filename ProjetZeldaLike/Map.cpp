@@ -212,20 +212,20 @@ void Map::coliM(Player& p) {
 	for (auto& mur : vMur) {
 		if (p.getSprite().getGlobalBounds().intersects(mur.getGlobalBounds())) {
 
-			if (p.getPos().x > mur.getPosition().x) {
+			if (p.getPos().x > mur.getPosition().x) { //coli mur gauche
 				p.setPos(Vector2f(p.getPos().x + 3, p.getPos().y));
 
 			}
 
-			if (p.getPos().x < mur.getPosition().x) {
+			if (p.getPos().x < mur.getPosition().x) {//coli mur droit
 				p.setPos(Vector2f(p.getPos().x - 3, p.getPos().y));
 
 			}
-			if (p.getPos().y > mur.getPosition().y) {
+			if (p.getPos().y > mur.getPosition().y) {//coli mur du bas
 				p.setPos(Vector2f(p.getPos().x, p.getPos().y + 3));
 
 			}
-			if (p.getPos().y < mur.getPosition().y) {
+			if (p.getPos().y < mur.getPosition().y) {//coli mur haut
 				p.setPos(Vector2f(p.getPos().x, p.getPos().y - 3));
 
 			}
@@ -249,7 +249,37 @@ void Map::tpTxt(Player& p) {
 
 }
 void Map::pnjTxt(Player& p) {
+	for (auto& pnj : vPnj) {
+		if (pnj.getGlobalBounds().intersects(p.getSprite().getGlobalBounds())) {
+			interact.setPosition(vPnj[0].getPosition().x + vPnj[0].getSize().x - 7, vPnj[0].getPosition().y - 10 + vPnj[0].getSize().y / 2);
+			window.draw(interact);
+		}
+		else if (!pnj.getGlobalBounds().intersects(p.getSprite().getGlobalBounds()))
+		{
+		}
+		if (p.getSprite().getGlobalBounds().intersects(pnj.getGlobalBounds())) {
 
+			if (p.getPos().x > pnj.getPosition().x) {
+				p.setPos(Vector2f(p.getPos().x + 3, p.getPos().y));
+
+			}
+
+			if (p.getPos().x < pnj.getPosition().x) {
+				p.setPos(Vector2f(p.getPos().x - 3, p.getPos().y));
+
+			}
+			if (p.getPos().y > pnj.getPosition().y) {
+				p.setPos(Vector2f(p.getPos().x, p.getPos().y + 3));
+
+			}
+			if (p.getPos().y < pnj.getPosition().y) {
+				p.setPos(Vector2f(p.getPos().x, p.getPos().y - 3));
+
+			}
+
+
+		}
+	}
 
 }
 void Map::updatemap(View& v, Player& p) {

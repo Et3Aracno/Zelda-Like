@@ -36,7 +36,9 @@ void Game::run()
 		mapp.updatemap(view, player);
 		player.update(deltaTime, p);
 		mapp.tpTxt(player);
+		mapp.pnjTxt(player);
 		mapp.coliM(player);
+
 
 		window.setView(view);
 
