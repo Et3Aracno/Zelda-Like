@@ -27,16 +27,21 @@ public:
 	void initTxt();
 	void initSprt();
 	void initM(string);
+	void initF();
+	void initT();
 	void DrawM(Player&);
 	void initall();
 	void updatemap(View& v, Player& p);
 	void coliM(Player& p);
-
+	void tpTxt(Player& p);
+	void pnjTxt(Player& p);
 
 
 	RenderWindow& window;//ajouter ça dans le game pour appeler la window et commencer la boucle de jeux  Map map; /*map.initM(); while (map.window) {}*/
 	Texture txtArbre, txtSext, txtTour, txtPnj, txtTombe, txtChemin, txtMu, txtS, txtP, txtKeyB, txtTpG, txtTpD;
 	Sprite sprtMu, sprtS, sprtP, sprtKeyB, sprtArbre, sprtSext, sprtPnj, sprtTombe, sprtChemin, sprtTour, sprtTpG, sprtTpD;
+	Font fI;
+	Text interact;
 	vector<string>vM;
 	vector<RectangleShape>vMur;
 	vector<RectangleShape>vSol;
@@ -44,6 +49,7 @@ public:
 	vector< RectangleShape>vTp;
 	vector<Chaser>vC;
 	vector<Patroler>vP;
-	vector<enemy>vE;
+	vector<Player>vE;
+	vector<RectangleShape>vPnj;
 
 };

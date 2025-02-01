@@ -50,10 +50,25 @@ void Map::initSprt() {
 	sprtTpD.setTexture(txtTpD);
 	sprtMu.setTexture(txtMu);
 }
+void Map::initF() {
+	if (!fI.loadFromFile("Assets/huggo/Huggo.otf")) {
+		cout << endl << "Impossible de charger la fonte" << endl;
+	}
+}
+void Map::initT() {
+	interact.setFont(fI);
+	interact.setString("E");
+	interact.setCharacterSize(15);
+	interact.setFillColor(Color::Black);
+	interact.setStyle(Text::Bold);
+
+}
 
 void Map::initall(){
 	initTxt();
 	initSprt(); 
+	initF();
+	initT();
 }
 void Map::initM(string fileM) {
 	initall();
@@ -130,7 +145,7 @@ void Map::DrawM(Player& p) {
 				Pnj.setPosition(Vector2f(67 * j, 54 * i));
 				Pnj.setTexture(&txtPnj);
 				Pnj.setPosition(j * Width, i * Height);
-				vMur.push_back(Pnj);
+				vPnj.push_back(Pnj);
 				break;
 			}
 
@@ -196,13 +211,29 @@ void Map::DrawM(Player& p) {
 void Map::coliM(Player& p) {
 	for (auto& mur : vMur) {
 		if (p.getSprite().getGlobalBounds().intersects(mur.getGlobalBounds())) {
-			p.setPos(Vector2f(p.getPos().x, p.getPos().y));
+			
 		}
-	//	else {
-	//		p.update(deltaTime, vE);
-	//		p.update(deltaTime, vE);
-	//	}
 	}
+	
+}
+void Map::tpTxt(Player& p) {
+	for (auto& tp : vTp) {
+		if (tp.getGlobalBounds().intersects(p.getSprite().getGlobalBounds())) {
+			interact.setPosition(vTp[0].getPosition().x+ vTp[0].getSize().x-7, vTp[0].getPosition().y-10+ vTp[0].getSize().y/2);
+			window.draw(interact);
+			cout << endl << "ok coli tp"<<endl;
+		}
+		else if(!tp.getGlobalBounds().intersects(p.getSprite().getGlobalBounds()))
+		{
+			cout << endl << "ne touche pas" << endl;
+		}
+
+	}
+
+}
+void Map::pnjTxt(Player& p) {
+
+
 }
 void Map::updatemap(View& v, Player& p) {
 
@@ -218,6 +249,7 @@ void Map::updatemap(View& v, Player& p) {
 	for (auto& tp : vTp) {
 		window.draw(tp);
 	}
+	
 
 	p.draw(window, v);
 }

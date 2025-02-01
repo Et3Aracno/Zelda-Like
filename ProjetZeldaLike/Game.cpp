@@ -13,7 +13,6 @@ void Game::run()
 {
 	RenderWindow window = RenderWindow(VideoMode(1920, 1080), "zelda");
 	window.setFramerateLimit(60);
-
 	Player player(100, 5, 0.35f, Vector2f(0, 0));
 	vector<Player> p; // A SUPPRIMER (theo)
 
@@ -30,12 +29,18 @@ void Game::run()
 		deltaTime = clock.restart().asMilliseconds();
 
 		window.clear();
-
-		mapp.updatemap(view,player);
-		player.update(deltaTime, p);
+		
+		
 		player.draw(mapp.window, view);
 
+		mapp.updatemap(view, player);
+
+		player.update(deltaTime, p);
+		mapp.tpTxt(player);
+		/*mapp.coliM(player);*/
+
 		window.setView(view);
+
 		window.display();
 	}
 }
