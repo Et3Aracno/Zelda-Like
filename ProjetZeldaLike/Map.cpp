@@ -221,11 +221,9 @@ void Map::tpTxt(Player& p) {
 		if (tp.getGlobalBounds().intersects(p.getSprite().getGlobalBounds())) {
 			interact.setPosition(vTp[0].getPosition().x+ vTp[0].getSize().x-7, vTp[0].getPosition().y-10+ vTp[0].getSize().y/2);
 			window.draw(interact);
-			cout << endl << "ok coli tp"<<endl;
 		}
 		else if(!tp.getGlobalBounds().intersects(p.getSprite().getGlobalBounds()))
 		{
-			cout << endl << "ne touche pas" << endl;
 		}
 
 	}
@@ -244,6 +242,9 @@ void Map::updatemap(View& v, Player& p) {
 	for (auto& mur : vMur) {
 		window.draw(mur);
 
+	}
+	for (auto pnj : vPnj) {
+		window.draw(pnj);
 	}
 
 	for (auto& tp : vTp) {
