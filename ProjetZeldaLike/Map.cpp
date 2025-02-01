@@ -211,6 +211,25 @@ void Map::DrawM(Player& p) {
 void Map::coliM(Player& p) {
 	for (auto& mur : vMur) {
 		if (p.getSprite().getGlobalBounds().intersects(mur.getGlobalBounds())) {
+
+			if (p.getPos().x > mur.getPosition().x) {
+				p.setPos(Vector2f(p.getPos().x + 3, p.getPos().y));
+
+			}
+
+			if (p.getPos().x < mur.getPosition().x) {
+				p.setPos(Vector2f(p.getPos().x - 3, p.getPos().y));
+
+			}
+			if (p.getPos().y > mur.getPosition().y) {
+				p.setPos(Vector2f(p.getPos().x, p.getPos().y + 3));
+
+			}
+			if (p.getPos().y < mur.getPosition().y) {
+				p.setPos(Vector2f(p.getPos().x, p.getPos().y - 3));
+
+			}
+
 			
 		}
 	}
