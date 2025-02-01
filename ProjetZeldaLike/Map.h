@@ -41,7 +41,7 @@ public:
 	Texture txtArbre, txtSext, txtTour, txtPnj, txtTombe, txtChemin, txtMu, txtS, txtP, txtKeyB, txtTpG, txtTpD;
 	Sprite sprtMu, sprtS, sprtP, sprtKeyB, sprtArbre, sprtSext, sprtPnj, sprtTombe, sprtChemin, sprtTour, sprtTpG, sprtTpD;
 	Font fI;
-	Text interact;
+	Text interactTp,inetractPnj;
 	vector<string>vM;
 	vector<RectangleShape>vMur;
 	vector<RectangleShape>vSol;
@@ -51,5 +51,4 @@ public:
 	vector<Patroler>vP;
 	vector<Player>vE;
 	vector<RectangleShape>vPnj;
-
 };

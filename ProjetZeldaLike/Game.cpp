@@ -30,7 +30,6 @@ void Game::run()
 
 		window.clear();
 		
-		
 		player.draw(mapp.window, view);
 
 		mapp.updatemap(view, player);

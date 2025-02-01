@@ -56,11 +56,17 @@ void Map::initF() {
 	}
 }
 void Map::initT() {
-	interact.setFont(fI);
-	interact.setString("E");
-	interact.setCharacterSize(15);
-	interact.setFillColor(Color::Black);
-	interact.setStyle(Text::Bold);
+	interactTp.setFont(fI);
+	interactTp.setString("E");
+	interactTp.setCharacterSize(15);
+	interactTp.setFillColor(Color::Black);
+	interactTp.setStyle(Text::Bold);
+
+	inetractPnj.setFont(fI);
+	inetractPnj.setString("!");
+	inetractPnj.setCharacterSize(20);
+	inetractPnj.setFillColor(Color::Red);
+	inetractPnj.setStyle(Text::Bold);
 
 }
 
@@ -238,8 +244,8 @@ void Map::coliM(Player& p) {
 void Map::tpTxt(Player& p) {
 	for (auto& tp : vTp) {
 		if (tp.getGlobalBounds().intersects(p.getSprite().getGlobalBounds())) {
-			interact.setPosition(vTp[0].getPosition().x+ vTp[0].getSize().x-7, vTp[0].getPosition().y-10+ vTp[0].getSize().y/2);
-			window.draw(interact);
+			interactTp.setPosition(vTp[0].getPosition().x+ vTp[0].getSize().x-7, vTp[0].getPosition().y-10+ vTp[0].getSize().y/2);
+			window.draw(interactTp);
 		}
 		else if(!tp.getGlobalBounds().intersects(p.getSprite().getGlobalBounds()))
 		{
@@ -250,13 +256,8 @@ void Map::tpTxt(Player& p) {
 }
 void Map::pnjTxt(Player& p) {
 	for (auto& pnj : vPnj) {
-		if (pnj.getGlobalBounds().intersects(p.getSprite().getGlobalBounds())) {
-			interact.setPosition(vPnj[0].getPosition().x + vPnj[0].getSize().x - 7, vPnj[0].getPosition().y - 10 + vPnj[0].getSize().y / 2);
-			window.draw(interact);
-		}
-		else if (!pnj.getGlobalBounds().intersects(p.getSprite().getGlobalBounds()))
-		{
-		}
+			inetractPnj.setPosition(vPnj[0].getPosition().x+30, vPnj[0].getPosition().y-30);
+			window.draw(inetractPnj);
 		if (p.getSprite().getGlobalBounds().intersects(pnj.getGlobalBounds())) {
 
 			if (p.getPos().x > pnj.getPosition().x) {
