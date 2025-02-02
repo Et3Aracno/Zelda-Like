@@ -17,9 +17,8 @@ void Game::run()
 	vector<Player> p; // A SUPPRIMER (theo)
 
 	Map mapp(window);
-	mapp.initM("Assets/hub.txt");
-	mapp.DrawM(player);
-
+	mapp.initM(currentMap);
+	mapp.DrawM(player,view);
 	while (window.isOpen()) {
 		Event event;
 		while (window.pollEvent(event)) {
@@ -27,19 +26,18 @@ void Game::run()
 				window.close();
 		}
 		deltaTime = clock.restart().asMilliseconds();
-
+		window.setView(view);
 		window.clear();
-		
-		player.draw(mapp.window, view);
-
-		mapp.updatemap(view, player);
+		mapp.eDonj(player,view,currentMap);
+		mapp.DrawM(player, view);
+		player.draw(window, view);
 		player.update(deltaTime, p);
 		mapp.tpTxt(player);
 		mapp.pnjTxt(player);
 		mapp.coliM(player);
 
 
-		window.setView(view);
+	
 
 		window.display();
 	}
