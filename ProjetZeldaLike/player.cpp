@@ -52,7 +52,13 @@ void Player::animationUpdate(float deltaTime)
     if (Mouse::isButtonPressed(Mouse::Left))
     {
         animState = "Attack";
+        attackstate = true;
     }
+    else
+    {
+        attackstate =false;
+    }
+
     
     
 
@@ -180,4 +186,9 @@ void Player::draw(RenderWindow& window, View& view)
 Sprite Player::getSprite()
 {
     return sprite;
+}
+
+bool Player::getattackstate()
+{
+    return attackstate;
 }

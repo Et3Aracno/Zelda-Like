@@ -4,8 +4,11 @@ bool touch = false;
 
 void Patroler::draw(RenderWindow& game, View& view)
 {
-	sprite.setPosition(pos);
-	game.draw(sprite);
+	if (health > 0)
+	{
+		sprite.setPosition(pos);
+		game.draw(sprite);
+	}
 }
 
 void Patroler::update(float deltaTime)
@@ -94,12 +97,13 @@ void Patroler::takeHit(Player& player_)
 	FloatRect patrolerBounds = sprite.getGlobalBounds(); 
 	FloatRect playerBounds = player_.getSprite().getGlobalBounds();
 
-	if (patrolerBounds.intersects(playerBounds))
+	if (patrolerBounds.intersects(playerBounds) && player_.attackstate )
 	{
 		if (!getHit)
 		{
 			touch = true;
 			hitColor();
+			health -= 1;
 		}
 	}
 	if (getHit && clockHit.getElapsedTime().asSeconds() >= 3.f)
@@ -109,5 +113,6 @@ void Patroler::takeHit(Player& player_)
 		touch = false;
 	}
 }
+
 
 

@@ -18,7 +18,7 @@ void Game::run()
 
 	Player player(100, 5, 0.35f, Vector2f(0, 0));
 	vector<Player> p; // A SUPPRIMER (theo)
-	Patroler patr(2, 2, { 50.0f,50.0f });
+	Patroler patr(5, 2, { 50.0f,50.0f });
 
 
 	Map mapp(window);

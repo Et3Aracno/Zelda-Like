@@ -24,15 +24,21 @@ private:
 	float frameDuration = 100.0f;
 	float timer = 0;
 
+
+
 	string animState = "Idle";
 	string animStateBackup = "Idle";
 	bool isMoving = false;
 
 public:
+	bool attackstate = false;
+
 	Player(int health, int dmg, float s, Vector2f p);
 	void update(float deltaTime, vector<Player> p);
 
 	void draw(RenderWindow& window, View& view);
 
 	Sprite getSprite();
+
+	bool getattackstate();
 };

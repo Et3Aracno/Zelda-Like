@@ -15,7 +15,6 @@ public:
 
 	Clock clockHit;	
 	bool getHit;
-	bool colorChangeE;
 
 	RectangleShape sprite;
 	Patroler(int health, int damage, Vector2f pos ) : enemy( health, damage, pos), moveleft(true), moveup(true), getHit(false)
@@ -40,5 +39,4 @@ public:
 
 	void hitColor();
 	void takeHit(Player& player_) override;
-
 };
