@@ -35,6 +35,8 @@ private:
 	float timeSinceLastAttack = 0;
 	bool canMove = true;
 
+	//TODO : Attack Cooldown
+
 public:
 	Player(int health, int dmg, float s, Vector2f p);
 	void update(float deltaTime, vector<Enemy*> p);
