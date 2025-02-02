@@ -15,4 +15,6 @@ public:
 	void animationUpdate(float deltaTime);
 	void draw(RenderWindow& game, View& view);
 
+	void giveStunt(float time);
+	void stuntManager(float deltaTime);
 };

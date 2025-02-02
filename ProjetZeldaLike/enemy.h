@@ -25,10 +25,17 @@ public:
 	float timeSinceLastAttack = 0;
 	bool canMove = true;
 
+	float stuntTime = 0;
+
 	Enemy(int health, int damage, float speed, Vector2f pos) : Entity(health, damage, speed, pos) {}
 
 	virtual void draw(RenderWindow& game, View& view) = 0;
 	virtual void update(float deltaTime, Player& p) = 0;
 	virtual void attack(float deltaTime, Player& player_) = 0;
 	virtual void takeHit(int damage) = 0;
+
+	virtual void giveStunt(float time) = 0;
+	virtual void stuntManager(float deltaTime) = 0;
+
+
 };

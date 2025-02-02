@@ -29,13 +29,8 @@ Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s
 void Player::update(float deltaTime, vector<Enemy*> p)
 {
     move(deltaTime);
-    if (Mouse::isButtonPressed(Mouse::Left))
-    {
-        attack(p);
-    }
+    attack(deltaTime, p);
     animationUpdate(deltaTime);
-
-    cout << health << endl;
 }
 
 void Player::animationUpdate(float deltaTime) 
@@ -102,29 +97,31 @@ bool isGoingDiagonal()
 
 void Player::move(float deltaTime)
 {
-    bool isDiagonal = isGoingDiagonal();
-    float isDiagonalMultiplier = 1;
+    if (canMove) {
+        bool isDiagonal = isGoingDiagonal();
+        float isDiagonalMultiplier = 1;
 
-    if (isDiagonal)
-    {
-        isDiagonalMultiplier = 1 / sqrt(2);
-    }
+        if (isDiagonal)
+        {
+            isDiagonalMultiplier = 1 / sqrt(2);
+        }
 
-    if (Keyboard::isKeyPressed(sf::Keyboard::Z)) {
-        setPos(Vector2f(getPos().x, getPos().y - getSpeed() * deltaTime * isDiagonalMultiplier));
-        setOrientation(270);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        setPos(Vector2f(getPos().x, getPos().y + getSpeed() * deltaTime * isDiagonalMultiplier));
-        setOrientation(90);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-        setPos(Vector2f(getPos().x - getSpeed() * deltaTime * isDiagonalMultiplier, getPos().y));
-        setOrientation(180);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        setPos(Vector2f(getPos().x + getSpeed() * deltaTime * isDiagonalMultiplier, getPos().y));
-        setOrientation(0);
+        if (Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+            setPos(Vector2f(getPos().x, getPos().y - getSpeed() * deltaTime * isDiagonalMultiplier));
+            setOrientation(270);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            setPos(Vector2f(getPos().x, getPos().y + getSpeed() * deltaTime * isDiagonalMultiplier));
+            setOrientation(90);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+            setPos(Vector2f(getPos().x - getSpeed() * deltaTime * isDiagonalMultiplier, getPos().y));
+            setOrientation(180);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            setPos(Vector2f(getPos().x + getSpeed() * deltaTime * isDiagonalMultiplier, getPos().y));
+            setOrientation(0);
+        }
     }
 }
 
@@ -146,24 +143,38 @@ bool isInside(Vector2f edges[4], Vector2f posPoint) {
     return count % 2 == 1;
 }
 
-void Player::attack(vector<Enemy*> ennemy)
+void Player::attack(float deltaTime, vector<Enemy*> ennemy)
 {
-    float attackSize = 30;
-    float radO = getOrientation() * (M_PI / 180);
-    Vector2f pPos = getPos();
-    Vector2f attackHitBox[4] =
+    timeSinceLastAttack += deltaTime;
+    if (timeSinceLastAttack > attackDuration)
     {
-        Vector2f(pPos.x + (sin(radO) * attackSize), pPos.y - (cos(radO) * attackSize)),
-        Vector2f(pPos.x - (sin(radO) * attackSize), pPos.y + (cos(radO) * attackSize)),
-        Vector2f((pPos.x + (cos(radO) * 100)) - (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) + (cos(radO) * attackSize)),
-        Vector2f((pPos.x + (cos(radO) * 100)) + (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) - (cos(radO) * attackSize))
-    };
+        canMove = true;
 
-    for (auto e : ennemy)
-    {
-        if (isInside(attackHitBox, e->getPos()))
+        if (Mouse::isButtonPressed(Mouse::Left))
         {
-            e->takeHit(getDamage());
+            timeSinceLastAttack = 0;
+            canMove = false;
+
+            float attackSize = 30;
+            float radO = getOrientation() * (M_PI / 180);
+            Vector2f pPos = getPos();
+            Vector2f attackHitBox[4] =
+            {
+                Vector2f(pPos.x + (sin(radO) * attackSize), pPos.y - (cos(radO) * attackSize)),
+                Vector2f(pPos.x - (sin(radO) * attackSize), pPos.y + (cos(radO) * attackSize)),
+                Vector2f((pPos.x + (cos(radO) * 100)) - (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) + (cos(radO) * attackSize)),
+                Vector2f((pPos.x + (cos(radO) * 100)) + (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) - (cos(radO) * attackSize))
+            };
+
+            for (auto e : ennemy)
+            {
+                cout << e->getHealth() << endl;
+                if (isInside(attackHitBox, e->getPos()))
+                {
+                    e->takeHit(getDamage());
+                    e->giveStunt(1000.f);
+                }
+            }
         }
     }
 }

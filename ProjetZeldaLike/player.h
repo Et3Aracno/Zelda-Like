@@ -11,7 +11,7 @@ class Player : public Entity
 {
 private:
 	void move(float deltaTime);
-	void attack(vector<Enemy*> ennemy);
+	void attack(float deltaTime, vector<Enemy*> ennemy);
 	void usePowerUp();
 	void animationUpdate(float deltaTime);
 
@@ -30,6 +30,10 @@ private:
 	string animState = "Idle";
 	string animStateBackup = "Idle";
 	bool isMoving = false;
+
+	float attackDuration = 100.0f;
+	float timeSinceLastAttack = 0;
+	bool canMove = true;
 
 public:
 	Player(int health, int dmg, float s, Vector2f p);

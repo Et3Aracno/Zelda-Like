@@ -18,6 +18,7 @@ void Chaser::update(float deltaTime, Player& p)
     movement(deltaTime, p);
     attack(deltaTime, p);
     animationUpdate(deltaTime);
+    stuntManager(deltaTime);
 }
 
 void Chaser::attack(float deltaTime, Player& p)
@@ -26,7 +27,11 @@ void Chaser::attack(float deltaTime, Player& p)
 
     Vector2f pPos = p.getPos();
     if (timeSinceLastAttack > attackDuration){
-        canMove = true;
+        if (stuntTime <= 0) 
+        { 
+            canMove = true; 
+        }
+
         animState = "Walk";
         p.getSprite().setColor(Color::White);
         if (abs(pPos.x - pos.x) + abs(pPos.y - pos.y) < 50)
@@ -106,4 +111,23 @@ void Chaser::draw(RenderWindow& window, View& view)
     sprite.setPosition(pos);
     window.draw(sprite);
     //cout << pos.x << ", " << pos.y << endl;
+}
+
+void Chaser::giveStunt(float time)
+{
+    canMove = false;
+    stuntTime += time;
+}
+
+void Chaser::stuntManager(float deltaTime)
+{
+    if (stuntTime > 0)
+    {
+        stuntTime += -deltaTime;
+    }
+    else 
+    {
+        stuntTime = 0;
+        canMove = true;
+    }
 }

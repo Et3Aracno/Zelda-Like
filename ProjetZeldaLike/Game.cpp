@@ -16,8 +16,7 @@ void Game::run()
 	window.setFramerateLimit(60);
 	Player player(100, 5, 0.35f, Vector2f(0, 0));
 	vector<Enemy*> enemyList;
-
-	Chaser c(100, 1, 0.30f, Vector2f(200, 200));
+	enemyList.push_back(new Chaser(100, 1, 0.30f, Vector2f(200, 200)));
 
 	Map mapp(window);
 	mapp.initM("Assets/hub.txt");
@@ -32,16 +31,24 @@ void Game::run()
 		deltaTime = clock.restart().asMilliseconds();
 
 		window.clear();
+
 		player.update(deltaTime, enemyList);
-		c.update(deltaTime, player);
+
+		for (auto e : enemyList) {
+			e->update(deltaTime, player);
+		}
 
 		mapp.updatemap(view, player);
-
 		mapp.tpTxt(player);
 		mapp.pnjTxt(player);
 		mapp.coliM(player);
+
 		player.draw(window, view);
-		c.draw(window, view);
+
+		for (auto e : enemyList) {
+			e->draw(window, view);
+		}
+		
 		
 
 		window.setView(view);
