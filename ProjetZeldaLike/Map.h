@@ -48,7 +48,7 @@ public:
 	vector<RectangleShape>vPorte;
 	vector< RectangleShape>vTp;
 	vector<Chaser>vC;
-	vector<Patroler>vP;
+	/*vector<Patroler>vP;*/
 	vector<Player>vE;
 	vector<RectangleShape>vPnj;
 };

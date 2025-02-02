@@ -1,9 +1,10 @@
 #include <iostream>
-
 #include <vector>
 #define _USE_MATH_DEFINES
 #include <math.h>
+
 #include "player.h"
+#include "enemy.h"
 #include <SFML/Graphics/View.hpp>
 
 using namespace sf;
@@ -11,7 +12,6 @@ using namespace std;
 
 Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s, p) 
 {
-
     if (!textureWalk.loadFromFile("Assets/GladiatorBlue/SeparateAnim/Walk.png")) {
         throw std::runtime_error("Erreur de chargement de la texture");
     }
@@ -26,7 +26,7 @@ Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s
     sprite.setScale(Vector2f(4, 4));
 }
 
-void Player::update(float deltaTime, vector<Player> p)
+void Player::update(float deltaTime, vector<Enemy*> p)
 {
     move(deltaTime);
     if (Mouse::isButtonPressed(Mouse::Left))
@@ -34,6 +34,8 @@ void Player::update(float deltaTime, vector<Player> p)
         attack(p);
     }
     animationUpdate(deltaTime);
+
+    cout << health << endl;
 }
 
 void Player::animationUpdate(float deltaTime) 
@@ -144,7 +146,7 @@ bool isInside(Vector2f edges[4], Vector2f posPoint) {
     return count % 2 == 1;
 }
 
-void Player::attack(vector<Player> ennemy)
+void Player::attack(vector<Enemy*> ennemy)
 {
     float attackSize = 30;
     float radO = getOrientation() * (M_PI / 180);
@@ -159,9 +161,9 @@ void Player::attack(vector<Player> ennemy)
 
     for (auto e : ennemy)
     {
-        if (isInside(attackHitBox, e.getPos()))
+        if (isInside(attackHitBox, e->getPos()))
         {
-            //e.takeHit(getDamage());
+            e->takeHit(getDamage());
         }
     }
 }
@@ -177,7 +179,7 @@ void Player::draw(RenderWindow& window, View& view)
     window.draw(sprite);
 }
 
-Sprite Player::getSprite()
+Sprite& Player::getSprite()
 {
     return sprite;
 }

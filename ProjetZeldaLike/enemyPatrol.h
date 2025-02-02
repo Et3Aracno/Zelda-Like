@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include "enemy.h"
 #include "player.h"
 
@@ -20,4 +20,4 @@ public:
 	void attack(Player& player_) override;
 	void takeHit(int damage) override;
 
-};
+};*/
