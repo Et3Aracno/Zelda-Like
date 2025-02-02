@@ -84,10 +84,10 @@ void Map::initall(){
 	initT();
 }
 void Map::initM(string fileM) {
-	vSol.clear();
+	/*vSol.clear();
 	vMur.clear();
 	vPnj.clear();
-	vTp.clear();
+	vTp.clear();*/
 
 	initall();
 	ifstream file(fileM);
@@ -290,6 +290,7 @@ void Map::DrawM(Player& p, View& v) {
 					solext->setTexture(&txtSext);
 					solext->setPosition(j* Width, i* Height);
 					vSol.emplace_back(move(solext));
+
 					p.setPos(Vector2f(j * Width, i * Height));
 					break;
 				}
@@ -399,7 +400,7 @@ void Map::eDonj(Player& p, View& v, string &currentMap) {
 		if (tp->getGlobalBounds().intersects(p.getSprite().getGlobalBounds()) and Keyboard::isKeyPressed(Keyboard::E)) {
 			if (currentMap != "Assets/test.txt") {
 				currentMap = "Assets/test.txt";
-				initM("Assets/test.txt");
+				initM(currentMap);
 				
 			}
 		}
