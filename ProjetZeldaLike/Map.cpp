@@ -126,7 +126,7 @@ void Map::DrawM(Player& p, View& v) {
 				switch (vM[i][j])
 				{
 				case '#':
-				{
+				{//arbre hub
 					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
 					solext->setPosition(Vector2f(67 * j, 54 * i));
 					solext->setTexture(&txtSext);
@@ -141,7 +141,7 @@ void Map::DrawM(Player& p, View& v) {
 					break;
 				}
 				case ';':
-				{
+				{//herbe hub
 					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
 					solext->setPosition(Vector2f(67 * j, 54 * i));
 					solext->setTexture(&txtSext);
@@ -150,7 +150,7 @@ void Map::DrawM(Player& p, View& v) {
 					break;
 				}
 				case '/':
-				{
+				{//chemin hub
 					auto Chemin = make_unique<RectangleShape>(Vector2f(67, 54));
 					Chemin->setPosition(Vector2f(67 * j, 54 * i));
 					Chemin->setTexture(&txtChemin);
@@ -159,7 +159,7 @@ void Map::DrawM(Player& p, View& v) {
 					break;
 				}
 				case 'T':
-				{
+				{//tombe hub
 					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
 					solext->setPosition(Vector2f(67 * j, 54 * i));
 					solext->setTexture(&txtSext);
@@ -174,7 +174,7 @@ void Map::DrawM(Player& p, View& v) {
 					break;
 				}
 				case 'M':
-				{
+				{//Pnj hub
 					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
 					solext->setPosition(Vector2f(67 * j, 54 * i));
 					solext->setTexture(&txtSext);
@@ -191,17 +191,18 @@ void Map::DrawM(Player& p, View& v) {
 				}
 
 				case'§':
-				{
+				{ //mur donjon
 
 					auto MurD = make_unique<RectangleShape>(Vector2f(67, 54));
 					MurD->setPosition(Vector2f(67 * j, 54 * i));
 					MurD->setTexture(&txtMu);
 					MurD->setPosition(j* Width, i* Height);
 					vMur.emplace_back(move(MurD));
+					break;
 				}
 
 				case'D':
-				{
+				{ //tp droit
 					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
 					solext->setPosition(Vector2f(67 * j, 54 * i));
 					solext->setTexture(&txtSext);
@@ -217,7 +218,7 @@ void Map::DrawM(Player& p, View& v) {
 					break;
 				}
 				case'G':
-				{
+				{//tp gauche
 					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
 					solext->setPosition(Vector2f(67 * j, 54 * i));
 					solext->setTexture(&txtSext);
@@ -234,11 +235,44 @@ void Map::DrawM(Player& p, View& v) {
 
 
 				}
+				//case'':
+				//{//popo dmg
+				//	auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
+				//	solext->setPosition(Vector2f(67 * j, 54 * i));
+				//	solext->setTexture(&txtSext);
+				//	solext->setPosition(j * Width, i * Height);
+				//	vSol.emplace_back(move(solext));
+
+
+				//	auto pp_dmg = make_unique<RectangleShape>(Vector2f(67, 54));
+				//	pp_dmg->setPosition(Vector2f(67 * j, 54 * i));
+				//	pp_dmg->setTexture(&txtPp_dmg);
+				//	pp_dmg->setPosition(j * Width, i * Height);
+				//	vTp.emplace_back(move(pp_dmg));
+				//	break;
+
+
+				//}
+				//case'':
+				//{//popo vie
+				//	auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
+				//	solext->setPosition(Vector2f(67 * j, 54 * i));
+				//	solext->setTexture(&txtSext);
+				//	solext->setPosition(j * Width, i * Height);
+				//	vSol.emplace_back(move(solext));
+
+
+				//	auto pp_vie = make_unique<RectangleShape>(Vector2f(67, 54));
+				//	pp_vie->setPosition(Vector2f(67 * j, 54 * i));
+				//	pp_vie->setTexture(&txtPp_vie);
+				//	pp_vie->setPosition(j * Width, i * Height);
+				//	vTp.emplace_back(move(pp_vie));//changer le vecteur pour les popo
+				//	break;
+
+
+				//}
 				case'U':
-				{
-					
-
-
+				{ //porte donjon
 					auto porte = make_unique<RectangleShape>(Vector2f(67, 54));
 					porte->setPosition(Vector2f(67 * j, 54 * i));
 					porte->setTexture(&txtP);
@@ -250,6 +284,7 @@ void Map::DrawM(Player& p, View& v) {
 				}
 				case'P':
 				{
+					//joueur
 					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
 					solext->setPosition(Vector2f(67 * j, 54 * i));
 					solext->setTexture(&txtSext);
