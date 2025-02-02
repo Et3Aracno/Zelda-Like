@@ -1,6 +1,8 @@
 #include "Game.h"
 #include <SFML/System/Clock.hpp>
 
+#include "enemyPatrol.h"
+
 Game::Game()
 {
 	view.setSize(Vector2f(1920, 1080));
@@ -16,6 +18,8 @@ void Game::run()
 
 	Player player(100, 5, 0.35f, Vector2f(0, 0));
 	vector<Player> p; // A SUPPRIMER (theo)
+	Patroler patr(2, 2, { 50.0f,50.0f });
+
 
 	Map mapp(window);
 	mapp.initM("Assets/hub.txt");
@@ -34,6 +38,10 @@ void Game::run()
 		mapp.updatemap();
 		player.update(deltaTime, p);
 		player.draw(mapp.window, view);
+		patr.moveHor3s();
+		patr.takeHit(player);
+		patr.draw(mapp.window, view);
+
 
 		window.setView(view);
 		window.display();
