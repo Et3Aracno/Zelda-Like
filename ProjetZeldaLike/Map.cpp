@@ -36,6 +36,12 @@ void Map::initTxt() {
 	if (!txtMu.loadFromFile("Assets/mur.png")) {
 		cout << "Erreur de chargement du mur" << endl;
 	}
+	if (!txtPp_vie.loadFromFile("Assets/pp_vie.png")) {
+		cout << "Erreur de chargement du pp vie" << endl;
+	}
+	if (!txtPp_dmg.loadFromFile("Assets/pp_dmg.png")) {
+		cout << "Erreur de chargement du pp dmg" << endl;
+	}
 }
 void Map::initSprt() {
 	sprtArbre.setTexture(txtArbre);
@@ -49,6 +55,8 @@ void Map::initSprt() {
 	sprtTpG.setTexture(txtTpG);
 	sprtTpD.setTexture(txtTpD);
 	sprtMu.setTexture(txtMu);
+	sprtPp_dmg.setTexture(txtPp_dmg);
+	sprtPp_vie.setTexture(txtPp_vie);
 }
 void Map::initF() {
 	if (!fI.loadFromFile("Assets/huggo/Huggo.otf")) {
@@ -67,7 +75,6 @@ void Map::initT() {
 	inetractPnj.setCharacterSize(20);
 	inetractPnj.setFillColor(Color::Red);
 	inetractPnj.setStyle(Text::Bold);
-
 }
 
 void Map::initall(){
@@ -183,20 +190,15 @@ void Map::DrawM(Player& p, View& v) {
 					break;
 				}
 
-				/*case'§':
+				case'§':
 				{
-					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
-					solext->setPosition(Vector2f(67 * j, 54 * i));
-					solext->setTexture(&txtSext);
-					solext->setPosition(j * Width, i * Height);
-					vSol.emplace_back(move(solext));
 
-					auto Tour = make_unique<RectangleShape>(Vector2f(67, 54));
-					Tour->setPosition(Vector2f(67 * j, 54 * i));
-					Tour->setTexture(&txtTour);
-					Tour->setPosition(j* Width, i* Height);
-					vMur.emplace_back(move(Tour));
-				}*/
+					auto MurD = make_unique<RectangleShape>(Vector2f(67, 54));
+					MurD->setPosition(Vector2f(67 * j, 54 * i));
+					MurD->setTexture(&txtMu);
+					MurD->setPosition(j* Width, i* Height);
+					vMur.emplace_back(move(MurD));
+				}
 
 				case'D':
 				{
@@ -228,6 +230,20 @@ void Map::DrawM(Player& p, View& v) {
 					tpG->setTexture(&txtTpG);
 					tpG->setPosition(j* Width, i* Height);
 					vTp.emplace_back(move(tpG));
+					break;
+
+
+				}
+				case'U':
+				{
+					
+
+
+					auto porte = make_unique<RectangleShape>(Vector2f(67, 54));
+					porte->setPosition(Vector2f(67 * j, 54 * i));
+					porte->setTexture(&txtP);
+					porte->setPosition(j * Width, i * Height);
+					vTp.emplace_back(move(porte));
 					break;
 
 
