@@ -46,7 +46,7 @@ void Player::animationUpdate(float deltaTime)
 
     if (isMoving) { animState = "Walk"; }
     else { animState = "Idle"; }
-    if (Mouse::isButtonPressed(Mouse::Left))
+    if (Mouse::isButtonPressed(Mouse::Left) && timeSinceLastAttack < attackDuration)
     {
         animState = "Attack";
     }
@@ -150,29 +150,31 @@ void Player::attack(float deltaTime, vector<Enemy*> ennemy)
     {
         canMove = true;
 
-        if (Mouse::isButtonPressed(Mouse::Left))
-        {
-            timeSinceLastAttack = 0;
-            canMove = false;
-
-            float attackSize = 30;
-            float radO = getOrientation() * (M_PI / 180);
-            Vector2f pPos = getPos();
-            Vector2f attackHitBox[4] =
+        if (timeSinceLastAttack > attackDuration + attackDelay) {
+            if (Mouse::isButtonPressed(Mouse::Left))
             {
-                Vector2f(pPos.x + (sin(radO) * attackSize), pPos.y - (cos(radO) * attackSize)),
-                Vector2f(pPos.x - (sin(radO) * attackSize), pPos.y + (cos(radO) * attackSize)),
-                Vector2f((pPos.x + (cos(radO) * 100)) - (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) + (cos(radO) * attackSize)),
-                Vector2f((pPos.x + (cos(radO) * 100)) + (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) - (cos(radO) * attackSize))
-            };
+                timeSinceLastAttack = 0;
+                canMove = false;
 
-            for (auto e : ennemy)
-            {
-                cout << e->getHealth() << endl;
-                if (isInside(attackHitBox, e->getPos()))
+                float attackSize = 30;
+                float radO = getOrientation() * (M_PI / 180);
+                Vector2f pPos = getPos();
+                Vector2f attackHitBox[4] =
                 {
-                    e->takeHit(getDamage());
-                    e->giveStunt(1000.f);
+                    Vector2f(pPos.x + (sin(radO) * attackSize), pPos.y - (cos(radO) * attackSize)),
+                    Vector2f(pPos.x - (sin(radO) * attackSize), pPos.y + (cos(radO) * attackSize)),
+                    Vector2f((pPos.x + (cos(radO) * 100)) - (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) + (cos(radO) * attackSize)),
+                    Vector2f((pPos.x + (cos(radO) * 100)) + (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) - (cos(radO) * attackSize))
+                };
+
+                for (auto e : ennemy)
+                {
+                    cout << e->getHealth() << endl;
+                    if (isInside(attackHitBox, e->getPos()))
+                    {
+                        e->takeHit(getDamage());
+                        e->giveStunt(100.f);
+                    }
                 }
             }
         }

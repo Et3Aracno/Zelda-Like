@@ -32,6 +32,7 @@ private:
 	bool isMoving = false;
 
 	float attackDuration = 100.0f;
+	float attackDelay = 500.0f;
 	float timeSinceLastAttack = 0;
 	bool canMove = true;
 

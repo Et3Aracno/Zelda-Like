@@ -16,7 +16,7 @@ void Game::run()
 	window.setFramerateLimit(60);
 	Player player(100, 5, 0.35f, Vector2f(0, 0));
 	vector<Enemy*> enemyList;
-	enemyList.push_back(new Chaser(100, 1, 0.30f, Vector2f(200, 200)));
+	enemyList.push_back(new Chaser(100, 1, 0.20f, Vector2f(200, 200)));
 
 	Map mapp(window);
 	mapp.initM("Assets/hub.txt");

@@ -55,25 +55,30 @@ void Chaser::takeHit(int damage)
 
 void Chaser::movement(float deltaTime, Player& p)
 {
-    if (canMove) 
+    Vector2f pPos = p.getPos();
+
+    float angle = atan2(pPos.y - pos.y, pPos.x - pos.x);
+
+    float dx = cos(angle) * speed * deltaTime;
+    float dy = sin(angle) * speed * deltaTime;
+
+    if (abs(dx) < abs(dy)) {
+        if (dy > 0) { orientation = 180; }
+        else { orientation = 0; }
+    }
+    else {
+        if (dx > 0) { orientation = 270; }
+        else { orientation = 90; }
+
+    }
+    if (canMove)
     {
-        Vector2f pPos = p.getPos();
-
-        float angle = atan2(pPos.y - pos.y, pPos.x - pos.x);
-
-        float dx = cos(angle) * speed * deltaTime;
-        float dy = sin(angle) * speed * deltaTime;
-
-        if (abs(dx) < abs(dy)) {
-            if (dy > 0) { orientation = 180; }
-            else { orientation = 0; }
-        }
-        else {
-            if (dx > 0) { orientation = 270; }
-            else { orientation = 90; }
-
-        }
         setPos(Vector2f(pos.x + dx, pos.y + dy));
+    }
+
+    if (stuntTime > 0)
+    {
+        setPos(Vector2f(pos.x - dx*3, pos.y - dy*3));
     }
 }
 
@@ -98,7 +103,7 @@ void Chaser::animationUpdate(float deltaTime)
     }
 
     timer += deltaTime;
-    if (timer > frameDuration)
+    if (timer > frameDuration && stuntTime <= 0)
     {
         timer = 0;
         currentFrame = (currentFrame + 1) % frameCount;
@@ -110,13 +115,13 @@ void Chaser::draw(RenderWindow& window, View& view)
 {
     sprite.setPosition(pos);
     window.draw(sprite);
-    //cout << pos.x << ", " << pos.y << endl;
 }
 
 void Chaser::giveStunt(float time)
 {
     canMove = false;
     stuntTime += time;
+    sprite.setColor(Color::Red);
 }
 
 void Chaser::stuntManager(float deltaTime)
@@ -129,5 +134,6 @@ void Chaser::stuntManager(float deltaTime)
     {
         stuntTime = 0;
         canMove = true;
+        sprite.setColor(Color::White);
     }
 }
