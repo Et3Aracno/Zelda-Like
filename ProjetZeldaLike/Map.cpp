@@ -298,7 +298,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 
 
 				}
-				case 'm':
+				case ' ':
 				{ //vide donjon
 					auto vide = make_unique<RectangleShape>(Vector2f(67, 56));
 					vide->setFillColor(Color::Red);
@@ -331,15 +331,6 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 
 					p.setPos(Vector2f(j * Width, i * Height));
 					break;
-				}
-				case ' ' :{ //vide donjon
-					auto vide = make_unique<RectangleShape>(Vector2f(67, 56));
-					vide->setFillColor(Color::Red);
-					vide->setPosition(Vector2f(67 * j, 56 * i));
-					vMur.emplace_back(move(vide));
-					break;
-
-
 				}
 				default: { //vide donjon
 					auto vide = make_unique<RectangleShape>(Vector2f(67, 56));
