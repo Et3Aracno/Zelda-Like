@@ -2,87 +2,79 @@
 
 bool touch = false;
 
-void Patroler::draw(RenderWindow& game, View& view)
+
+Patroler::Patroler(int health, int damage, float speed, Vector2f pos, int iD) : Enemy(health, damage, speed, pos)
 {
-	if (health > 0)
-	{
-		sprite.setPosition(pos);
-		game.draw(sprite);
+	if (!textureWalk.loadFromFile("Assets/Flam/SeparateAnim/Walk.png")) {
+		throw std::runtime_error("Erreur de chargement de la texture (Patroler)");
 	}
+	if (!textureAttack.loadFromFile("Assets/Flam/SeparateAnim/Attack.png")) {
+		throw std::runtime_error("Erreur de chargement de la texture (Patroler)");
+	}
+
+	sprite.setTexture(&textureWalk);
+	sprite.setScale(Vector2f(4, 4));
+	
+	intDir = iD;
 }
 
 void Patroler::update(float deltaTime, Player& p)
 {
+	if (intDir == 0) {
+		moveHor3s(deltaTime);
+	}
+	else
+	{
+		moveVer3s(deltaTime);
+	}
+	attack(deltaTime, p);
+	animationUpdate(deltaTime);
+	stuntManager(deltaTime);
 }
 
-void Patroler::moveHor3s()
+void Patroler::moveHor3s(float deltaTime)
 {
-	auto currentTime = chrono::steady_clock::now();
-	chrono::duration<double> elapsed = currentTime - lastMove;
+	timeSinceLastDirectionChange += deltaTime;
 
-	if (elapsed.count() >= 3.0)
+	if (timeSinceLastDirectionChange >= 3000.0)
 	{
 		moveleft = !moveleft;
-		lastMove = currentTime;
+		timeSinceLastDirectionChange = 0;
 	}
 
 	if (moveleft)
 	{
-		moveG();
+		pos.x -= 1.0f;
+		orientation = 90;
 	}
 	else
 	{
-		moveD();
+		pos.x += 1.0f;
+		orientation = 180;
 	}
 }
 
-void Patroler::moveG()
-{
-	pos.x -= 1.0f;
-}
 
-void Patroler::moveD()
+void Patroler::moveVer3s(float deltaTime)
 {
-	pos.x += 1.0f;
-}
+	timeSinceLastDirectionChange += deltaTime;
 
-void Patroler::moveVer3s()
-{
-	auto currentTime = chrono::steady_clock::now();
-	chrono::duration<double> elapsed = currentTime - lastMove;
-
-	if (elapsed.count() >= 3.0)
+	if (timeSinceLastDirectionChange >= 3000.0)
 	{
 		moveup = !moveup;
-		lastMove = currentTime;
+		timeSinceLastDirectionChange = 0;
 	}
 
 	if (moveup)
 	{
-		moveUP();
+		pos.y -= 1.0f;
+		orientation = 0;
 	}
 	else
 	{
-		moveDown();
+		pos.y += 1.0f;
+		orientation = 270;
 	}
-}
-
-void Patroler::moveUP()
-{
-	pos.y -= 1.0f;
-}
-
-void Patroler::moveDown()
-{
-	pos.y += 1.0f;
-}
-
-
-
-
-void Patroler::attack(float deltaTime, Player& player_)
-{
-
 }
 
 void Patroler::hitColor()
@@ -93,10 +85,6 @@ void Patroler::hitColor()
 	getHit = true;
 }
 
-void Patroler::takeHit(int damage)
-{
-	health += -damage;
-}
 
 
 

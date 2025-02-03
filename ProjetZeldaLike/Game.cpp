@@ -23,11 +23,11 @@ void Game::run()
 	PotionDMG pot({ 90,90 });
 	Player player(100, 5, 0.35f, Vector2f(0, 0));
 	vector<Enemy*> enemyList;
-	enemyList.push_back(new Chaser(100, 1, 0.20f, Vector2f(200, 200)));
+	//enemyList.push_back(new Chaser(100, 1, 0.20f, Vector2f(200, 200)));
+	enemyList.push_back(new Patroler(100, 1, 0.2f, Vector2f(500, 400), 1));
 
 
 	Map mapp(window);
-	//mapp.eDonj(player, view, currentMap);
 	mapp.initall();
 	mapp.initM(currentMap);
 	mapp.DrawM(player,view);
@@ -49,8 +49,6 @@ void Game::run()
 		for (auto e : enemyList) {
 			e->update(deltaTime, player);
 		}
-
-		window.setView(view);
 	
 		mapp.eDonj(player,view,currentMap);
 		mapp.DrawM(player, view);
@@ -60,7 +58,7 @@ void Game::run()
 
 		player.draw(window, view);
 
-		for (auto e : enemyList) {
+		for (auto& e : enemyList) {
 			e->draw(window, view);
 		}
 		

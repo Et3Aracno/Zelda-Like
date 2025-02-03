@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.h";
+#include "player.h";
 
 class Player;
 
@@ -29,13 +30,16 @@ public:
 
 	Enemy(int health, int damage, float speed, Vector2f pos) : Entity(health, damage, speed, pos) {}
 
-	virtual void draw(RenderWindow& game, View& view) = 0;
 	virtual void update(float deltaTime, Player& p) = 0;
-	virtual void attack(float deltaTime, Player& player_) = 0;
-	virtual void takeHit(int damage) = 0;
+	void attack(float deltaTime, Player& player_);
+	void animationUpdate(float deltaTime);
 
-	virtual void giveStunt(float time) = 0;
-	virtual void stuntManager(float deltaTime) = 0;
+	void draw(RenderWindow& game, View& view);
+	
+	void takeHit(int damage);
+
+	void giveStunt(float time);
+	void stuntManager(float deltaTime);
 
 
 };

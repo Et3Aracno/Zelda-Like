@@ -9,37 +9,25 @@
 class Patroler : public Enemy
 {
 private:
-	bool moveleft;
-	bool moveup;
+	bool moveleft = true;
+	bool moveup = true;
 	chrono::steady_clock::time_point lastMove;
+	float timeSinceLastDirectionChange = 0;
+	int intDir;
 public:
 
 	Clock clockHit;	
-	bool getHit;
+	bool getHit = false;
 
 	RectangleShape sprite;
 
-	Patroler(int health, int damage,float s, Vector2f p ) : Enemy(health, damage, s, pos), moveleft(true), moveup(true), getHit(false)
+	Patroler(int health, int damage, float s, Vector2f p, int iD);
 
-	{
-		sprite.setPosition(p);
-		sprite.setSize({ 40,40 });
-		lastMove = chrono::steady_clock::now();
-	}
+	void moveHor3s(float deltaTime);
+	void moveVer3s(float deltaTime);
 
-	void moveHor3s();
-	void moveG();
-	void moveD();
-
-	void moveVer3s();
-	void moveUP();
-	void moveDown();
-
-
-	void draw(RenderWindow& game, View& view);
 	void update(float deltaTime, Player& p);
-	void attack(float deltaTime, Player& player_);
-	void takeHit(int damage);
+
 
 	void hitColor();
 };
