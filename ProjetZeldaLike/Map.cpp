@@ -85,12 +85,7 @@ void Map::initall(){
 }
 void Map::initM(string fileM) {
 
-	/*vSol.clear();
-	vMur.clear();
-	vPnj.clear();
-	vTp.clear();*/
-
-	initall();
+	vM.clear();
 	ifstream file(fileM);
 	if (!file.is_open()) {
 		cout << endl << "Impossible de lire le fichier txt" << fileM << endl;
@@ -397,13 +392,13 @@ void Map::updatemap(View& v, Player& p) {
 
 	p.draw(window, v);
 }
-void Map::eDonj(Player& p, View& v, string &currentMap) {
+void Map::eDonj(Player& p, View& v, string& currentMap) {
 	for (auto& tp : vTp) {
 		if (tp->getGlobalBounds().intersects(p.getSprite().getGlobalBounds()) and Keyboard::isKeyPressed(Keyboard::E)) {
 			if (currentMap != "Assets/test.txt") {
 				currentMap = "Assets/test.txt";
 				initM(currentMap);
-				
+
 			}
 		}
 	}

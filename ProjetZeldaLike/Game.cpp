@@ -18,6 +18,7 @@ void Game::run()
 
 	Map mapp(window);
 	//mapp.eDonj(player, view, currentMap);
+	mapp.initall();
 	mapp.initM(currentMap);
 	mapp.DrawM(player,view);
 	while (window.isOpen()) {
