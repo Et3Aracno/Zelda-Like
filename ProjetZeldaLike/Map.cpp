@@ -84,6 +84,7 @@ void Map::initall(){
 	initT();
 }
 void Map::initM(string fileM) {
+
 	/*vSol.clear();
 	vMur.clear();
 	vPnj.clear();
@@ -116,6 +117,7 @@ void Map::DrawM(Player& p, View& v) {
 		vMur.clear();
 		vPnj.clear();
 		vTp.clear();
+
 		cout << vSol.size();
 
 		float Width = static_cast<float>(window.getSize().x) / vM[0].size();
@@ -407,7 +409,7 @@ void Map::eDonj(Player& p, View& v, string &currentMap) {
 	}
 
 	//si on a pas utilisé le tp alors la map actuel reste la meme 
-	if (currentMap != "Assets/hub.txt" and currentMap != "test.txt") {
+	if (currentMap != "Assets/hub.txt" and currentMap != "Assets/test.txt") {
 		currentMap = "Assets/hub.txt";
 		initM(currentMap);
 	}

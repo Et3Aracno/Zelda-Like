@@ -17,6 +17,7 @@ void Game::run()
 	vector<Player> p; // A SUPPRIMER (theo)
 
 	Map mapp(window);
+	//mapp.eDonj(player, view, currentMap);
 	mapp.initM(currentMap);
 	mapp.DrawM(player,view);
 	while (window.isOpen()) {
@@ -26,17 +27,19 @@ void Game::run()
 				window.close();
 		}
 		deltaTime = clock.restart().asMilliseconds();
-		window.setView(view);
 		window.clear();
+		window.setView(view);
+	
 		mapp.eDonj(player,view,currentMap);
 		mapp.DrawM(player, view);
 		player.draw(window, view);
+
 		player.update(deltaTime, p);
 		mapp.tpTxt(player);
 		mapp.pnjTxt(player);
 		mapp.coliM(player);
 
-
+	
 	
 
 		window.display();
