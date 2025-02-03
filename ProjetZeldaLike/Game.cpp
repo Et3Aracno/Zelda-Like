@@ -6,7 +6,7 @@ Game::Game()
 	view.setSize(Vector2f(1920, 1080));
 	view.zoom(0.5f);
 	window.setView(view);
-	cout << "oui";
+	//cout << "oui";
 }
 
 void Game::run()

@@ -119,13 +119,14 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 		//vPnj.clear();
 		//vTp.clear();
 
-		cout << vSol.size();
+		//cout << vSol.size();
 
 		float Width = static_cast<float>(window.getSize().x) / vM[0].size();
 		float Height = static_cast<float>(window.getSize().y) / vM.size();
 
-		for (size_t i = 0; i < vM.size(); i++) {
-			for (size_t j = 0; j < vM[0].size(); j++) {
+		for (int i = 0; i < vM.size(); i++) {
+			for (int j = 0; j < vM[0].size(); j++) {
+				cout << vM[i][j];
 				switch (vM[i][j])
 				{
 				case '#':
@@ -195,7 +196,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 
 				
 
-				case'D':
+				case 'D':
 				{ //tp droit
 					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
 					solext->setPosition(Vector2f(67 * j, 54 * i));
@@ -211,7 +212,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 					vTp.emplace_back(move(tpD));
 					break;
 				}
-				case'G':
+				case 'G':
 				{//tp gauche
 					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
 					solext->setPosition(Vector2f(67 * j, 54 * i));
@@ -265,60 +266,93 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 
 
 				//}
-				case'h':
+				case 'h':
 				{ //mur donjon
 
-					auto MurD = make_unique<RectangleShape>(Vector2f(67, 54));
-					MurD->setPosition(Vector2f(67 * j, 54 * i));
+					auto MurD = make_unique<RectangleShape>(Vector2f(67, 56));
+					MurD->setPosition(Vector2f(67 * j, 56 * i));
 					MurD->setTexture(&txtMu);
-					MurD->setPosition(j * Width, i * Height);
+					MurD->setPosition(j * 67, i * 56);
 					vMur.emplace_back(move(MurD));
 					break;
 				}
-				case'U':
+				case 'U':
 				{ //porte donjon
-					auto porte = make_unique<RectangleShape>(Vector2f(67, 54));
-					porte->setPosition(Vector2f(67 * j, 54 * i));
+					auto porte = make_unique<RectangleShape>(Vector2f(67, 56));
+					porte->setPosition(Vector2f(67 * j, 56 * i));
 					porte->setTexture(&txtP);
-					porte->setPosition(j * Width, i * Height);
+					porte->setPosition(j * 67, i * 56);
 					vTp.emplace_back(move(porte));
 					break;
 
 
 				}
-				case'B':
+				case 'B':
 				{ //sol donjon
-					auto soldj = make_unique<RectangleShape>(Vector2f(67, 54));
-					soldj->setPosition(Vector2f(67 * j, 54 * i));
+					auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
+					soldj->setPosition(Vector2f(67 * j, 56 * i));
 					soldj->setTexture(&txtSd);
-					soldj->setPosition(j * Width, i * Height);
+					soldj->setPosition(j * 67, i * 56);
 					vSol.emplace_back(move(soldj));
 					break;
 
 
 				}
-				case'P':
+				case 'm':
+				{ //vide donjon
+					auto vide = make_unique<RectangleShape>(Vector2f(67, 56));
+					vide->setFillColor(Color::Red);
+					vide->setPosition(Vector2f(67 * j, 56 * i));
+				vMur.emplace_back(move(vide));
+					break;
+
+
+				}
+				case 'P':
 				{
 					//joueur
-					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
-					solext->setPosition(Vector2f(67 * j, 54 * i));
 					if(currentMap =="Assets/hub.txt"){ 
-						solext->setTexture(&txtSext); 
+						auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
+						solext->setPosition(Vector2f(67 * j, 54 * i));
+						solext->setTexture(&txtSext);
+						solext->setPosition(j * Width, i * Height);
+						vSol.emplace_back(move(solext));
+						p.getSprite().setScale(j * 67, i * 54);
 					}
 					else if (currentMap == "Assets/donjon.txt") {
-						solext->setTexture(&txtSd);
+						auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
+						soldj->setPosition(Vector2f(67 * j, 56 * i));
+						soldj->setTexture(&txtSd);
+						soldj->setPosition(j * 67, i * 56);
+						vSol.emplace_back(move(soldj));
+						p.getSprite().setScale(j * 41, i * 35);
 					}
 					
-					solext->setPosition(j* Width, i* Height);
-					vSol.emplace_back(move(solext));
 
 					p.setPos(Vector2f(j * Width, i * Height));
 					break;
 				}
-				default:
+				case ' ' :{ //vide donjon
+					auto vide = make_unique<RectangleShape>(Vector2f(67, 56));
+					vide->setFillColor(Color::Red);
+					vide->setPosition(Vector2f(67 * j, 56 * i));
+					vMur.emplace_back(move(vide));
 					break;
+
+
+				}
+				default: { //vide donjon
+					auto vide = make_unique<RectangleShape>(Vector2f(67, 56));
+					vide->setFillColor(Color::Red);
+					vide->setPosition(Vector2f(67 * j, 56 * i));
+					vMur.emplace_back(move(vide));
+					break;
+
+
+				}
 				}
 			}
+			cout << endl;
 		}
 		cMap = false;
 	}
@@ -412,7 +446,7 @@ void Map::updatemap(View& v, Player& p) {
 	for (auto& tp : vTp) {
 		window.draw(*tp);
 	}
-	pnjTxt(p);
+	//pnjTxt(p);
 	tpTxt(p);
 	pnjTxt(p);
 	coliM(p);
