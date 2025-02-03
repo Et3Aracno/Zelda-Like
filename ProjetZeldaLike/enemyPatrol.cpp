@@ -1,14 +1,14 @@
-/*#include "enemyPatrol.h"
+#include "enemyPatrol.h"
 
 float X = 0.1f;
 float Y = 0.1f;
 
-void Patroler::draw(RenderWindow& game)
+void Patroler::draw(RenderWindow& game, View& view)
 {
 	game.draw(sprite);
 }
 
-void Patroler::update(float deltaTime)
+void Patroler::update(float deltaTime, Player& p)
 {
 }
 
@@ -41,7 +41,7 @@ void Patroler::movementVER(int x, int y)
 	}
 }
 
-void Patroler::attack(Player& player_)
+void Patroler::attack(float deltaTime, Player& player_)
 {
 
 }
@@ -51,4 +51,3 @@ void Patroler::takeHit(int damage)
 	health += -damage;
 	sprite.setFillColor(Color::Red);
 }
-*/
