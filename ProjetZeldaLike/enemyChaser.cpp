@@ -130,3 +130,8 @@ void Chaser::stuntManager(float deltaTime)
         sprite.setColor(Color::White);
     }
 }
+
+void Chaser::takeHit(int damage)
+{
+    health += -damage;
+}
