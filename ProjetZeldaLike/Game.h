@@ -11,6 +11,7 @@ class Game
 private:
 	int windowWidth = 1920;
 	int windowHeight = 1080;
+	string currentMap = "Assets/hub.txt";
 public:
 	RenderWindow window;
 	View view;

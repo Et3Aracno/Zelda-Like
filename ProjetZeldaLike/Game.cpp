@@ -19,9 +19,10 @@ void Game::run()
 	enemyList.push_back(new Chaser(100, 1, 0.20f, Vector2f(200, 200)));
 
 	Map mapp(window);
-	mapp.initM("Assets/hub.txt");
-	mapp.DrawM(player);
-
+	//mapp.eDonj(player, view, currentMap);
+	mapp.initall();
+	mapp.initM(currentMap);
+	mapp.DrawM(player,view);
 	while (window.isOpen()) {
 		Event event;
 		while (window.pollEvent(event)) {
@@ -29,7 +30,6 @@ void Game::run()
 				window.close();
 		}
 		deltaTime = clock.restart().asMilliseconds();
-
 		window.clear();
 
 		player.update(deltaTime, enemyList);
@@ -38,7 +38,10 @@ void Game::run()
 			e->update(deltaTime, player);
 		}
 
-		mapp.updatemap(view, player);
+		window.setView(view);
+	
+		mapp.eDonj(player,view,currentMap);
+		mapp.DrawM(player, view);
 		mapp.tpTxt(player);
 		mapp.pnjTxt(player);
 		mapp.coliM(player);
@@ -49,10 +52,7 @@ void Game::run()
 			e->draw(window, view);
 		}
 		
-		
-
 		window.setView(view);
-
 		window.display();
 	}
 }

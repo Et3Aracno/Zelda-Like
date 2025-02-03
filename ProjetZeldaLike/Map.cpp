@@ -1,5 +1,5 @@
 #include "Map.h"
-Map::Map(RenderWindow& w) : window(w) {
+Map::Map(RenderWindow& w) : window(w),cMap(false){
 
 };
 void Map::initTxt() {
@@ -36,6 +36,12 @@ void Map::initTxt() {
 	if (!txtMu.loadFromFile("Assets/mur.png")) {
 		cout << "Erreur de chargement du mur" << endl;
 	}
+	if (!txtPp_vie.loadFromFile("Assets/pp_vie.png")) {
+		cout << "Erreur de chargement du pp vie" << endl;
+	}
+	if (!txtPp_dmg.loadFromFile("Assets/pp_dmg.png")) {
+		cout << "Erreur de chargement du pp dmg" << endl;
+	}
 }
 void Map::initSprt() {
 	sprtArbre.setTexture(txtArbre);
@@ -49,6 +55,8 @@ void Map::initSprt() {
 	sprtTpG.setTexture(txtTpG);
 	sprtTpD.setTexture(txtTpD);
 	sprtMu.setTexture(txtMu);
+	sprtPp_dmg.setTexture(txtPp_dmg);
+	sprtPp_vie.setTexture(txtPp_vie);
 }
 void Map::initF() {
 	if (!fI.loadFromFile("Assets/huggo/Huggo.otf")) {
@@ -67,7 +75,6 @@ void Map::initT() {
 	inetractPnj.setCharacterSize(20);
 	inetractPnj.setFillColor(Color::Red);
 	inetractPnj.setStyle(Text::Bold);
-
 }
 
 void Map::initall(){
@@ -77,7 +84,8 @@ void Map::initall(){
 	initT();
 }
 void Map::initM(string fileM) {
-	initall();
+
+	vM.clear();
 	ifstream file(fileM);
 	if (!file.is_open()) {
 		cout << endl << "Impossible de lire le fichier txt" << fileM << endl;
@@ -86,152 +94,231 @@ void Map::initM(string fileM) {
 	while (getline(file, line)) {
 		vM.push_back(line);
 	}
+	file.close();
+	cMap = true;
 }
-void Map::DrawM(Player& p) {
-	float Width = static_cast<float>(window.getSize().x) / vM[0].size();
-	float Height = static_cast<float>(window.getSize().y) / vM.size();
-	for (size_t i = 0; i < vM.size(); i++) {
-		for (size_t j = 0; j < vM[0].size(); j++) {
-			switch (vM[i][j])
-			{
-			case '#':
-			{
-				RectangleShape solext(Vector2f(67, 54));
-				solext.setPosition(Vector2f(67 * j, 54 * i));
-				solext.setTexture(&txtSext);
-				solext.setPosition(j * Width, i * Height);
-				vSol.push_back(solext);
-				RectangleShape arbre(Vector2f(67, 54));
-				arbre.setPosition(Vector2f(67 * j, 54 * i));
-				arbre.setTexture(&txtArbre);
-				arbre.setPosition(j * Width, i * Height);
-				vMur.push_back(arbre);
-				break;
-			}
-			case ';':
-			{
-				RectangleShape solext(Vector2f(67, 54));
-				solext.setPosition(Vector2f(67 * j, 54 * i));
-				solext.setTexture(&txtSext);
-				solext.setPosition(j * Width, i * Height);
-				vSol.push_back(solext);
-				break;
-			}
-			case '/':
-			{
-				RectangleShape Chemin(Vector2f(67, 54));
-				Chemin.setPosition(Vector2f(67 * j, 54 * i));
-				Chemin.setTexture(&txtChemin);
-				Chemin.setPosition(j * Width, i * Height);
-				vSol.push_back(Chemin);
-				break;
-			}
-			case 'T':
-			{
-				RectangleShape solext(Vector2f(67, 54));
-				solext.setPosition(Vector2f(67 * j, 54 * i));
-				solext.setTexture(&txtSext);
-				solext.setPosition(j * Width, i * Height);
-				vSol.push_back(solext);
-				RectangleShape Tombe(Vector2f(67, 54));
-				Tombe.setPosition(Vector2f(67 * j, 54 * i));
-				Tombe.setTexture(&txtTombe);
-				Tombe.setPosition(j * Width, i * Height);
-				vMur.push_back(Tombe);
-				break;
-			}
-			case 'M':
-			{
-				RectangleShape solext(Vector2f(67, 54));
-				solext.setPosition(Vector2f(67 * j, 54 * i));
-				solext.setTexture(&txtSext);
-				solext.setPosition(j * Width, i * Height);
-				vSol.push_back(solext);
-				RectangleShape Pnj(Vector2f(67, 54));
-				Pnj.setPosition(Vector2f(67 * j, 54 * i));
-				Pnj.setTexture(&txtPnj);
-				Pnj.setPosition(j * Width, i * Height);
-				vPnj.push_back(Pnj);
-				break;
-			}
-
-			case'§':
-			{
-				RectangleShape solext(Vector2f(67, 54));
-				solext.setPosition(Vector2f(67 * j, 54 * i));
-				solext.setTexture(&txtSext);
-				solext.setPosition(j * Width, i * Height);
-				vSol.push_back(solext);
-				RectangleShape Tour(Vector2f(67, 54));
-				Tour.setPosition(Vector2f(67 * j, 54 * i));
-				Tour.setTexture(&txtTour);
-				Tour.setPosition(j * Width, i * Height);
-				vMur.push_back(Tour);
-				break;
-			}
-
-			case'D':
-			{
-				RectangleShape solext(Vector2f(67, 54));
-				solext.setPosition(Vector2f(67 * j, 54 * i));
-				solext.setTexture(&txtSext);
-				solext.setPosition(j * Width, i * Height);
-				vSol.push_back(solext);
-				RectangleShape tpD(Vector2f(67, 54));
-				tpD.setPosition(Vector2f(67 * j, 54 * i));
-				tpD.setTexture(&txtTpD);
-				tpD.setPosition(j * Width, i * Height);
-				vTp.push_back(tpD);
-				break;
-			}
-			case'G':
-			{
-				RectangleShape solext(Vector2f(67, 54));
-				solext.setPosition(Vector2f(67 * j, 54 * i));
-				solext.setTexture(&txtSext);
-				solext.setPosition(j * Width, i * Height);
-				vSol.push_back(solext);
-				RectangleShape tpG(Vector2f(67, 54));
-				tpG.setPosition(Vector2f(67 * j, 54 * i));
-				tpG.setTexture(&txtTpG);
-				tpG.setPosition(j * Width, i * Height);
-				vTp.push_back(tpG);
-				break;
-			}
-			case'P':
-			{
-				RectangleShape solext(Vector2f(67, 54));
-				solext.setPosition(Vector2f(67 * j, 54 * i));
-				solext.setTexture(&txtSext);
-				solext.setPosition(j * Width, i * Height);
-				vSol.push_back(solext);
-				p.setPos(Vector2f(j * Width, i * Height));
-				break;
-			}
-			default:
-				break;
-			}
+void Map::DrawM(Player& p, View& v) {
+	try {
+		if (vM[0].empty()) {
+			throw runtime_error("le fichier texte est vide");
 		}
 	}
+	catch (const exception& e){
+		cout << "Problème détecter : " << e.what() << endl;
+	}
+	//clear les vecteurs si la map à changer
+	if (cMap == true) {
+		vSol.clear();
+		vMur.clear();
+		vPnj.clear();
+		vTp.clear();
+
+		cout << vSol.size();
+
+		float Width = static_cast<float>(window.getSize().x) / vM[0].size();
+		float Height = static_cast<float>(window.getSize().y) / vM.size();
+
+		for (size_t i = 0; i < vM.size(); i++) {
+			for (size_t j = 0; j < vM[0].size(); j++) {
+				switch (vM[i][j])
+				{
+				case '#':
+				{//arbre hub
+					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
+					solext->setPosition(Vector2f(67 * j, 54 * i));
+					solext->setTexture(&txtSext);
+					solext->setPosition(j * Width, i * Height);
+					vSol.emplace_back(move(solext));
+
+					auto arbre = make_unique<RectangleShape>(Vector2f(67, 54));
+					arbre->setPosition(Vector2f(67 * j, 54 * i));
+					arbre->setTexture(&txtArbre);
+					arbre->setPosition(j * Width, i * Height);
+					vMur.emplace_back(move(arbre));
+					break;
+				}
+				case ';':
+				{//herbe hub
+					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
+					solext->setPosition(Vector2f(67 * j, 54 * i));
+					solext->setTexture(&txtSext);
+					solext->setPosition(j * Width, i * Height);
+					vSol.emplace_back(move(solext));
+					break;
+				}
+				case '/':
+				{//chemin hub
+					auto Chemin = make_unique<RectangleShape>(Vector2f(67, 54));
+					Chemin->setPosition(Vector2f(67 * j, 54 * i));
+					Chemin->setTexture(&txtChemin);
+					Chemin->setPosition(j * Width, i * Height);
+					vSol.emplace_back(move(Chemin));
+					break;
+				}
+				case 'T':
+				{//tombe hub
+					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
+					solext->setPosition(Vector2f(67 * j, 54 * i));
+					solext->setTexture(&txtSext);
+					solext->setPosition(j * Width, i * Height);
+					vSol.emplace_back(move(solext));
+
+					auto Tombe = make_unique<RectangleShape>(Vector2f(67, 54));
+					Tombe->setPosition(Vector2f(67 * j, 54 * i));
+					Tombe->setTexture(&txtTombe);
+					Tombe->setPosition(j * Width, i * Height);
+					vMur.emplace_back(move(Tombe));
+					break;
+				}
+				case 'M':
+				{//Pnj hub
+					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
+					solext->setPosition(Vector2f(67 * j, 54 * i));
+					solext->setTexture(&txtSext);
+					solext->setPosition(j * Width, i * Height);
+					vSol.emplace_back(move(solext));
+
+					
+					auto Pnj = make_unique<RectangleShape>(Vector2f(67, 54));
+					Pnj->setPosition(Vector2f(67 * j, 54 * i));
+					Pnj->setTexture(&txtPnj);
+					Pnj->setPosition(j * Width, i * Height);
+					vPnj.emplace_back(move(Pnj));
+					break;
+				}
+
+				case'§':
+				{ //mur donjon
+
+					auto MurD = make_unique<RectangleShape>(Vector2f(67, 54));
+					MurD->setPosition(Vector2f(67 * j, 54 * i));
+					MurD->setTexture(&txtMu);
+					MurD->setPosition(j* Width, i* Height);
+					vMur.emplace_back(move(MurD));
+					break;
+				}
+
+				case'D':
+				{ //tp droit
+					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
+					solext->setPosition(Vector2f(67 * j, 54 * i));
+					solext->setTexture(&txtSext);
+					solext->setPosition(j* Width, i* Height);
+					vSol.emplace_back(move(solext));
+
+
+					auto tpD = make_unique<RectangleShape>(Vector2f(67, 54));
+					tpD->setPosition(Vector2f(67 * j, 54 * i));
+					tpD->setTexture(&txtTpD);
+					tpD->setPosition(j * Width, i * Height);
+					vTp.emplace_back(move(tpD));
+					break;
+				}
+				case'G':
+				{//tp gauche
+					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
+					solext->setPosition(Vector2f(67 * j, 54 * i));
+					solext->setTexture(&txtSext);
+					solext->setPosition(j * Width, i * Height);
+					vSol.emplace_back(move(solext));
+
+
+					auto tpG = make_unique<RectangleShape>(Vector2f(67, 54));
+					tpG->setPosition(Vector2f(67 * j, 54 * i));
+					tpG->setTexture(&txtTpG);
+					tpG->setPosition(j* Width, i* Height);
+					vTp.emplace_back(move(tpG));
+					break;
+
+
+				}
+				//case'':
+				//{//popo dmg
+				//	auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
+				//	solext->setPosition(Vector2f(67 * j, 54 * i));
+				//	solext->setTexture(&txtSext);
+				//	solext->setPosition(j * Width, i * Height);
+				//	vSol.emplace_back(move(solext));
+
+
+				//	auto pp_dmg = make_unique<RectangleShape>(Vector2f(67, 54));
+				//	pp_dmg->setPosition(Vector2f(67 * j, 54 * i));
+				//	pp_dmg->setTexture(&txtPp_dmg);
+				//	pp_dmg->setPosition(j * Width, i * Height);
+				//	vTp.emplace_back(move(pp_dmg));
+				//	break;
+
+
+				//}
+				//case'':
+				//{//popo vie
+				//	auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
+				//	solext->setPosition(Vector2f(67 * j, 54 * i));
+				//	solext->setTexture(&txtSext);
+				//	solext->setPosition(j * Width, i * Height);
+				//	vSol.emplace_back(move(solext));
+
+
+				//	auto pp_vie = make_unique<RectangleShape>(Vector2f(67, 54));
+				//	pp_vie->setPosition(Vector2f(67 * j, 54 * i));
+				//	pp_vie->setTexture(&txtPp_vie);
+				//	pp_vie->setPosition(j * Width, i * Height);
+				//	vTp.emplace_back(move(pp_vie));//changer le vecteur pour les popo
+				//	break;
+
+
+				//}
+				case'U':
+				{ //porte donjon
+					auto porte = make_unique<RectangleShape>(Vector2f(67, 54));
+					porte->setPosition(Vector2f(67 * j, 54 * i));
+					porte->setTexture(&txtP);
+					porte->setPosition(j * Width, i * Height);
+					vTp.emplace_back(move(porte));
+					break;
+
+
+				}
+				case'P':
+				{
+					//joueur
+					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
+					solext->setPosition(Vector2f(67 * j, 54 * i));
+					solext->setTexture(&txtSext);
+					solext->setPosition(j* Width, i* Height);
+					vSol.emplace_back(move(solext));
+
+					p.setPos(Vector2f(j * Width, i * Height));
+					break;
+				}
+				default:
+					break;
+				}
+			}
+		}
+		cMap = false;
+	}
+updatemap(v, p);
+	
 }
 void Map::coliM(Player& p) {
 	for (auto& mur : vMur) {
-		if (p.getSprite().getGlobalBounds().intersects(mur.getGlobalBounds())) {
+		if (p.getSprite().getGlobalBounds().intersects(mur->getGlobalBounds())) {
 
-			if (p.getPos().x > mur.getPosition().x) { //coli mur gauche
+			if (p.getPos().x > mur->getPosition().x) { //coli mur gauche
 				p.setPos(Vector2f(p.getPos().x + 3, p.getPos().y));
 
 			}
 
-			if (p.getPos().x < mur.getPosition().x) {//coli mur droit
+			if (p.getPos().x < mur->getPosition().x) {//coli mur droit
 				p.setPos(Vector2f(p.getPos().x - 3, p.getPos().y));
 
 			}
-			if (p.getPos().y > mur.getPosition().y) {//coli mur du bas
+			if (p.getPos().y > mur->getPosition().y) {//coli mur du bas
 				p.setPos(Vector2f(p.getPos().x, p.getPos().y + 3));
 
 			}
-			if (p.getPos().y < mur.getPosition().y) {//coli mur haut
+			if (p.getPos().y < mur->getPosition().y) {//coli mur haut
 				p.setPos(Vector2f(p.getPos().x, p.getPos().y - 3));
 
 			}
@@ -243,11 +330,12 @@ void Map::coliM(Player& p) {
 }
 void Map::tpTxt(Player& p) {
 	for (auto& tp : vTp) {
-		if (tp.getGlobalBounds().intersects(p.getSprite().getGlobalBounds())) {
-			interactTp.setPosition(vTp[0].getPosition().x+ vTp[0].getSize().x-7, vTp[0].getPosition().y-10+ vTp[0].getSize().y/2);
+		if (tp->getGlobalBounds().intersects(p.getSprite().getGlobalBounds())) {
+			interactTp.setPosition(vTp[0]->getPosition().x+ vTp[0]->getSize().x-7, vTp[0]->getPosition().y-10+ vTp[0]->getSize().y/2);
 			window.draw(interactTp);
+			
 		}
-		else if(!tp.getGlobalBounds().intersects(p.getSprite().getGlobalBounds()))
+		else if(!tp->getGlobalBounds().intersects(p.getSprite().getGlobalBounds()))
 		{
 		}
 
@@ -256,24 +344,24 @@ void Map::tpTxt(Player& p) {
 }
 void Map::pnjTxt(Player& p) {
 	for (auto& pnj : vPnj) {
-			inetractPnj.setPosition(vPnj[0].getPosition().x+30, vPnj[0].getPosition().y-30);
+			inetractPnj.setPosition(vPnj[0]->getPosition().x+30, vPnj[0]->getPosition().y-30);
 			window.draw(inetractPnj);
-		if (p.getSprite().getGlobalBounds().intersects(pnj.getGlobalBounds())) {
+		if (p.getSprite().getGlobalBounds().intersects(pnj->getGlobalBounds())) {
 
-			if (p.getPos().x > pnj.getPosition().x) {
+			if (p.getPos().x > pnj->getPosition().x) {
 				p.setPos(Vector2f(p.getPos().x + 3, p.getPos().y));
 
 			}
 
-			if (p.getPos().x < pnj.getPosition().x) {
+			if (p.getPos().x < pnj->getPosition().x) {
 				p.setPos(Vector2f(p.getPos().x - 3, p.getPos().y));
 
 			}
-			if (p.getPos().y > pnj.getPosition().y) {
+			if (p.getPos().y > pnj->getPosition().y) {
 				p.setPos(Vector2f(p.getPos().x, p.getPos().y + 3));
 
 			}
-			if (p.getPos().y < pnj.getPosition().y) {
+			if (p.getPos().y < pnj->getPosition().y) {
 				p.setPos(Vector2f(p.getPos().x, p.getPos().y - 3));
 
 			}
@@ -284,20 +372,37 @@ void Map::pnjTxt(Player& p) {
 
 }
 void Map::updatemap(View& v, Player& p) {
-
+	
 	for (auto& sol : vSol) {
-		window.draw(sol);
+		window.draw(*sol);
 	}
 
 	for (auto& mur : vMur) {
-		window.draw(mur);
+		window.draw(*mur);
 
 	}
-	for (auto pnj : vPnj) {
-		window.draw(pnj);
+	for (auto& pnj : vPnj) {
+		window.draw(*pnj);
 	}
 
 	for (auto& tp : vTp) {
-		window.draw(tp);
+		window.draw(*tp);
+	}
+}
+void Map::eDonj(Player& p, View& v, string& currentMap) {
+	for (auto& tp : vTp) {
+		if (tp->getGlobalBounds().intersects(p.getSprite().getGlobalBounds()) and Keyboard::isKeyPressed(Keyboard::E)) {
+			if (currentMap != "Assets/test.txt") {
+				currentMap = "Assets/test.txt";
+				initM(currentMap);
+
+			}
+		}
+	}
+
+	//si on a pas utilisé le tp alors la map actuel reste la meme 
+	if (currentMap != "Assets/hub.txt" and currentMap != "Assets/test.txt") {
+		currentMap = "Assets/hub.txt";
+		initM(currentMap);
 	}
 }
