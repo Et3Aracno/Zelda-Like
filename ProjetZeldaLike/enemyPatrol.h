@@ -2,6 +2,7 @@
 #include "enemy.h"
 #include "player.h"
 
+
 #include <chrono>
 #include <iostream>
 
@@ -17,9 +18,11 @@ public:
 	bool getHit;
 
 	RectangleShape sprite;
+
 	Patroler(int health, int damage, Vector2f pos ) : enemy( health, damage, pos), moveleft(true), moveup(true), getHit(false)
+
 	{
-		sprite.setPosition(pos);
+		sprite.setPosition(p);
 		sprite.setSize({ 40,40 });
 		lastMove = chrono::steady_clock::now();
 	}
@@ -33,9 +36,10 @@ public:
 	void moveDown();
 
 
-	void draw(RenderWindow& game, View& view) override;
-	void update(float deltaTime) override;
-	void attack(Player& player_) override;
+	void draw(RenderWindow& game, View& view);
+	void update(float deltaTime, Player& p);
+	void attack(float deltaTime, Player& player_);
+	void takeHit(int damage);
 
 	void hitColor();
 	void takeHit(Player& player_) override;

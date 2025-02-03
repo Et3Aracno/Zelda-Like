@@ -11,7 +11,7 @@ void Patroler::draw(RenderWindow& game, View& view)
 	}
 }
 
-void Patroler::update(float deltaTime)
+void Patroler::update(float deltaTime, Player& p)
 {
 }
 
@@ -87,6 +87,7 @@ void Patroler::attack(Player& player_)
 
 void Patroler::hitColor()
 {
+	health += -damage;
 	sprite.setFillColor(Color::Red);
 	clockHit.restart();
 	getHit = true;

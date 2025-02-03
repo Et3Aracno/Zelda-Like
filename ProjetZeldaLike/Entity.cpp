@@ -45,3 +45,12 @@ int Entity::getDamage()
 {
 	return damage;
 }
+
+void Entity::setHealth(int h)
+{
+	health = h;
+}
+int Entity::getHealth()
+{
+	return health;
+}

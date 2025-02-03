@@ -1,23 +1,22 @@
 #pragma once
-
+#include "player.h"
 #include "enemy.h"
 #include "player.h"
 
-class Chaser : public enemy
+class Chaser : public Enemy
 {
 public:
-	float speed;
-	RectangleShape chaser;
-	Chaser(int health, int damage, Vector2f pos) : enemy( health, damage, pos) 
-	{
-		chaser.setPosition(pos);
-		chaser.setSize({ 40,40 });
-		speed = 0.1f;
-	}
-	void update(float deltaTime) override;
-	void attack(Player& player_) override;
-	void takeHit(Player& player_) override;
-	void draw(RenderWindow& window, View& view) override;
 
-	void movement(Player& player_, float deltaTime);
+
+	Chaser(int health, int damage, float speed, Vector2f pos);
+	void update(float deltaTime, Player& p) override;
+	void attack(float deltaTime, Player& player_) override;
+	void takeHit(int damage) override;
+
+	void movement(float deltaTime, Player& p);
+	void animationUpdate(float deltaTime);
+	void draw(RenderWindow& game, View& view);
+
+	void giveStunt(float time);
+	void stuntManager(float deltaTime);
 };

@@ -29,4 +29,6 @@ public:
 	int getOrientation();
 	void setDamage(int d);
 	int getDamage();
+	void setHealth(int h);
+	int getHealth();
 };

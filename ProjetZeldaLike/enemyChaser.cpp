@@ -1,36 +1,135 @@
 #include "enemyChaser.h"
 
+Chaser::Chaser(int health, int damage, float speed, Vector2f pos) : Enemy(health, damage, speed, pos) 
+{
+    if (!textureWalk.loadFromFile("Assets/Flam/SeparateAnim/Walk.png")) {
+        throw std::runtime_error("Erreur de chargement de la texture");
+    }
+    if (!textureAttack.loadFromFile("Assets/Flam/SeparateAnim/Attack.png")) {
+        throw std::runtime_error("Erreur de chargement de la texture");
+    }
+
+    sprite.setTexture(textureWalk);
+    sprite.setScale(Vector2f(4, 4));
+}
+
+void Chaser::update(float deltaTime, Player& p)
+{
+    movement(deltaTime, p);
+    attack(deltaTime, p);
+    animationUpdate(deltaTime);
+    stuntManager(deltaTime);
+}
+
+void Chaser::attack(float deltaTime, Player& p)
+{
+    timeSinceLastAttack += deltaTime;
+
+    Vector2f pPos = p.getPos();
+    if (timeSinceLastAttack > attackDuration){
+        if (stuntTime <= 0) 
+        { 
+            canMove = true; 
+        }
+
+        animState = "Walk";
+        p.getSprite().setColor(Color::White);
+        if (abs(pPos.x - pos.x) + abs(pPos.y - pos.y) < 50)
+        {
+            cout << "ATTACK" << endl;
+            p.setHealth(p.getHealth() - damage);
+            p.getSprite().setColor(Color::Red);
+            animState = "Attack";
+            timeSinceLastAttack = 0;
+            canMove = false;
+        }
+    }
+}
+
+
+}
+
+void Chaser::movement(float deltaTime, Player& p)
+{
+    Vector2f pPos = p.getPos();
+
+    float angle = atan2(pPos.y - pos.y, pPos.x - pos.x);
+
+    float dx = cos(angle) * speed * deltaTime;
+    float dy = sin(angle) * speed * deltaTime;
+
+    if (abs(dx) < abs(dy)) {
+        if (dy > 0) { orientation = 180; }
+        else { orientation = 0; }
+    }
+    else {
+        if (dx > 0) { orientation = 270; }
+        else { orientation = 90; }
+
+    }
+    if (canMove)
+    {
+        setPos(Vector2f(pos.x + dx, pos.y + dy));
+    }
+
+    if (stuntTime > 0)
+    {
+        setPos(Vector2f(pos.x - dx*3, pos.y - dy*3));
+    }
+}
+
+void Chaser::animationUpdate(float deltaTime)
+{
+    if (animState == "Walk")
+    {
+        frameCount = 4;
+        sprite.setTexture(textureWalk);
+    }
+    else if (animState == "Attack")
+    {
+        frameCount = 1;
+        sprite.setTexture(textureAttack);
+    }
+
+
+    if (animState != animStateBackup)
+    {
+        animStateBackup = animState;
+        sprite.setTextureRect(IntRect(((getOrientation() + 90) / 90 % 4) * frameHeight, 0, frameWidth, frameHeight));
+    }
+
+    timer += deltaTime;
+    if (timer > frameDuration && stuntTime <= 0)
+    {
+        timer = 0;
+        currentFrame = (currentFrame + 1) % frameCount;
+        sprite.setTextureRect(IntRect(((getOrientation() + 90) / 90 % 4) * frameHeight, currentFrame * frameWidth, frameWidth, frameHeight));
+    }
+}
 
 void Chaser::draw(RenderWindow& window, View& view)
 {
-	window.draw(chaser);
+    sprite.setPosition(pos);
+    window.draw(sprite);
 }
 
-void Chaser::update(float deltaTime)
+void Chaser::giveStunt(float time)
 {
+    canMove = false;
+    stuntTime += time;
+    sprite.setColor(Color::Red);
 }
 
-void Chaser::attack(Player& player_)
+void Chaser::stuntManager(float deltaTime)
 {
-}
-
-void Chaser::takeHit(Player& player_)
-{
-}
-
-
-
-void Chaser::movement(Player& player_,float deltaTime)
-{
-    Vector2f playerPosition = player_.getPos();
-    Vector2f enemyPosition = chaser.getPosition();
-
-    Vector2f diff = playerPosition - enemyPosition;
-    if (diff.x != 0.f || diff.y != 0.f) {
-
-        float length = sqrt(diff.x * diff.x + diff.y * diff.y);
-        diff /= length;
-        chaser.move(diff * speed * deltaTime);
-
+    if (stuntTime > 0)
+    {
+        stuntTime += -deltaTime;
+    }
+    else 
+    {
+        stuntTime = 0;
+        canMove = true;
+        sprite.setColor(Color::White);
     }
 }
