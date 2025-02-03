@@ -42,6 +42,9 @@ void Map::initTxt() {
 	if (!txtPp_dmg.loadFromFile("Assets/pp_dmg.png")) {
 		cout << "Erreur de chargement du pp dmg" << endl;
 	}
+	if (!txtSd.loadFromFile("Assets/sol donjon.png")) {
+		cout << "Erreur de chargement du sol du donjon" << endl;
+	}
 }
 void Map::initSprt() {
 	sprtArbre.setTexture(txtArbre);
@@ -84,7 +87,10 @@ void Map::initall(){
 	initT();
 }
 void Map::initM(string fileM) {
-
+	vSol.clear();
+	vMur.clear();
+	vPnj.clear();
+	vTp.clear();
 	vM.clear();
 	ifstream file(fileM);
 	if (!file.is_open()) {
@@ -97,7 +103,7 @@ void Map::initM(string fileM) {
 	file.close();
 	cMap = true;
 }
-void Map::DrawM(Player& p, View& v) {
+void Map::DrawM(Player& p, View& v, string& currentMap) {
 	try {
 		if (vM[0].empty()) {
 			throw runtime_error("le fichier texte est vide");
@@ -108,10 +114,10 @@ void Map::DrawM(Player& p, View& v) {
 	}
 	//clear les vecteurs si la map à changer
 	if (cMap == true) {
-		vSol.clear();
-		vMur.clear();
-		vPnj.clear();
-		vTp.clear();
+		//vSol.clear();
+		//vMur.clear();
+		//vPnj.clear();
+		//vTp.clear();
 
 		cout << vSol.size();
 
@@ -187,16 +193,7 @@ void Map::DrawM(Player& p, View& v) {
 					break;
 				}
 
-				case'§':
-				{ //mur donjon
-
-					auto MurD = make_unique<RectangleShape>(Vector2f(67, 54));
-					MurD->setPosition(Vector2f(67 * j, 54 * i));
-					MurD->setTexture(&txtMu);
-					MurD->setPosition(j* Width, i* Height);
-					vMur.emplace_back(move(MurD));
-					break;
-				}
+				
 
 				case'D':
 				{ //tp droit
@@ -268,6 +265,16 @@ void Map::DrawM(Player& p, View& v) {
 
 
 				//}
+				case'h':
+				{ //mur donjon
+
+					auto MurD = make_unique<RectangleShape>(Vector2f(67, 54));
+					MurD->setPosition(Vector2f(67 * j, 54 * i));
+					MurD->setTexture(&txtMu);
+					MurD->setPosition(j * Width, i * Height);
+					vMur.emplace_back(move(MurD));
+					break;
+				}
 				case'U':
 				{ //porte donjon
 					auto porte = make_unique<RectangleShape>(Vector2f(67, 54));
@@ -279,12 +286,29 @@ void Map::DrawM(Player& p, View& v) {
 
 
 				}
+				case'B':
+				{ //sol donjon
+					auto soldj = make_unique<RectangleShape>(Vector2f(67, 54));
+					soldj->setPosition(Vector2f(67 * j, 54 * i));
+					soldj->setTexture(&txtSd);
+					soldj->setPosition(j * Width, i * Height);
+					vSol.emplace_back(move(soldj));
+					break;
+
+
+				}
 				case'P':
 				{
 					//joueur
 					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
 					solext->setPosition(Vector2f(67 * j, 54 * i));
-					solext->setTexture(&txtSext);
+					if(currentMap =="Assets/hub.txt"){ 
+						solext->setTexture(&txtSext); 
+					}
+					else if (currentMap == "Assets/donjon.txt") {
+						solext->setTexture(&txtSd);
+					}
+					
 					solext->setPosition(j* Width, i* Height);
 					vSol.emplace_back(move(solext));
 
@@ -388,15 +412,18 @@ void Map::updatemap(View& v, Player& p) {
 	for (auto& tp : vTp) {
 		window.draw(*tp);
 	}
-	
+	pnjTxt(p);
+	tpTxt(p);
+	pnjTxt(p);
+	coliM(p);
 
 	p.draw(window, v);
 }
 void Map::eDonj(Player& p, View& v, string& currentMap) {
 	for (auto& tp : vTp) {
 		if (tp->getGlobalBounds().intersects(p.getSprite().getGlobalBounds()) and Keyboard::isKeyPressed(Keyboard::E)) {
-			if (currentMap != "Assets/test.txt") {
-				currentMap = "Assets/test.txt";
+			if (currentMap != "Assets/donjon.txt") {
+				currentMap = "Assets/donjon.txt";
 				initM(currentMap);
 
 			}
@@ -404,7 +431,7 @@ void Map::eDonj(Player& p, View& v, string& currentMap) {
 	}
 
 	//si on a pas utilisé le tp alors la map actuel reste la meme 
-	if (currentMap != "Assets/hub.txt" and currentMap != "Assets/test.txt") {
+	if (currentMap != "Assets/hub.txt" and currentMap != "Assets/donjon.txt") {
 		currentMap = "Assets/hub.txt";
 		initM(currentMap);
 	}

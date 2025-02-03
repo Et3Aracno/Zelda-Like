@@ -30,7 +30,7 @@ public:
 	void initM(string);
 	void initF();
 	void initT();
-	void DrawM(Player&, View& v);
+	void DrawM(Player&, View& v, string& currentMap);
 	void initall();
 	void updatemap(View& v, Player& p);
 	void coliM(Player& p);
@@ -39,8 +39,8 @@ public:
 	void eDonj(Player& p, View& v, string &currentMap);
 
 	RenderWindow& window;//ajouter ça dans le game pour appeler la window et commencer la boucle de jeux  Map map; /*map.initM(); while (map.window) {}*/
-	Texture txtArbre, txtSext, txtTour, txtPnj, txtTombe, txtChemin, txtMu, txtS, txtP, txtKeyB, txtTpG, txtTpD,txtPp_dmg, txtPp_vie;
-	Sprite sprtMu, sprtS, sprtP, sprtKeyB, sprtArbre, sprtSext, sprtPnj, sprtTombe, sprtChemin, sprtTour, sprtTpG, sprtTpD,sprtPp_dmg,sprtPp_vie;
+	Texture txtArbre, txtSext, txtTour, txtPnj, txtTombe, txtChemin, txtMu, txtS, txtP, txtKeyB, txtTpG, txtTpD,txtPp_dmg, txtPp_vie,txtSd;
+	Sprite sprtMu, sprtS, sprtP, sprtKeyB, sprtArbre, sprtSext, sprtPnj, sprtTombe, sprtChemin, sprtTour, sprtTpG, sprtTpD,sprtPp_dmg,sprtPp_vie,sprtSd;
 	Font fI;
 	Text interactTp,inetractPnj;
 	vector <string>vM;
