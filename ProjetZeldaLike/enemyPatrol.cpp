@@ -1,53 +1,119 @@
 #include "enemyPatrol.h"
 
-float X = 0.1f;
-float Y = 0.1f;
+bool touch = false;
 
 void Patroler::draw(RenderWindow& game, View& view)
 {
-	game.draw(sprite);
+	if (health > 0)
+	{
+		sprite.setPosition(pos);
+		game.draw(sprite);
+	}
 }
 
 void Patroler::update(float deltaTime, Player& p)
 {
 }
 
-void Patroler::movementHOR(int x, int y)
+void Patroler::moveHor3s()
 {
-	sprite.move(X, 0);
-	if (sprite.getPosition().x > 600)
+	auto currentTime = chrono::steady_clock::now();
+	chrono::duration<double> elapsed = currentTime - lastMove;
+
+	if (elapsed.count() >= 3.0)
 	{
-		X = -0.1f;
+		moveleft = !moveleft;
+		lastMove = currentTime;
 	}
 
-	if (sprite.getPosition().x < 300)
+	if (moveleft)
 	{
-		X = 0.1f;
+		moveG();
+	}
+	else
+	{
+		moveD();
 	}
 }
 
-void Patroler::movementVER(int x, int y)
+void Patroler::moveG()
 {
-	sprite.move(0, Y);
+	pos.x -= 1.0f;
+}
 
-	if (sprite.getPosition().y < 300)
+void Patroler::moveD()
+{
+	pos.x += 1.0f;
+}
+
+void Patroler::moveVer3s()
+{
+	auto currentTime = chrono::steady_clock::now();
+	chrono::duration<double> elapsed = currentTime - lastMove;
+
+	if (elapsed.count() >= 3.0)
 	{
-		Y = 0.1f;
+		moveup = !moveup;
+		lastMove = currentTime;
 	}
 
-	if (sprite.getPosition().y > 600)
+	if (moveup)
 	{
-		Y = -0.1f;
+		moveUP();
+	}
+	else
+	{
+		moveDown();
 	}
 }
 
-void Patroler::attack(float deltaTime, Player& player_)
+void Patroler::moveUP()
+{
+	pos.y -= 1.0f;
+}
+
+void Patroler::moveDown()
+{
+	pos.y += 1.0f;
+}
+
+
+
+
+void Patroler::attack(Player& player_)
 {
 
 }
 
-void Patroler::takeHit(int damage)
+void Patroler::hitColor()
 {
 	health += -damage;
 	sprite.setFillColor(Color::Red);
+	clockHit.restart();
+	getHit = true;
 }
+
+void Patroler::takeHit(Player& player_)
+{
+	FloatRect patrolerBounds = sprite.getGlobalBounds(); 
+	FloatRect playerBounds = player_.getSprite().getGlobalBounds();
+
+	if (patrolerBounds.intersects(playerBounds) && player_.attackstate )
+	{
+		if (!getHit)
+		{
+			touch = true;
+			hitColor();
+			health -= player_.getDamage();
+		}
+	}
+	if (getHit && clockHit.getElapsedTime().asSeconds() >= 3.f)
+	{
+		getHit = false;
+		sprite.setFillColor(Color::Blue);
+		touch = false;
+	}
+}
+
+
+

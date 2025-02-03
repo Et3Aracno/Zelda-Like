@@ -49,7 +49,13 @@ void Player::animationUpdate(float deltaTime)
     if (Mouse::isButtonPressed(Mouse::Left) && timeSinceLastAttack < attackDuration)
     {
         animState = "Attack";
+        attackstate = true;
     }
+    else
+    {
+        attackstate =false;
+    }
+
     
     
 
@@ -183,6 +189,11 @@ void Player::attack(float deltaTime, vector<Enemy*> ennemy)
 
 void Player::usePowerUp()
 {
+    if (buff)
+    {
+        setDamage(3);
+        sprite.setColor(Color::Blue);
+    }
 }
 
 void Player::draw(RenderWindow& window, View& view)
@@ -196,3 +207,5 @@ Sprite& Player::getSprite()
 {
     return sprite;
 }
+
+

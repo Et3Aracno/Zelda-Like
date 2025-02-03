@@ -46,11 +46,7 @@ void Chaser::attack(float deltaTime, Player& p)
     }
 }
 
-void Chaser::takeHit(int damage)
-{
-	health += -damage;
-    cout << health;
-	//sprite.setFillColor(Color::Red);
+
 }
 
 void Chaser::movement(float deltaTime, Player& p)

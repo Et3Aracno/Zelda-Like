@@ -1,8 +1,9 @@
 #pragma once
 #include <iostream>
 #include <vector>
+
 #include "Entity.h"
-#include "Entity.h"
+
 #include <math.h>
 
 class Enemy;
@@ -11,6 +12,7 @@ class Player : public Entity
 {
 private:
 	void move(float deltaTime);
+
 	void attack(float deltaTime, vector<Enemy*> ennemy);
 	void usePowerUp();
 	void animationUpdate(float deltaTime);
@@ -27,6 +29,8 @@ private:
 	float frameDuration = 100.0f;
 	float timer = 0;
 
+
+
 	string animState = "Idle";
 	string animStateBackup = "Idle";
 	bool isMoving = false;
@@ -39,10 +43,16 @@ private:
 	//TODO : Attack Cooldown
 
 public:
+	bool attackstate = false;
+
 	Player(int health, int dmg, float s, Vector2f p);
-	void update(float deltaTime, vector<Enemy*> p);
 
 	void draw(RenderWindow& window, View& view);
 
+	bool buff = true;
+	void usePowerUp();
+	void update(float deltaTime, vector<Enemy*> p);
+
 	Sprite& getSprite();
+
 };

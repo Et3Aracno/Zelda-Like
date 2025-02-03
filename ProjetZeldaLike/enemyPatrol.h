@@ -2,22 +2,45 @@
 #include "enemy.h"
 #include "player.h"
 
-class Patroler : public Enemy
+
+#include <chrono>
+#include <iostream>
+
+class Patroler : public enemy
 {
+private:
+	bool moveleft;
+	bool moveup;
+	chrono::steady_clock::time_point lastMove;
 public:
+
+	Clock clockHit;	
+	bool getHit;
+
 	RectangleShape sprite;
-	Patroler(int h, int d,float s, Vector2f p ) : Enemy(h, d, s, p)
+
+	Patroler(int health, int damage, Vector2f pos ) : enemy( health, damage, pos), moveleft(true), moveup(true), getHit(false)
+
 	{
 		sprite.setPosition(p);
 		sprite.setSize({ 40,40 });
+		lastMove = chrono::steady_clock::now();
 	}
 
-	void movementHOR(int x, int y);
-	void movementVER(int x, int y);
+	void moveHor3s();
+	void moveG();
+	void moveD();
+
+	void moveVer3s();
+	void moveUP();
+	void moveDown();
+
 
 	void draw(RenderWindow& game, View& view);
 	void update(float deltaTime, Player& p);
 	void attack(float deltaTime, Player& player_);
 	void takeHit(int damage);
 
+	void hitColor();
+	void takeHit(Player& player_) override;
 };
