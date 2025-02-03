@@ -80,7 +80,7 @@ void Patroler::moveDown()
 
 
 
-void Patroler::attack(Player& player_)
+void Patroler::attack(float deltaTime, Player& player_)
 {
 
 }
@@ -93,26 +93,9 @@ void Patroler::hitColor()
 	getHit = true;
 }
 
-void Patroler::takeHit(Player& player_)
+void Patroler::takeHit(int damage)
 {
-	FloatRect patrolerBounds = sprite.getGlobalBounds(); 
-	FloatRect playerBounds = player_.getSprite().getGlobalBounds();
-
-	if (patrolerBounds.intersects(playerBounds) && player_.attackstate )
-	{
-		if (!getHit)
-		{
-			touch = true;
-			hitColor();
-			health -= player_.getDamage();
-		}
-	}
-	if (getHit && clockHit.getElapsedTime().asSeconds() >= 3.f)
-	{
-		getHit = false;
-		sprite.setFillColor(Color::Blue);
-		touch = false;
-	}
+	health += -damage;
 }
 
 

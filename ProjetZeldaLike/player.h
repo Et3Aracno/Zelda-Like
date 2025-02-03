@@ -14,7 +14,6 @@ private:
 	void move(float deltaTime);
 
 	void attack(float deltaTime, vector<Enemy*> ennemy);
-	void usePowerUp();
 	void animationUpdate(float deltaTime);
 
 	Texture textureWalk;
@@ -39,8 +38,6 @@ private:
 	float attackDelay = 500.0f;
 	float timeSinceLastAttack = 0;
 	bool canMove = true;
-
-	//TODO : Attack Cooldown
 
 public:
 	bool attackstate = false;

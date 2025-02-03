@@ -46,9 +46,6 @@ void Chaser::attack(float deltaTime, Player& p)
     }
 }
 
-
-}
-
 void Chaser::movement(float deltaTime, Player& p)
 {
     Vector2f pPos = p.getPos();

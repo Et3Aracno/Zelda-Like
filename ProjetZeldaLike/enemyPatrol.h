@@ -6,7 +6,7 @@
 #include <chrono>
 #include <iostream>
 
-class Patroler : public enemy
+class Patroler : public Enemy
 {
 private:
 	bool moveleft;
@@ -19,7 +19,7 @@ public:
 
 	RectangleShape sprite;
 
-	Patroler(int health, int damage, Vector2f pos ) : enemy( health, damage, pos), moveleft(true), moveup(true), getHit(false)
+	Patroler(int health, int damage,float s, Vector2f p ) : Enemy(health, damage, s, pos), moveleft(true), moveup(true), getHit(false)
 
 	{
 		sprite.setPosition(p);
@@ -42,5 +42,4 @@ public:
 	void takeHit(int damage);
 
 	void hitColor();
-	void takeHit(Player& player_) override;
 };
