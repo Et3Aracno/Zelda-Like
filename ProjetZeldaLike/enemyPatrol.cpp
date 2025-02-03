@@ -103,7 +103,7 @@ void Patroler::takeHit(Player& player_)
 		{
 			touch = true;
 			hitColor();
-			health -= 1;
+			health -= player_.getDamage();
 		}
 	}
 	if (getHit && clockHit.getElapsedTime().asSeconds() >= 3.f)

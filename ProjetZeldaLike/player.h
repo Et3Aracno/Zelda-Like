@@ -1,15 +1,17 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "Entity.h"
 #include <math.h>
+
+#include "Entity.h"
+
 
 class Player : public Entity
 {
 private:
 	void move(float deltaTime);
 	void attack(vector<Player> ennemy); //changer player to enemy
-	void usePowerUp();
+
 	void animationUpdate(float deltaTime);
 
 	Texture textureWalk;
@@ -35,10 +37,11 @@ public:
 
 	Player(int health, int dmg, float s, Vector2f p);
 	void update(float deltaTime, vector<Player> p);
-
 	void draw(RenderWindow& window, View& view);
+
+	bool buff = true;
+	void usePowerUp();
 
 	Sprite getSprite();
 
-	bool getattackstate();
 };

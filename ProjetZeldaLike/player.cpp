@@ -174,6 +174,11 @@ void Player::attack(vector<Player> ennemy)
 
 void Player::usePowerUp()
 {
+    if (buff)
+    {
+        setDamage(3);
+        sprite.setColor(Color::Blue);
+    }
 }
 
 void Player::draw(RenderWindow& window, View& view)
@@ -188,7 +193,4 @@ Sprite Player::getSprite()
     return sprite;
 }
 
-bool Player::getattackstate()
-{
-    return attackstate;
-}
+
