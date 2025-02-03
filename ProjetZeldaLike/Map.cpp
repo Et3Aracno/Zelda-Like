@@ -388,9 +388,6 @@ void Map::updatemap(View& v, Player& p) {
 	for (auto& tp : vTp) {
 		window.draw(*tp);
 	}
-	
-
-	p.draw(window, v);
 }
 void Map::eDonj(Player& p, View& v, string& currentMap) {
 	for (auto& tp : vTp) {

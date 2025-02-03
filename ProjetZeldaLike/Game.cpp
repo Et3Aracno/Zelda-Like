@@ -1,12 +1,13 @@
 #include "Game.h"
 #include <SFML/System/Clock.hpp>
 
+#include "enemyChaser.h"
+
 Game::Game()
 {
 	view.setSize(Vector2f(1920, 1080));
 	view.zoom(0.5f);
 	window.setView(view);
-	cout << "oui";
 }
 
 void Game::run()
@@ -14,7 +15,8 @@ void Game::run()
 	RenderWindow window = RenderWindow(VideoMode(1920, 1080), "zelda");
 	window.setFramerateLimit(60);
 	Player player(100, 5, 0.35f, Vector2f(0, 0));
-	vector<Player> p; // A SUPPRIMER (theo)
+	vector<Enemy*> enemyList;
+	enemyList.push_back(new Chaser(100, 1, 0.20f, Vector2f(200, 200)));
 
 	Map mapp(window);
 	//mapp.eDonj(player, view, currentMap);
@@ -29,20 +31,28 @@ void Game::run()
 		}
 		deltaTime = clock.restart().asMilliseconds();
 		window.clear();
+
+		player.update(deltaTime, enemyList);
+
+		for (auto e : enemyList) {
+			e->update(deltaTime, player);
+		}
+
 		window.setView(view);
 	
 		mapp.eDonj(player,view,currentMap);
 		mapp.DrawM(player, view);
-		player.draw(window, view);
-
-		player.update(deltaTime, p);
 		mapp.tpTxt(player);
 		mapp.pnjTxt(player);
 		mapp.coliM(player);
 
-	
-	
+		player.draw(window, view);
 
+		for (auto e : enemyList) {
+			e->draw(window, view);
+		}
+		
+		window.setView(view);
 		window.display();
 	}
 }

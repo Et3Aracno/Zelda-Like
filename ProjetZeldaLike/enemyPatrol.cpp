@@ -1,4 +1,4 @@
-#include "enemyPatrol.h"
+/*#include "enemyPatrol.h"
 
 float X = 0.1f;
 float Y = 0.1f;
@@ -51,3 +51,4 @@ void Patroler::takeHit(int damage)
 	health += -damage;
 	sprite.setFillColor(Color::Red);
 }
+*/
