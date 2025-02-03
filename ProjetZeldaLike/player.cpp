@@ -21,9 +21,15 @@ Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s
     if (!textureAttack.loadFromFile("Assets/GladiatorBlue/SeparateAnim/Attack.png")) {
         throw std::runtime_error("Erreur de chargement de la texture");
     }
+    if (!weapon1.loadFromFile("Assets/Lance/SpriteInHand.png")) {
+        throw std::runtime_error("Erreur de chargement de la texture");
+    }
 
     sprite.setTexture(textureIdle);
     sprite.setScale(Vector2f(4, 4));
+
+    weaponSprite.setTexture(weapon1);
+    weaponSprite.setScale(Vector2f(4, 4));
 }
 
 void Player::update(float deltaTime, vector<Enemy*> p)
@@ -162,15 +168,14 @@ void Player::attack(float deltaTime, vector<Enemy*> ennemy)
                 timeSinceLastAttack = 0;
                 canMove = false;
 
-                float attackSize = 30;
                 float radO = getOrientation() * (M_PI / 180);
                 Vector2f pPos = getPos();
                 Vector2f attackHitBox[4] =
                 {
                     Vector2f(pPos.x + (sin(radO) * attackSize), pPos.y - (cos(radO) * attackSize)),
                     Vector2f(pPos.x - (sin(radO) * attackSize), pPos.y + (cos(radO) * attackSize)),
-                    Vector2f((pPos.x + (cos(radO) * 100)) - (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) + (cos(radO) * attackSize)),
-                    Vector2f((pPos.x + (cos(radO) * 100)) + (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) - (cos(radO) * attackSize))
+                    Vector2f((pPos.x + (cos(radO) * attackRange)) - (sin(radO) * attackSize), (pPos.y + (sin(radO) * attackRange)) + (cos(radO) * attackSize)),
+                    Vector2f((pPos.x + (cos(radO) * attackRange)) + (sin(radO) * attackSize), (pPos.y + (sin(radO) * attackRange)) - (cos(radO) * attackSize))
                 };
 
                 for (auto e : ennemy)
@@ -199,8 +204,16 @@ void Player::usePowerUp()
 void Player::draw(RenderWindow& window, View& view)
 {
     sprite.setPosition(getPos());
+    weaponSprite.setPosition(Vector2f(getPos().x + 8*sprite.getScale().x, getPos().y + 8 * sprite.getScale().x));
+
+    weaponSprite.setRotation(orientation - 90);
+    setWeaponOrientation();
+
     view.setCenter(getPos());
     window.draw(sprite);
+    if (animState == "Attack") {
+        window.draw(weaponSprite);
+    }
 }
 
 Sprite& Player::getSprite()
@@ -208,4 +221,15 @@ Sprite& Player::getSprite()
     return sprite;
 }
 
+void Player::setWeaponOrientation()
+{
+    if (orientation == 0 || orientation == 90)
+    {
+        weaponSprite.setOrigin(Vector2f(6, -8));
+    }
+    if (orientation == 180 || orientation == 270)
+    {
+        weaponSprite.setOrigin(Vector2f(-1, -8));
+    }
+}
 
