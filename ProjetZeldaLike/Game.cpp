@@ -47,7 +47,6 @@ void Game::run()
 		//pot.itemEffect(player);
 
 		window.clear();
-		cout << enemyList.size();
 		player.update(deltaTime, enemyList);
 
 		enemyListTemp.clear();
@@ -64,21 +63,18 @@ void Game::run()
 
 		mapp.eDonj(player,view,currentMap);
 		mapp.DrawM(player, view,currentMap);
-		player.draw(window, view);
-		player.update(deltaTime, p);
 		
 
 
 		player.draw(window, view);
-
 
 		for (auto& e : enemyList) {
 			e->draw(window, view);
 		}
-
 		boss.draw(window, view);
 		
-		window.setView(view);
+		/*window.setView(view);*/
 		window.display();
+		cout << player.getPos().x << ", " << player.getPos().y << endl;
 	}
 }
