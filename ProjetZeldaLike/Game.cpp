@@ -1,11 +1,6 @@
 #include "Game.h"
 #include <SFML/System/Clock.hpp>
 
-#include "enemyPatrol.h"
-#include "enemyChaser.h"
-#include "Boss.h"
-#include "potionDMG.h"
-
 
 Game::Game()
 {
@@ -23,6 +18,7 @@ void Game::run()
 	Player player(100, 50, 0.35f, Vector2f(1548, 883));
 	EnemyManager enemyManager;
 	Boss boss(1000, 10, 0.1f, Vector2f(300, 300));
+
 
 	Map mapp(window);
 	mapp.initall();
