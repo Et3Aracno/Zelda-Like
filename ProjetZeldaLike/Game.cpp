@@ -18,23 +18,22 @@ void Game::run()
 {
 	RenderWindow window = RenderWindow(VideoMode(1920, 1080), "zelda");
 	window.setFramerateLimit(60);
-	
-
 
 	//PotionDMG pot({ 90,90 });
 	Player player(100, 50, 0.35f, Vector2f(0, 0));
+
 	vector<Enemy*> enemyList;
 	vector<Enemy*> enemyListTemp;
 	enemyList.push_back(new Chaser(100, 1, 0.20f, Vector2f(200, 200)));
 	enemyList.push_back(new Patroler(100, 1, 0.2f, Vector2f(500, 400), 1));
-	Boss boss(1000, 10, 0.3f, Vector2f(300, 300));
-
-
+	Boss boss(1000, 10, 0.1f, Vector2f(300, 300));
 
 	Map mapp(window);
 	mapp.initall();
 	mapp.initM(currentMap);
 	mapp.DrawM(player, view, currentMap);
+
+
 	while (window.isOpen()) {
 		Event event;
 		while (window.pollEvent(event)) {
@@ -42,18 +41,10 @@ void Game::run()
 				window.close();
 		}
 		deltaTime = clock.restart().asMilliseconds();
-		window.clear();
-		window.setView(view);
-
-		mapp.eDonj(player, view, currentMap);
-		mapp.DrawM(player, view, currentMap);
-
-	/*	pot.draw(mapp.window);
-		pot.itemEffect(player);*/
 
 		window.clear();
+
 		player.update(deltaTime, enemyList);
-
 
 		enemyListTemp.clear();
 		for (auto e : enemyList) {
@@ -67,21 +58,18 @@ void Game::run()
 
 		boss.update(deltaTime, player);
 
+
 		mapp.eDonj(player,view,currentMap);
 		mapp.DrawM(player, view,currentMap);
 
-		
-
 		player.draw(window, view);
-		
-		
-
 
 		for (auto& e : enemyList) {
 			e->draw(window, view);
 		}
 		boss.draw(window, view);
 		
+		window.setView(view);
 		window.display();
 		cout << player.getPos().x << ", " << player.getPos().y << endl;
 	}

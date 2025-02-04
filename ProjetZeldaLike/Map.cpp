@@ -412,8 +412,6 @@ void Map::coliM(Player& p) {
 				p.setPos(Vector2f(p.getPos().x, p.getPos().y - 3));
 
 			}
-
-			
 		}
 	}
 	

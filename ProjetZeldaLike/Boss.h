@@ -16,6 +16,8 @@ public:
 	float timeSinceLastAttack = 0;
 	float timeBetweenAttacks = 5000.f;
 
+	int currentAttackID = 0;
+
 	int bulletDamage = 10;
 	float bulletSpeed = 0.4f;
 
@@ -28,6 +30,7 @@ public:
 
 	void update(float deltaTime, Player& p);
 	void attack1(float deltaTime, Player& p);
+	void attack2(float deltaTime, Player& p);
 	void move(float deltaTime);
 
 	void bulletUpdate(float deltaTime, Player& p);

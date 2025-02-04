@@ -13,7 +13,12 @@ void Boss::update(float deltaTime, Player& p)
 	timeSinceLastAttack += deltaTime;
 	if (timeSinceLastAttack > timeBetweenAttacks) 
 	{
-		attack1(deltaTime, p);
+		if (currentAttackID == 0) {
+			attack1(deltaTime, p);
+		}
+		if (currentAttackID == 1) {
+			attack2(deltaTime, p);
+		}
 	}
 
 	//Attaque tête chercheuses
@@ -41,7 +46,13 @@ void Boss::attack1(float deltaTime, Player& p)
 	{
 		bulletAlreadyShotInTheAttack = 0;
 		timeSinceLastAttack = 0;
+		currentAttackID = 1;
 	}
+}
+
+void Boss::attack2(float deltaTime, Player& p)
+{
+	
 }
 
 void Boss::move(float deltaTime)
@@ -54,6 +65,8 @@ void Boss::move(float deltaTime)
 		}
 
 		float angle = atan2(targetPosition.y - pos.y, targetPosition.x - pos.x);
+
+		//orientation = angle * (M_PI / 180);
 
 		pos = Vector2f(pos.x + (cos(angle) * deltaTime * speed), pos.y + (sin(angle) * deltaTime * speed));
 	}
@@ -83,4 +96,10 @@ void Boss::draw(RenderWindow& window, View& view)
 	{
 		b.draw(window, view);
 	}
+
+	RectangleShape rect2(Vector2f(200, 100));
+	rect2.setRotation(orientation);
+	cout << orientation << endl;
+	rect2.setPosition(pos);
+	window.draw(rect2);
 }
