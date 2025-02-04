@@ -138,7 +138,6 @@ void Player::move(float deltaTime)
     }
 }
 
-
 bool isInside(Vector2f edges[4], Vector2f posPoint) {
     int count = 0;
     for (int i = 0; i < 4; i++) {
@@ -181,7 +180,6 @@ void Player::attack(float deltaTime, vector<Enemy*> ennemy)
 
                 for (auto e : ennemy)
                 {
-                    cout << e->getHealth() << endl;
                     if (isInside(attackHitBox, e->getPos()))
                     {
                         e->takeHit(getDamage());

@@ -99,7 +99,6 @@ void Boss::draw(RenderWindow& window, View& view)
 
 	RectangleShape rect2(Vector2f(200, 100));
 	rect2.setRotation(orientation);
-	cout << orientation << endl;
 	rect2.setPosition(pos);
 	window.draw(rect2);
 }
