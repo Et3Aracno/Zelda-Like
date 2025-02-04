@@ -48,6 +48,10 @@ void Map::initTxt() {
 	if (!txtSd.loadFromFile("Assets/sol donjon.png")) {
 		cout << "Erreur de chargement du sol du donjon" << endl;
 	}
+	if (!txtMais.loadFromFile("Assets/Maison.png")) {
+		cout << "Erreur de chargement des maisons du hub" << endl;
+	}
+	
 }
 void Map::initSprt() {
 	sprtArbre.setTexture(txtArbre);
@@ -64,6 +68,7 @@ void Map::initSprt() {
 	sprtMu.setTexture(txtMu);
 	sprtPp_dmg.setTexture(txtPp_dmg);
 	sprtPp_vie.setTexture(txtPp_vie);
+	sprtMais.setTexture(txtMais);
 }
 void Map::initF() {
 	if (!fI.loadFromFile("Assets/huggo/Huggo.otf")) {
@@ -83,7 +88,6 @@ void Map::initT() {
 	inetractPnj.setFillColor(Color::Red);
 	inetractPnj.setStyle(Text::Bold);
 }
-
 void Map::initall(){
 	initTxt();
 	initSprt(); 
@@ -179,6 +183,21 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 					Tombe->setTexture(&txtTombe);
 					Tombe->setPosition(j * Width, i * Height);
 					vMur.emplace_back(move(Tombe));
+					break;
+				}
+				case 'm':
+				{//tombe hub
+					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
+					solext->setPosition(Vector2f(67 * j, 54 * i));
+					solext->setTexture(&txtSext);
+					solext->setPosition(j * Width, i * Height);
+					vSol.emplace_back(move(solext));
+
+					auto maison = make_unique<RectangleShape>(Vector2f(100, 100));
+					maison->setPosition(Vector2f(67 * j, 54 * i));
+					maison->setTexture(&txtMais);
+					maison->setPosition(j * Width, i * Height);
+					vMur.emplace_back(move(maison));
 					break;
 				}
 				case 'M':
@@ -446,9 +465,6 @@ void Map::tpTxt(Player& p) {
 			window.draw(interactTp);
 			
 		}
-		else if(!tp->getGlobalBounds().intersects(p.getSprite().getGlobalBounds()))
-		{
-		}
 
 	}
 
@@ -456,7 +472,7 @@ void Map::tpTxt(Player& p) {
 void Map::pnjTxt(Player& p) {
 	for (auto& pnj : vPnj) {
 			inetractPnj.setPosition(vPnj[0]->getPosition().x+30, vPnj[0]->getPosition().y-30);
-			window.draw(inetractPnj);
+			interactTp.setPosition(vPnj[0]->getPosition().x + 30 , vPnj[0]->getPosition().y);
 		if (p.getSprite().getGlobalBounds().intersects(pnj->getGlobalBounds())) {
 
 			if (p.getPos().x > pnj->getPosition().x) {
@@ -476,9 +492,15 @@ void Map::pnjTxt(Player& p) {
 				p.setPos(Vector2f(p.getPos().x, p.getPos().y - 3));
 
 			}
+			
+			
 
-
+			window.draw(interactTp);
 		}
+		if (iPNJ != true) {
+		window.draw(inetractPnj);
+		}
+		
 	}
 
 }
