@@ -211,7 +211,6 @@ void Player::draw(RenderWindow& window, View& view)
     setWeaponOrientation();
 
     view.setCenter(getPos());
-    //sprite.setPosition(300, 300);
     window.draw(sprite);
     if (animState == "Attack") {
         window.draw(weaponSprite);
