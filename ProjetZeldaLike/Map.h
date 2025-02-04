@@ -40,11 +40,13 @@ public:
 	void pnjTxt(Player& p);
 	void eDonj(Player& p, View& v, string &currentMap);
 
-	RenderWindow& window;//ajouter ça dans le game pour appeler la window et commencer la boucle de jeux  Map map; /*map.initM(); while (map.window) {}*/
+
+	RenderWindow& window;//ajouter ï¿½a dans le game pour appeler la window et commencer la boucle de jeux  Map map; /*map.initM(); while (map.window) {}*/
 	Texture txtArbre, txtSext, txtTour, txtPnj, txtTombe, txtChemin, txtMu, txtS, txtP, txtKeyB, txtTpG, txtTpD,txtPp_dmg, txtPp_vie,txtSd, txtPf,txtMais;
 	Sprite sprtMu, sprtS, sprtP, sprtKeyB, sprtArbre, sprtSext, sprtPnj, sprtTombe, sprtChemin, sprtTour, sprtTpG, sprtTpD,sprtPp_dmg,sprtPp_vie,sprtSd, sprtPf, sprtMais;
 	Font fI;
 	Text interactTp,inetractPnj;
+
 	vector <string>vM;
 	vector<unique_ptr<RectangleShape>>vMur;
 	vector<unique_ptr<RectangleShape>>vSol;

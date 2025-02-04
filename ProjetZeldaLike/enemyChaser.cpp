@@ -1,34 +1,57 @@
 #include "enemyChaser.h"
 
-void Chaser::update(float deltaTime)
+Chaser::Chaser(int health, int damage, float speed, Vector2f pos) : Enemy(health, damage, speed, pos) 
 {
+    if (!textureWalk.loadFromFile("Assets/Flam/SeparateAnim/Walk.png")) {
+        throw std::runtime_error("Erreur de chargement de la texture");
+    }
+    if (!textureAttack.loadFromFile("Assets/Flam/SeparateAnim/Attack.png")) {
+        throw std::runtime_error("Erreur de chargement de la texture");
+    }
+
+    sprite.setTexture(textureWalk);
+    sprite.setScale(Vector2f(4, 4));
 }
 
-void Chaser::attack(Player& player_)
+void Chaser::update(float deltaTime, Player& p)
 {
-    // si dans le cercle
-    player_.setHealth(player_.getHealth() - damage);
-    player_.getSprite().setColor(Color::Red);
-
-    //enlever la couleur rouge apres 0.3 seconde
+    movement(deltaTime, p);
+    attack(deltaTime, p);
+    animationUpdate(deltaTime);
+    stuntManager(deltaTime);
 }
 
-void Chaser::takeHit(int damage)
-{
-	health += -damage;
-	sprite.setFillColor(Color::Red);
-}
-
-void Chaser::movement(Player& p)
+void Chaser::movement(float deltaTime, Player& p)
 {
     Vector2f pPos = p.getPos();
-    float angle1 = atan2(pos.y, pos.x);
-    float angle2 = atan2(pPos.y, pPos.x);
 
-    float angleDiff = fabs(angle1 - angle2);
+    float angle = atan2(pPos.y - pos.y, pPos.x - pos.x);
 
-    float cosValue = cos(angleDiff);
-    float sinValue = sin(angleDiff);
+    float dx = cos(angle) * speed * deltaTime;
+    float dy = sin(angle) * speed * deltaTime;
 
-    setPos(Vector2f(pos.x + (sinValue * speed), pos.y + (cosValue * speed)));
+    if (abs(dx) < abs(dy)) {
+        if (dy > 0) { orientation = 180; }
+        else { orientation = 0; }
+    }
+    else {
+        if (dx > 0) { orientation = 270; }
+        else { orientation = 90; }
+
+    }
+    if (canMove)
+    {
+        setPos(Vector2f(pos.x + dx, pos.y + dy));
+    }
+
+    if (stuntTime > 0)
+    {
+        setPos(Vector2f(pos.x - dx*3, pos.y - dy*3));
+    }
 }
+
+
+
+
+
+

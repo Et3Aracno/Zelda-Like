@@ -1,9 +1,10 @@
 #include <iostream>
-
 #include <vector>
 #define _USE_MATH_DEFINES
 #include <math.h>
+
 #include "player.h"
+#include "enemy.h"
 #include <SFML/Graphics/View.hpp>
 
 using namespace sf;
@@ -11,7 +12,6 @@ using namespace std;
 
 Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s, p) 
 {
-
     if (!textureWalk.loadFromFile("Assets/GladiatorBlue/SeparateAnim/Walk.png")) {
         throw std::runtime_error("Erreur de chargement de la texture");
     }
@@ -21,18 +21,21 @@ Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s
     if (!textureAttack.loadFromFile("Assets/GladiatorBlue/SeparateAnim/Attack.png")) {
         throw std::runtime_error("Erreur de chargement de la texture");
     }
+    if (!weapon1.loadFromFile("Assets/Lance/SpriteInHand.png")) {
+        throw std::runtime_error("Erreur de chargement de la texture");
+    }
 
     sprite.setTexture(textureIdle);
     sprite.setScale(Vector2f(4, 4));
+
+    weaponSprite.setTexture(weapon1);
+    weaponSprite.setScale(Vector2f(4, 4));
 }
 
-void Player::update(float deltaTime, vector<Player> p)
+void Player::update(float deltaTime, vector<Enemy*> p)
 {
     move(deltaTime);
-    if (Mouse::isButtonPressed(Mouse::Left))
-    {
-        attack(p);
-    }
+    attack(deltaTime, p);
     animationUpdate(deltaTime);
 }
 
@@ -49,10 +52,16 @@ void Player::animationUpdate(float deltaTime)
 
     if (isMoving) { animState = "Walk"; }
     else { animState = "Idle"; }
-    if (Mouse::isButtonPressed(Mouse::Left))
+    if (Mouse::isButtonPressed(Mouse::Left) && timeSinceLastAttack < attackDuration)
     {
         animState = "Attack";
+        attackstate = true;
     }
+    else
+    {
+        attackstate =false;
+    }
+
     
     
 
@@ -100,29 +109,31 @@ bool isGoingDiagonal()
 
 void Player::move(float deltaTime)
 {
-    bool isDiagonal = isGoingDiagonal();
-    float isDiagonalMultiplier = 1;
+    if (canMove) {
+        bool isDiagonal = isGoingDiagonal();
+        float isDiagonalMultiplier = 1;
 
-    if (isDiagonal)
-    {
-        isDiagonalMultiplier = 1 / sqrt(2);
-    }
+        if (isDiagonal)
+        {
+            isDiagonalMultiplier = 1 / sqrt(2);
+        }
 
-    if (Keyboard::isKeyPressed(sf::Keyboard::Z)) {
-        setPos(Vector2f(getPos().x, getPos().y - getSpeed() * deltaTime * isDiagonalMultiplier));
-        setOrientation(270);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        setPos(Vector2f(getPos().x, getPos().y + getSpeed() * deltaTime * isDiagonalMultiplier));
-        setOrientation(90);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-        setPos(Vector2f(getPos().x - getSpeed() * deltaTime * isDiagonalMultiplier, getPos().y));
-        setOrientation(180);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        setPos(Vector2f(getPos().x + getSpeed() * deltaTime * isDiagonalMultiplier, getPos().y));
-        setOrientation(0);
+        if (Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+            setPos(Vector2f(getPos().x, getPos().y - getSpeed() * deltaTime * isDiagonalMultiplier));
+            setOrientation(270);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            setPos(Vector2f(getPos().x, getPos().y + getSpeed() * deltaTime * isDiagonalMultiplier));
+            setOrientation(90);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+            setPos(Vector2f(getPos().x - getSpeed() * deltaTime * isDiagonalMultiplier, getPos().y));
+            setOrientation(180);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            setPos(Vector2f(getPos().x + getSpeed() * deltaTime * isDiagonalMultiplier, getPos().y));
+            setOrientation(0);
+        }
     }
 }
 
@@ -144,40 +155,81 @@ bool isInside(Vector2f edges[4], Vector2f posPoint) {
     return count % 2 == 1;
 }
 
-void Player::attack(vector<Player> ennemy)
+void Player::attack(float deltaTime, vector<Enemy*> ennemy)
 {
-    float attackSize = 30;
-    float radO = getOrientation() * (M_PI / 180);
-    Vector2f pPos = getPos();
-    Vector2f attackHitBox[4] =
+    timeSinceLastAttack += deltaTime;
+    if (timeSinceLastAttack > attackDuration)
     {
-        Vector2f(pPos.x + (sin(radO) * attackSize), pPos.y - (cos(radO) * attackSize)),
-        Vector2f(pPos.x - (sin(radO) * attackSize), pPos.y + (cos(radO) * attackSize)),
-        Vector2f((pPos.x + (cos(radO) * 100)) - (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) + (cos(radO) * attackSize)),
-        Vector2f((pPos.x + (cos(radO) * 100)) + (sin(radO) * attackSize), (pPos.y + (sin(radO) * 100)) - (cos(radO) * attackSize))
-    };
+        canMove = true;
 
-    for (auto e : ennemy)
-    {
-        if (isInside(attackHitBox, e.getPos()))
-        {
-            //e.takeHit(getDamage());
+        if (timeSinceLastAttack > attackDuration + attackDelay) {
+            if (Mouse::isButtonPressed(Mouse::Left))
+            {
+                timeSinceLastAttack = 0;
+                canMove = false;
+
+                float radO = getOrientation() * (M_PI / 180);
+                Vector2f pPos = getPos();
+                Vector2f attackHitBox[4] =
+                {
+                    Vector2f(pPos.x + (sin(radO) * attackSize), pPos.y - (cos(radO) * attackSize)),
+                    Vector2f(pPos.x - (sin(radO) * attackSize), pPos.y + (cos(radO) * attackSize)),
+                    Vector2f((pPos.x + (cos(radO) * attackRange)) - (sin(radO) * attackSize), (pPos.y + (sin(radO) * attackRange)) + (cos(radO) * attackSize)),
+                    Vector2f((pPos.x + (cos(radO) * attackRange)) + (sin(radO) * attackSize), (pPos.y + (sin(radO) * attackRange)) - (cos(radO) * attackSize))
+                };
+
+                for (auto e : ennemy)
+                {
+                    cout << e->getHealth() << endl;
+                    if (isInside(attackHitBox, e->getPos()))
+                    {
+                        e->takeHit(getDamage());
+                        e->giveStunt(100.f);
+                    }
+                }
+            }
         }
     }
 }
 
 void Player::usePowerUp()
 {
+    if (buff)
+    {
+        setDamage(3);
+        sprite.setColor(Color::Blue);
+    }
 }
 
 void Player::draw(RenderWindow& window, View& view)
 {
     sprite.setPosition(getPos());
+    weaponSprite.setPosition(Vector2f(getPos().x + 8*sprite.getScale().x, getPos().y + 8 * sprite.getScale().x));
+
+    weaponSprite.setRotation(orientation - 90);
+    setWeaponOrientation();
+
     view.setCenter(getPos());
     window.draw(sprite);
+    if (animState == "Attack") {
+        window.draw(weaponSprite);
+    }
 }
 
-Sprite Player::getSprite()
+Sprite& Player::getSprite()
 {
     return sprite;
 }
+
+void Player::setWeaponOrientation()
+{
+    if (orientation == 0 || orientation == 90)
+    {
+        weaponSprite.setOrigin(Vector2f(6, -8));
+    }
+    if (orientation == 180 || orientation == 270)
+    {
+        weaponSprite.setOrigin(Vector2f(-1, -8));
+    }
+}
+

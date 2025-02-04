@@ -1,53 +1,90 @@
 #include "enemyPatrol.h"
 
-float X = 0.1f;
-float Y = 0.1f;
+bool touch = false;
 
-void Patroler::draw(RenderWindow& game)
-{
-	game.draw(sprite);
-}
 
-void Patroler::update(float deltaTime)
+Patroler::Patroler(int health, int damage, float speed, Vector2f pos, int iD) : Enemy(health, damage, speed, pos)
 {
-}
-
-void Patroler::movementHOR(int x, int y)
-{
-	sprite.move(X, 0);
-	if (sprite.getPosition().x > 600)
-	{
-		X = -0.1f;
+	if (!textureWalk.loadFromFile("Assets/Flam/SeparateAnim/Walk.png")) {
+		throw std::runtime_error("Erreur de chargement de la texture (Patroler)");
+	}
+	if (!textureAttack.loadFromFile("Assets/Flam/SeparateAnim/Attack.png")) {
+		throw std::runtime_error("Erreur de chargement de la texture (Patroler)");
 	}
 
-	if (sprite.getPosition().x < 300)
-	{
-		X = 0.1f;
-	}
+	sprite.setTexture(&textureWalk);
+	sprite.setScale(Vector2f(4, 4));
+	
+	intDir = iD;
 }
 
-void Patroler::movementVER(int x, int y)
+void Patroler::update(float deltaTime, Player& p)
 {
-	sprite.move(0, Y);
-
-	if (sprite.getPosition().y < 300)
-	{
-		Y = 0.1f;
+	if (intDir == 0) {
+		moveHor3s(deltaTime);
 	}
-
-	if (sprite.getPosition().y > 600)
+	else
 	{
-		Y = -0.1f;
+		moveVer3s(deltaTime);
 	}
+	attack(deltaTime, p);
+	animationUpdate(deltaTime);
+	stuntManager(deltaTime);
 }
 
-void Patroler::attack(Player& player_)
+void Patroler::moveHor3s(float deltaTime)
 {
+	timeSinceLastDirectionChange += deltaTime;
 
+	if (timeSinceLastDirectionChange >= 3000.0)
+	{
+		moveleft = !moveleft;
+		timeSinceLastDirectionChange = 0;
+	}
+
+	if (moveleft)
+	{
+		pos.x -= 1.0f;
+		orientation = 90;
+	}
+	else
+	{
+		pos.x += 1.0f;
+		orientation = 180;
+	}
 }
 
-void Patroler::takeHit(int damage)
+
+void Patroler::moveVer3s(float deltaTime)
+{
+	timeSinceLastDirectionChange += deltaTime;
+
+	if (timeSinceLastDirectionChange >= 3000.0)
+	{
+		moveup = !moveup;
+		timeSinceLastDirectionChange = 0;
+	}
+
+	if (moveup)
+	{
+		pos.y -= 1.0f;
+		orientation = 0;
+	}
+	else
+	{
+		pos.y += 1.0f;
+		orientation = 270;
+	}
+}
+
+void Patroler::hitColor()
 {
 	health += -damage;
 	sprite.setFillColor(Color::Red);
+	clockHit.restart();
+	getHit = true;
 }
+
+
+
+

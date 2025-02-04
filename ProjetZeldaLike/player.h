@@ -1,16 +1,23 @@
 #pragma once
 #include <iostream>
 #include <vector>
+
 #include "Entity.h"
+
 #include <math.h>
+
+class Enemy;
 
 class Player : public Entity
 {
 private:
 	void move(float deltaTime);
-	void attack(vector<Player> ennemy); //changer player to enemy
-	void usePowerUp();
+
+	void attack(float deltaTime, vector<Enemy*> ennemy);
 	void animationUpdate(float deltaTime);
+
+	Texture weapon1;
+	Sprite weaponSprite;
 
 	Texture textureWalk;
 	Texture textureIdle;
@@ -24,15 +31,31 @@ private:
 	float frameDuration = 100.0f;
 	float timer = 0;
 
+
+
 	string animState = "Idle";
 	string animStateBackup = "Idle";
 	bool isMoving = false;
 
+	float attackDuration = 100.0f;
+	float attackDelay = 500.0f;
+	int attackRange = 140;
+	float attackSize = 60;
+	float timeSinceLastAttack = 0;
+	bool canMove = true;
+
 public:
+	bool attackstate = false;
+
 	Player(int health, int dmg, float s, Vector2f p);
-	void update(float deltaTime, vector<Player> p);
 
 	void draw(RenderWindow& window, View& view);
 
-	Sprite getSprite();
+	bool buff = true;
+	void usePowerUp();
+	void update(float deltaTime, vector<Enemy*> p);
+
+	Sprite& getSprite();
+	void setWeaponOrientation();
+
 };

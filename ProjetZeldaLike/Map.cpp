@@ -118,9 +118,9 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 		}
 	}
 	catch (const exception& e){
-		cout << "Problème détecter : " << e.what() << endl;
+		cout << "ProblÃ¨me dÃ©tecter : " << e.what() << endl;
 	}
-	//clear les vecteurs si la map à changer
+	//clear les vecteurs si la map Ã  changer
 	if (cMap == true) {
 		//vSol.clear();
 		//vMur.clear();
@@ -548,7 +548,7 @@ void Map::eDonj(Player& p, View& v, string& currentMap) {
 		}
 	}
 
-	//si on a pas utilisé le tp alors la map actuel reste la meme 
+	//si on a pas utilisÃ© le tp alors la map actuel reste la meme 
 	if (currentMap != "Assets/hub.txt" and currentMap != "Assets/donjon.txt") {
 		currentMap = "Assets/hub.txt";
 		initM(currentMap);
