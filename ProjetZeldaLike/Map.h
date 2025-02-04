@@ -9,6 +9,8 @@
 #include<SFML/Audio.hpp>
 #include "enemyChaser.h"
 #include "enemyPatrol.h"
+#include "Boss.h"
+#include "potionDMG.h"
 
 using namespace std;
 using namespace sf;
@@ -39,7 +41,7 @@ public:
 	void tpTxt(Player& p);
 	void pnjTxt(Player& p);
 	void eDonj(Player& p, View& v, string &currentMap);
-
+	void DialPnj(Player& p);
 
 	RenderWindow& window;//ajouter �a dans le game pour appeler la window et commencer la boucle de jeux  Map map; /*map.initM(); while (map.window) {}*/
 	Texture txtArbre, txtSext, txtTour, txtPnj, txtTombe, txtChemin, txtMu, txtS, txtP, txtKeyB, txtTpG, txtTpD,txtPp_dmg, txtPp_vie,txtSd, txtPf,txtMais;

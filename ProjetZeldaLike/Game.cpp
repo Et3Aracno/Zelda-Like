@@ -1,11 +1,6 @@
 #include "Game.h"
 #include <SFML/System/Clock.hpp>
 
-#include "enemyPatrol.h"
-#include "enemyChaser.h"
-#include "Boss.h"
-#include "potionDMG.h"
-
 
 Game::Game()
 {

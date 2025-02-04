@@ -473,7 +473,7 @@ void Map::tpTxt(Player& p) {
 void Map::pnjTxt(Player& p) {
 	for (auto& pnj : vPnj) {
 			inetractPnj.setPosition(vPnj[0]->getPosition().x+30, vPnj[0]->getPosition().y-30);
-			interactTp.setPosition(vPnj[0]->getPosition().x + 30 , vPnj[0]->getPosition().y);
+			interactTp.setPosition(vPnj[0]->getPosition().x + 28 , vPnj[0]->getPosition().y+25);
 		if (p.getSprite().getGlobalBounds().intersects(pnj->getGlobalBounds())) {
 
 			if (p.getPos().x > pnj->getPosition().x) {
@@ -495,14 +495,19 @@ void Map::pnjTxt(Player& p) {
 			}
 			
 			
-
-			window.draw(interactTp);
 		}
 		if (iPNJ != true) {
 		window.draw(inetractPnj);
 		}
-		
+		/*if () {
+			window.draw(interactTp);
+
+		}
+		*/
 	}
+
+}
+void Map::DialPnj(Player& p) {
 
 }
 void Map::updatemap(View& v, Player& p) {
