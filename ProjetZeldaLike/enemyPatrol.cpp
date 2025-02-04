@@ -90,7 +90,7 @@ void Patroler::hitColor()
 	clockHit.restart();
 	getHit = true;
 }
-Sprite& Patroler::getSprite()
+RectangleShape& Patroler::getSprite()
 {
 	return sprite;
 }

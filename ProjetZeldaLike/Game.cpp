@@ -7,18 +7,19 @@ Game::Game()
 	view.setSize(Vector2f(1920, 1080));
 	view.zoom(0.5f);
 	window.setView(view);
+	
 }
 
 void Game::run()
 {
 	RenderWindow window = RenderWindow(VideoMode(1920, 1080), "zelda");
 	window.setFramerateLimit(60);
-
+	
 	//PotionDMG pot({ 90,90 });
 	Player player(100, 50, 0.35f, Vector2f(1548, 883));
 	EnemyManager enemyManager;
 	Boss boss(1000, 10, 0.1f, Vector2f(300, 300));
-
+	
 
 	Map mapp(window);
 	mapp.initall();

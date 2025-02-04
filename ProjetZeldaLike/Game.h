@@ -21,6 +21,5 @@ public:
 	float deltaTime;
 	Game();
 
-
 	void run();
 };
