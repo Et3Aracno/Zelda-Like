@@ -17,12 +17,12 @@ private:
 	void animationUpdate(float deltaTime);
 
 	Texture weapon1;
-	Sprite weaponSprite;
+	Sprite  weaponSprite;
 
 	Texture textureWalk;
 	Texture textureIdle;
 	Texture textureAttack;
-	Sprite sprite;
+	Sprite  sprite;
 
 	int frameHeight = 16;
 	int frameWidth = 16;

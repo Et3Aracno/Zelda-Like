@@ -357,7 +357,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 						solext->setTexture(&txtSext);
 						solext->setPosition(j * Width, i * Height);
 						vSol.emplace_back(move(solext));
-						p.getSprite().setScale(j * 67, i * 54);
+						p.getSprite().setScale(2.f, 2.f);
 					}
 					else if (currentMap == "Assets/donjon.txt") {
 						auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
@@ -365,11 +365,12 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 						soldj->setTexture(&txtSd);
 						soldj->setPosition(j * 67, i * 56);
 						vSol.emplace_back(move(soldj));
-						p.getSprite().setScale(j * 41, i * 35);
+						p.getSprite().setScale(2.f, 2.f);
 					}
 					
 
-					p.setPos(Vector2f(j * Width, i * Height));
+					p.setPos(Vector2f(j* Width, i* Height));
+					p.getSprite().setPosition(p.getPos());
 					break;
 				}
 				default: { //vide donjon
