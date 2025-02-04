@@ -26,6 +26,7 @@ public:
 	float attackDuration = 1000.0f;
 	float timeSinceLastAttack = 0;
 	bool canMove = true;
+	bool isPlayerRed = false;
 
 	float stuntTime = 0;
 

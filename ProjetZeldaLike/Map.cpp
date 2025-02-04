@@ -370,7 +370,6 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 					
 
 					p.setPos(Vector2f(j* Width, i* Height));
-					p.setSpeed(0.35f);
 					break;
 				}
 				default: { //vide donjon

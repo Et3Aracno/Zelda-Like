@@ -20,12 +20,8 @@ void Game::run()
 	window.setFramerateLimit(60);
 
 	//PotionDMG pot({ 90,90 });
-	Player player(100, 50, 0.35f, Vector2f(0, 0));
-
-	vector<Enemy*> enemyList;
-	vector<Enemy*> enemyListTemp;
-	enemyList.push_back(new Chaser(100, 1, 0.20f, Vector2f(200, 200)));
-	enemyList.push_back(new Patroler(100, 1, 0.2f, Vector2f(500, 400), 1));
+	Player player(100, 50, 0.35f, Vector2f(1548, 883));
+	EnemyManager enemyManager;
 	Boss boss(1000, 10, 0.1f, Vector2f(300, 300));
 
 	Map mapp(window);
@@ -44,33 +40,18 @@ void Game::run()
 
 		window.clear();
 
-		player.update(deltaTime, enemyList);
-
-		enemyListTemp.clear();
-		for (auto e : enemyList) {
-			e->update(deltaTime, player);
-			if (!(e->isDead && e->sprite.getColor().a <= 2))
-			{
-				enemyListTemp.push_back(e);
-			}
-		}
-		enemyList = enemyListTemp;
-
+		player.update(deltaTime, enemyManager.getEnemyList());
+		enemyManager.update(deltaTime, player);
 		boss.update(deltaTime, player);
-
 
 		mapp.eDonj(player,view,currentMap);
 		mapp.DrawM(player, view,currentMap);
 
 		player.draw(window, view);
-
-		for (auto& e : enemyList) {
-			e->draw(window, view);
-		}
+		enemyManager.draw(window, view);
 		boss.draw(window, view);
 		
 		window.setView(view);
 		window.display();
-		cout << player.getPos().x << ", " << player.getPos().y << endl;
 	}
 }

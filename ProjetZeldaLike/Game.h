@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Map.h"
+#include "EnemyManager.h"
 
 using namespace std;
 using namespace sf;
