@@ -21,6 +21,9 @@ void Map::initTxt() {
 	if (!txtP.loadFromFile("Assets/porte open.png")) {
 		cout << "Erreur de chargement de la porte open" << endl;
 	}
+	if (!txtPf.loadFromFile("Assets/porte close.png")) {
+		cout << "Erreur de chargement de la porte fermer" << endl;
+	}
 	if (!txtSext.loadFromFile("Assets/sol ext (2).png")) {
 		cout << "Erreur de chargement du sol ext" << endl;
 	}
@@ -53,6 +56,7 @@ void Map::initSprt() {
 	sprtTour.setTexture(txtTour);
 	sprtKeyB.setTexture(txtKeyB);
 	sprtP.setTexture(txtP);
+	sprtPf.setTexture(txtP);
 	sprtSext.setTexture(txtSext);
 	sprtChemin.setTexture(txtChemin);
 	sprtTpG.setTexture(txtTpG);
@@ -230,42 +234,42 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 
 
 				}
-				//case'':
-				//{//popo dmg
-				//	auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
-				//	solext->setPosition(Vector2f(67 * j, 54 * i));
-				//	solext->setTexture(&txtSext);
-				//	solext->setPosition(j * Width, i * Height);
-				//	vSol.emplace_back(move(solext));
+				case'd':
+				{//popo dmg
+					auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
+					soldj->setPosition(Vector2f(67 * j, 56 * i));
+					soldj->setTexture(&txtSd);
+					soldj->setPosition(j * 67, i * 56);
+					vSol.emplace_back(move(soldj));
 
 
-				//	auto pp_dmg = make_unique<RectangleShape>(Vector2f(67, 54));
-				//	pp_dmg->setPosition(Vector2f(67 * j, 54 * i));
-				//	pp_dmg->setTexture(&txtPp_dmg);
-				//	pp_dmg->setPosition(j * Width, i * Height);
-				//	vTp.emplace_back(move(pp_dmg));
-				//	break;
+					auto pp_dmg = make_unique<RectangleShape>(Vector2f(67, 54));
+					pp_dmg->setPosition(Vector2f(67 * j, 54 * i));
+					pp_dmg->setTexture(&txtPp_dmg);
+					pp_dmg->setPosition(j * Width, i * Height);
+					vTp.emplace_back(move(pp_dmg));
+					break;
 
 
-				//}
-				//case'':
-				//{//popo vie
-				//	auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
-				//	solext->setPosition(Vector2f(67 * j, 54 * i));
-				//	solext->setTexture(&txtSext);
-				//	solext->setPosition(j * Width, i * Height);
-				//	vSol.emplace_back(move(solext));
+				}
+				case'V':
+				{//popo vie
+				auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
+				soldj->setPosition(Vector2f(67 * j, 56 * i));
+				soldj->setTexture(&txtSd);
+				soldj->setPosition(j * 67, i * 56);
+				vSol.emplace_back(move(soldj));
 
 
-				//	auto pp_vie = make_unique<RectangleShape>(Vector2f(67, 54));
-				//	pp_vie->setPosition(Vector2f(67 * j, 54 * i));
-				//	pp_vie->setTexture(&txtPp_vie);
-				//	pp_vie->setPosition(j * Width, i * Height);
-				//	vTp.emplace_back(move(pp_vie));//changer le vecteur pour les popo
-				//	break;
+				auto pp_vie = make_unique<RectangleShape>(Vector2f(67, 54));
+				pp_vie->setPosition(Vector2f(67 * j, 54 * i));
+				pp_vie->setTexture(&txtPp_vie);
+				pp_vie->setPosition(j * Width, i * Height);
+				vTp.emplace_back(move(pp_vie));//changer le vecteur pour les popo
+				break;
 
 
-				//}
+				}
 				case 'h':
 				{ //mur donjon
 
@@ -280,9 +284,26 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 				{ //porte donjon
 					auto porte = make_unique<RectangleShape>(Vector2f(67, 56));
 					porte->setPosition(Vector2f(67 * j, 56 * i));
-					porte->setTexture(&txtP);
+					porte->setTexture(&txtPf);
 					porte->setPosition(j * 67, i * 56);
-					vTp.emplace_back(move(porte));
+					dD.emplace_back(move(porte));
+					break;
+
+
+				}
+				case 'K':
+				{ //clef donjon
+					auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
+					soldj->setPosition(Vector2f(67 * j, 56 * i));
+					soldj->setTexture(&txtSd);
+					soldj->setPosition(j * 67, i * 56);
+					vSol.emplace_back(move(soldj));
+
+					auto Key = make_unique<RectangleShape>(Vector2f(67, 56));
+					Key->setPosition(Vector2f(67 * j, 56 * i));
+					Key->setTexture(&txtKeyB);
+					Key->setPosition(j * 67, i * 56);
+					vKey.emplace_back(move(Key));
 					break;
 
 
@@ -377,6 +398,47 @@ void Map::coliM(Player& p) {
 	}
 	
 }
+void Map::coliKey(Player& p){
+	for (auto& key : vKey) {
+		if (p.getSprite().getGlobalBounds().intersects(key->getGlobalBounds())) {
+			Keyrecup = true;
+		}
+		
+	}
+
+}
+void Map::coliD(Player& p) {
+		for (auto& portef : dD) {
+			if (Keyrecup != true) {
+				if (p.getSprite().getGlobalBounds().intersects(portef->getGlobalBounds())) {
+
+					if (p.getPos().x > portef->getPosition().x) { //coli porte gauche
+						p.setPos(Vector2f(p.getPos().x + 3, p.getPos().y));
+
+					}
+
+					if (p.getPos().x < portef->getPosition().x) {//coli porte droit
+						p.setPos(Vector2f(p.getPos().x - 3, p.getPos().y));
+
+					}
+					if (p.getPos().y > portef->getPosition().y) {//coli porte du bas
+						p.setPos(Vector2f(p.getPos().x, p.getPos().y + 3));
+
+					}
+					if (p.getPos().y < portef->getPosition().y) {//coli porte haut
+						p.setPos(Vector2f(p.getPos().x, p.getPos().y - 3));
+
+					}
+
+
+				}
+			}
+			else if (Keyrecup == true) {
+				portef->setTexture(&txtP);
+			}
+		}
+
+}
 void Map::tpTxt(Player& p) {
 	for (auto& tp : vTp) {
 		if (tp->getGlobalBounds().intersects(p.getSprite().getGlobalBounds())) {
@@ -421,7 +483,8 @@ void Map::pnjTxt(Player& p) {
 
 }
 void Map::updatemap(View& v, Player& p) {
-	
+	coliKey(p);
+	coliD(p);
 	for (auto& sol : vSol) {
 		window.draw(*sol);
 	}
@@ -437,7 +500,15 @@ void Map::updatemap(View& v, Player& p) {
 	for (auto& tp : vTp) {
 		window.draw(*tp);
 	}
-	//pnjTxt(p);
+	for (auto& porte : dD) {
+		window.draw(*porte);
+	}
+	if(Keyrecup!= true){
+		for (auto& key : vKey) {
+			window.draw(*key);
+		}
+	}
+	
 	tpTxt(p);
 	pnjTxt(p);
 	coliM(p);

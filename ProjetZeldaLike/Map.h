@@ -22,7 +22,7 @@ public:
 
 
 	Map(RenderWindow& w);
-	bool bTp = false;
+	bool Keyrecup = false;
 	Clock clock;
 	float deltaTime = clock.restart().asMicroseconds();
 	void initTxt();
@@ -34,13 +34,15 @@ public:
 	void initall();
 	void updatemap(View& v, Player& p);
 	void coliM(Player& p);
+	void coliD(Player& p);
+	void coliKey(Player& p);
 	void tpTxt(Player& p);
 	void pnjTxt(Player& p);
 	void eDonj(Player& p, View& v, string &currentMap);
 
 	RenderWindow& window;//ajouter ça dans le game pour appeler la window et commencer la boucle de jeux  Map map; /*map.initM(); while (map.window) {}*/
-	Texture txtArbre, txtSext, txtTour, txtPnj, txtTombe, txtChemin, txtMu, txtS, txtP, txtKeyB, txtTpG, txtTpD,txtPp_dmg, txtPp_vie,txtSd;
-	Sprite sprtMu, sprtS, sprtP, sprtKeyB, sprtArbre, sprtSext, sprtPnj, sprtTombe, sprtChemin, sprtTour, sprtTpG, sprtTpD,sprtPp_dmg,sprtPp_vie,sprtSd;
+	Texture txtArbre, txtSext, txtTour, txtPnj, txtTombe, txtChemin, txtMu, txtS, txtP, txtKeyB, txtTpG, txtTpD,txtPp_dmg, txtPp_vie,txtSd, txtPf;
+	Sprite sprtMu, sprtS, sprtP, sprtKeyB, sprtArbre, sprtSext, sprtPnj, sprtTombe, sprtChemin, sprtTour, sprtTpG, sprtTpD,sprtPp_dmg,sprtPp_vie,sprtSd, sprtPf;
 	Font fI;
 	Text interactTp,inetractPnj;
 	vector <string>vM;
@@ -48,8 +50,10 @@ public:
 	vector<unique_ptr<RectangleShape>>vSol;
 	vector<unique_ptr<RectangleShape>>vPorte;
 	vector<unique_ptr<RectangleShape>>vTp;
+	vector<unique_ptr<RectangleShape>>dD;
 	vector <unique_ptr<Chaser>>vC;
 	vector <unique_ptr<Patroler>>vP;
 	vector <unique_ptr<Player>>vE;
 	vector <unique_ptr<RectangleShape>>vPnj;
+	vector <unique_ptr<RectangleShape>>vKey;
 };
