@@ -535,8 +535,6 @@ void Map::updatemap(View& v, Player& p) {
 	tpTxt(p);
 	pnjTxt(p);
 	coliM(p);
-
-	p.draw(window, v);
 }
 void Map::eDonj(Player& p, View& v, string& currentMap) {
 	for (auto& tp : vTp) {

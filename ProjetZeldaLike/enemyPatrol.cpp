@@ -11,6 +11,9 @@ Patroler::Patroler(int health, int damage, float speed, Vector2f pos, int iD) : 
 	if (!textureAttack.loadFromFile("Assets/Flam/SeparateAnim/Attack.png")) {
 		throw std::runtime_error("Erreur de chargement de la texture (Patroler)");
 	}
+	if (!textureDead.loadFromFile("Assets/Flam/SeparateAnim/Dead.png")) {
+		throw std::runtime_error("Erreur de chargement de la texture (chaser dead)");
+	}
 
 	sprite.setTexture(&textureWalk);
 	sprite.setScale(Vector2f(4, 4));
@@ -20,16 +23,19 @@ Patroler::Patroler(int health, int damage, float speed, Vector2f pos, int iD) : 
 
 void Patroler::update(float deltaTime, Player& p)
 {
-	if (intDir == 0) {
-		moveHor3s(deltaTime);
-	}
-	else
+	if (!isDead)
 	{
-		moveVer3s(deltaTime);
+		if (intDir == 0) {
+			moveHor3s(deltaTime);
+		}
+		else
+		{
+			moveVer3s(deltaTime);
+		}
+		attack(deltaTime, p);
+		stuntManager(deltaTime);
 	}
-	attack(deltaTime, p);
 	animationUpdate(deltaTime);
-	stuntManager(deltaTime);
 }
 
 void Patroler::moveHor3s(float deltaTime)

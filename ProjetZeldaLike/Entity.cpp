@@ -7,7 +7,7 @@ Entity::Entity(int pv, int dmg,float s, Vector2f p)
 	health = pv;
 	damage = dmg;
 	speed = s;
-	Vector2f pos = p;
+	pos = p;
 }
 
 void Entity::setPos(Vector2f p)

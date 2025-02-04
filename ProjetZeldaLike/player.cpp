@@ -12,17 +12,22 @@ using namespace std;
 
 Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s, p) 
 {
-    if (!textureWalk.loadFromFile("Assets/GladiatorBlue/SeparateAnim/Walk.png")) {
-        throw std::runtime_error("Erreur de chargement de la texture");
+    try {
+        if (!textureWalk.loadFromFile("Assets/GladiatorBlue/SeparateAnim/Walk.png")) {
+            throw std::runtime_error("Erreur de chargement de la texture (player walk)");
+        }
+        if (!textureIdle.loadFromFile("Assets/GladiatorBlue/SeparateAnim/Idle.png")) {
+            throw std::runtime_error("Erreur de chargement de la texture (player idle)");
+        }
+        if (!textureAttack.loadFromFile("Assets/GladiatorBlue/SeparateAnim/Attack.png")) {
+            throw std::runtime_error("Erreur de chargement de la texture (player attack)");
+        }
+        if (!weapon1.loadFromFile("Assets/Lance/SpriteInHand.png")) {
+            throw std::runtime_error("Erreur de chargement de la texture (player lance)");
+        }
     }
-    if (!textureIdle.loadFromFile("Assets/GladiatorBlue/SeparateAnim/Idle.png")) {
-        throw std::runtime_error("Erreur de chargement de la texture");
-    }
-    if (!textureAttack.loadFromFile("Assets/GladiatorBlue/SeparateAnim/Attack.png")) {
-        throw std::runtime_error("Erreur de chargement de la texture");
-    }
-    if (!weapon1.loadFromFile("Assets/Lance/SpriteInHand.png")) {
-        throw std::runtime_error("Erreur de chargement de la texture");
+    catch (const exception& e){
+        cout << "Probleme detecte : " << e.what() << endl;
     }
 
     sprite.setTexture(textureIdle);
@@ -61,10 +66,6 @@ void Player::animationUpdate(float deltaTime)
     {
         attackstate =false;
     }
-
-    
-    
-
 
     if (animState == "Idle")
     {

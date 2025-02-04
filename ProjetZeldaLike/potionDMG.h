@@ -9,7 +9,7 @@ public:
 	Texture potDMGtext;
 	PotionDMG(Vector2f pos) : ItemEntity(pos) {
 		if (!potDMGtext.loadFromFile("assets/potDMG.png")) {
-			cout << "Erreur de chargement de la texture!" << endl;
+			cout << "Erreur de chargement de la texture! (potDMG)" << endl;
 		}
 		potDMG.setPosition(pos);
 		potDMG.setTexture(potDMGtext);
