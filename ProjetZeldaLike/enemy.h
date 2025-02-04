@@ -10,6 +10,7 @@ class Enemy : public Entity
 public:
 	Texture textureWalk;
 	Texture textureAttack;
+	Texture textureDead;
 	Sprite sprite;
 
 	int frameHeight = 16;
@@ -27,6 +28,9 @@ public:
 	bool canMove = true;
 
 	float stuntTime = 0;
+
+	bool isDead = false;
+	float deadTime = 0;
 
 	Enemy(int health, int damage, float speed, Vector2f pos) : Entity(health, damage, speed, pos) {}
 

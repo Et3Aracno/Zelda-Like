@@ -34,13 +34,28 @@ void Enemy::takeHit(int damage)
 void Enemy::draw(RenderWindow& window, View& view)
 {
     sprite.setPosition(pos);
-    sprite.setTexture(textureWalk);
     window.draw(sprite);
 }
 
 void Enemy::animationUpdate(float deltaTime)
 {
-    if (animState == "Walk")
+    if (health <= 0 && animState != "Dead")
+    {
+        animState = "Dead";
+        frameCount = 1;
+        sprite.setTexture(textureDead);
+        sprite.setTextureRect(IntRect(Vector2i(0, 0), Vector2i(16, 16)));
+        isDead = true;
+        return;
+    }
+
+    if (animState == "Dead")
+    {
+        deadTime += deltaTime;
+        sprite.setColor(Color(255, 255, 255, 255 - int(deadTime) / 10));
+    }
+
+    else if (animState == "Walk")
     {
         frameCount = 4;
         sprite.setTexture(textureWalk);
