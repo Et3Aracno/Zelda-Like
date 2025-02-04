@@ -17,8 +17,12 @@ void Enemy::stuntManager(float deltaTime)
     else
     {
         stuntTime = 0;
-        canMove = true;
         sprite.setColor(Color::White);
+
+        if (timeSinceLastAttack > attackDuration) 
+        {
+            canMove = true;
+        }
     }
 }
 
@@ -75,10 +79,10 @@ void Enemy::attack(float deltaTime, Player& p)
         }
 
         animState = "Walk";
+
         p.getSprite().setColor(Color::White);
         if (abs(pPos.x - pos.x) + abs(pPos.y - pos.y) < 50)
         {
-            cout << "ATTACK" << endl;
             p.setHealth(p.getHealth() - damage);
             p.getSprite().setColor(Color::Red);
             animState = "Attack";

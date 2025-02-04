@@ -16,6 +16,9 @@ private:
 	void attack(float deltaTime, vector<Enemy*> ennemy);
 	void animationUpdate(float deltaTime);
 
+	Texture weapon1;
+	Sprite weaponSprite;
+
 	Texture textureWalk;
 	Texture textureIdle;
 	Texture textureAttack;
@@ -36,6 +39,8 @@ private:
 
 	float attackDuration = 100.0f;
 	float attackDelay = 500.0f;
+	int attackRange = 140;
+	float attackSize = 60;
 	float timeSinceLastAttack = 0;
 	bool canMove = true;
 
@@ -51,5 +56,6 @@ public:
 	void update(float deltaTime, vector<Enemy*> p);
 
 	Sprite& getSprite();
+	void setWeaponOrientation();
 
 };

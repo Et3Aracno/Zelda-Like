@@ -147,8 +147,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Map.h" />
     <ClCompile Include="enemy.cpp" />
