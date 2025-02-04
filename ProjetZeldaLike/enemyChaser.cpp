@@ -3,10 +3,13 @@
 Chaser::Chaser(int health, int damage, float speed, Vector2f pos) : Enemy(health, damage, speed, pos) 
 {
     if (!textureWalk.loadFromFile("Assets/Flam/SeparateAnim/Walk.png")) {
-        throw std::runtime_error("Erreur de chargement de la texture");
+        throw std::runtime_error("Erreur de chargement de la texture (chaser walk)");
     }
     if (!textureAttack.loadFromFile("Assets/Flam/SeparateAnim/Attack.png")) {
-        throw std::runtime_error("Erreur de chargement de la texture");
+        throw std::runtime_error("Erreur de chargement de la texture (chaser attack)");
+    }
+    if (!textureDead.loadFromFile("Assets/Flam/SeparateAnim/Dead.png")) {
+        throw std::runtime_error("Erreur de chargement de la texture (chaser dead)");
     }
 
     sprite.setTexture(textureWalk);
@@ -15,10 +18,14 @@ Chaser::Chaser(int health, int damage, float speed, Vector2f pos) : Enemy(health
 
 void Chaser::update(float deltaTime, Player& p)
 {
-    movement(deltaTime, p);
-    attack(deltaTime, p);
+    if (!isDead) 
+    {
+        movement(deltaTime, p);
+        attack(deltaTime, p);
+        stuntManager(deltaTime);
+    }
     animationUpdate(deltaTime);
-    stuntManager(deltaTime);
+    
 }
 
 void Chaser::movement(float deltaTime, Player& p)
