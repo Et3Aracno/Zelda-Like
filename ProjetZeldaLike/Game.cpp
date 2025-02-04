@@ -18,7 +18,7 @@ void Game::run()
 {
 	RenderWindow window = RenderWindow(VideoMode(1920, 1080), "zelda");
 	window.setFramerateLimit(60);
-
+	
 
 
 	//PotionDMG pot({ 90,90 });
@@ -34,7 +34,7 @@ void Game::run()
 	Map mapp(window);
 	mapp.initall();
 	mapp.initM(currentMap);
-	mapp.DrawM(player,view,currentMap);
+	mapp.DrawM(player, view, currentMap);
 	while (window.isOpen()) {
 		Event event;
 		while (window.pollEvent(event)) {
@@ -42,12 +42,18 @@ void Game::run()
 				window.close();
 		}
 		deltaTime = clock.restart().asMilliseconds();
+		window.clear();
+		window.setView(view);
+
+		mapp.eDonj(player, view, currentMap);
+		mapp.DrawM(player, view, currentMap);
 
 		//pot.draw(mapp.window);
 		//pot.itemEffect(player);
 
 		window.clear();
 		player.update(deltaTime, enemyList);
+
 
 		enemyListTemp.clear();
 		for (auto e : enemyList) {
@@ -58,15 +64,21 @@ void Game::run()
 			}
 		}
 		enemyList = enemyListTemp;
-	
+
 		boss.update(deltaTime, player);
 
 		mapp.eDonj(player,view,currentMap);
 		mapp.DrawM(player, view,currentMap);
+
 		
 
-
 		player.draw(window, view);
+
+		player.update(deltaTime, enemyList);
+		
+		
+		
+
 
 		for (auto& e : enemyList) {
 			e->draw(window, view);
