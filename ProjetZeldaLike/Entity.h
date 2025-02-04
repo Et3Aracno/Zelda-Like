@@ -31,4 +31,5 @@ public:
 	int getDamage();
 	void setHealth(int h);
 	int getHealth();
+	Sprite getSprite();
 };
