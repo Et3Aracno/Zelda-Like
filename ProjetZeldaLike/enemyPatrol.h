@@ -28,6 +28,6 @@ public:
 
 	void update(float deltaTime, Player& p);
 
-
+	Sprite& getSprite();
 	void hitColor();
 };

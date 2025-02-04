@@ -20,8 +20,6 @@ void Game::run()
 	Player player(100, 50, 0.35f, Vector2f(0, 0));
 	vector<Enemy*> enemyList;
 	vector<Enemy*> enemyListTemp;
-	enemyList.push_back(new Chaser(100, 1, 0.20f, Vector2f(200, 200)));
-	enemyList.push_back(new Patroler(100, 1, 0.2f, Vector2f(500, 400), 1));
 	Boss boss(1000, 10, 0.3f, Vector2f(300, 300));
 
 

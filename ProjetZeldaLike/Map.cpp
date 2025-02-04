@@ -253,8 +253,26 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 
 
 				}
-				case'd':
-				{//popo dmg
+				//case'd':
+				//{//popo dmg
+				//	auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
+				//	soldj->setPosition(Vector2f(67 * j, 56 * i));
+				//	soldj->setTexture(&txtSd);
+				//	soldj->setPosition(j * 67, i * 56);
+				//	vSol.emplace_back(move(soldj));
+
+
+				//	auto pp_dmg = make_unique<RectangleShape>(Vector2f(67, 54));
+				//	pp_dmg->setPosition(Vector2f(67 * j, 54 * i));
+				//	pp_dmg->setTexture(&txtPp_dmg);
+				//	pp_dmg->setPosition(j * Width, i * Height);
+				//	vTp.emplace_back(move(pp_dmg));
+				//	break;
+
+
+				//}
+				case '1':
+				{ //Patroler
 					auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
 					soldj->setPosition(Vector2f(67 * j, 56 * i));
 					soldj->setTexture(&txtSd);
@@ -262,33 +280,58 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 					vSol.emplace_back(move(soldj));
 
 
-					auto pp_dmg = make_unique<RectangleShape>(Vector2f(67, 54));
-					pp_dmg->setPosition(Vector2f(67 * j, 54 * i));
-					pp_dmg->setTexture(&txtPp_dmg);
-					pp_dmg->setPosition(j * Width, i * Height);
-					vTp.emplace_back(move(pp_dmg));
+
+					auto patrol = make_shared<Patroler>(100, 1, 0.20f,Vector2f(67, 56),0);
+					patrol->setPos(Vector2f(j * 67, i * 56));
+					vP.emplace_back(patrol);
 					break;
 
 
 				}
-				case'V':
-				{//popo vie
-				auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
-				soldj->setPosition(Vector2f(67 * j, 56 * i));
-				soldj->setTexture(&txtSd);
-				soldj->setPosition(j * 67, i * 56);
-				vSol.emplace_back(move(soldj));
+				case '2':
+				{ //Chaser
+					auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
+					soldj->setPosition(Vector2f(67 * j, 56 * i));
+					soldj->setTexture(&txtSd);
+					soldj->setPosition(j * 67, i * 56);
+					vSol.emplace_back(move(soldj));
 
-
-				auto pp_vie = make_unique<RectangleShape>(Vector2f(67, 54));
-				pp_vie->setPosition(Vector2f(67 * j, 54 * i));
-				pp_vie->setTexture(&txtPp_vie);
-				pp_vie->setPosition(j * Width, i * Height);
-				vTp.emplace_back(move(pp_vie));//changer le vecteur pour les popo
-				break;
+					auto chaser = make_shared<Chaser>(100, 1, 0.20f, Vector2f(67, 56));
+					chaser->setPos(Vector2f(67 *j, 56 * i));
+					vC.emplace_back(chaser);
+					break;
 
 
 				}
+				//case '3':
+				//{ //Boss
+				//	auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
+				//	soldj->setPosition(Vector2f(67 * j, 56 * i));
+				//	soldj->setTexture(&txtSd);
+				//	soldj->setPosition(j * 67, i * 56);
+				//	vSol.emplace_back(move(soldj));
+				//	break;
+
+
+				//}
+				//case'V':
+				//{//popo vie
+				//auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
+				//soldj->setPosition(Vector2f(67 * j, 56 * i));
+				//soldj->setTexture(&txtSd);
+				//soldj->setPosition(j * 67, i * 56);
+				//vSol.emplace_back(move(soldj));
+
+
+				//auto pp_vie = make_unique<RectangleShape>(Vector2f(67, 54));
+				//pp_vie->setPosition(Vector2f(67 * j, 54 * i));
+				//pp_vie->setTexture(&txtPp_vie);
+				//pp_vie->setPosition(j * Width, i * Height);
+				//vTp.emplace_back(move(pp_vie));//changer le vecteur pour les popo
+				//break;
+
+
+				//}
 				case 'h':
 				{ //mur donjon
 
@@ -341,7 +384,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 				case ' ':
 				{ //vide donjon
 					auto vide = make_unique<RectangleShape>(Vector2f(67, 56));
-					vide->setFillColor(Color::Red);
+					vide->setFillColor(Color::Black);
 					vide->setPosition(Vector2f(67 * j, 56 * i));
 				vMur.emplace_back(move(vide));
 					break;
@@ -357,7 +400,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 						solext->setTexture(&txtSext);
 						solext->setPosition(j * Width, i * Height);
 						vSol.emplace_back(move(solext));
-						p.getSprite().setScale(4.f, 4.f);
+						p.getSprite().setScale(3.f, 3.f);
 					}
 					else if (currentMap == "Assets/donjon.txt") {
 						auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
@@ -365,7 +408,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 						soldj->setTexture(&txtSd);
 						soldj->setPosition(j * 67, i * 56);
 						vSol.emplace_back(move(soldj));
-						p.getSprite().setScale(4.f, 4.f);
+						p.getSprite().setScale(3.f, 3.f);
 					}
 					
 
@@ -531,6 +574,12 @@ void Map::updatemap(View& v, Player& p) {
 	for (auto& porte : dD) {
 		window.draw(*porte);
 	}
+	/*for (auto& chaser : vC) {
+		window.draw(chaser->);
+	}
+	for (auto& patrol : vP) {
+		window.draw(patrol->);
+	}*/
 	if(Keyrecup!= true){
 		for (auto& key : vKey) {
 			window.draw(*key);

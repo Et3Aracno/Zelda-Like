@@ -11,6 +11,7 @@
 #include "enemyPatrol.h"
 #include "Boss.h"
 #include "potionDMG.h"
+#include "enemy.h"
 
 using namespace std;
 using namespace sf;
@@ -24,7 +25,7 @@ public:
 
 
 	Map(RenderWindow& w);
-	bool Keyrecup,iPNJ = false;
+	bool Keyrecup, iPNJ = false;
 	Clock clock;
 	float deltaTime = clock.restart().asMicroseconds();
 	void initTxt();
@@ -40,14 +41,14 @@ public:
 	void coliKey(Player& p);
 	void tpTxt(Player& p);
 	void pnjTxt(Player& p);
-	void eDonj(Player& p, View& v, string &currentMap);
+	void eDonj(Player& p, View& v, string& currentMap);
 	void DialPnj(Player& p);
 
 	RenderWindow& window;//ajouter �a dans le game pour appeler la window et commencer la boucle de jeux  Map map; /*map.initM(); while (map.window) {}*/
-	Texture txtArbre, txtSext, txtTour, txtPnj, txtTombe, txtChemin, txtMu, txtS, txtP, txtKeyB, txtTpG, txtTpD,txtPp_dmg, txtPp_vie,txtSd, txtPf,txtMais;
-	Sprite sprtMu, sprtS, sprtP, sprtKeyB, sprtArbre, sprtSext, sprtPnj, sprtTombe, sprtChemin, sprtTour, sprtTpG, sprtTpD,sprtPp_dmg,sprtPp_vie,sprtSd, sprtPf, sprtMais;
+	Texture txtArbre, txtSext, txtTour, txtPnj, txtTombe, txtChemin, txtMu, txtS, txtP, txtKeyB, txtTpG, txtTpD, txtPp_dmg, txtPp_vie, txtSd, txtPf, txtMais;
+	Sprite sprtMu, sprtS, sprtP, sprtKeyB, sprtArbre, sprtSext, sprtPnj, sprtTombe, sprtChemin, sprtTour, sprtTpG, sprtTpD, sprtPp_dmg, sprtPp_vie, sprtSd, sprtPf, sprtMais;
 	Font fI;
-	Text interactTp,inetractPnj;
+	Text interactTp, inetractPnj;
 
 	vector <string>vM;
 	vector<unique_ptr<RectangleShape>>vMur;
@@ -55,8 +56,8 @@ public:
 	vector<unique_ptr<RectangleShape>>vPorte;
 	vector<unique_ptr<RectangleShape>>vTp;
 	vector<unique_ptr<RectangleShape>>dD;
-	vector <unique_ptr<Chaser>>vC;
-	vector <unique_ptr<Patroler>>vP;
+	vector <shared_ptr<Chaser>>vC;
+	vector <shared_ptr<Patroler>>vP;
 	vector <unique_ptr<Player>>vE;
 	vector <unique_ptr<RectangleShape>>vPnj;
 	vector <unique_ptr<RectangleShape>>vKey;
