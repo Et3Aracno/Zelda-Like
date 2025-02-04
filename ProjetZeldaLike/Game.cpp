@@ -30,7 +30,7 @@ void Game::run()
 	Map mapp(window);
 	mapp.initall();
 	mapp.initM(currentMap);
-	mapp.DrawM(player,view);
+	mapp.DrawM(player,view,currentMap);
 	while (window.isOpen()) {
 		Event event;
 		while (window.pollEvent(event)) {
@@ -51,10 +51,11 @@ void Game::run()
 		}
 	
 		mapp.eDonj(player,view,currentMap);
-		mapp.DrawM(player, view);
-		mapp.tpTxt(player);
-		mapp.pnjTxt(player);
-		mapp.coliM(player);
+		mapp.DrawM(player, view,currentMap);
+		player.draw(window, view);
+		player.update(deltaTime, p);
+		
+
 
 		player.draw(window, view);
 
