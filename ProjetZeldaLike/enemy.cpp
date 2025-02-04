@@ -83,7 +83,6 @@ void Enemy::attack(float deltaTime, Player& p)
         p.getSprite().setColor(Color::White);
         if (abs(pPos.x - pos.x) + abs(pPos.y - pos.y) < 50)
         {
-            cout << "ATTACK" << endl;
             p.setHealth(p.getHealth() - damage);
             p.getSprite().setColor(Color::Red);
             animState = "Attack";
