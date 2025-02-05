@@ -14,5 +14,5 @@ public:
 	void update(float deltaTime, Player& p);
 	void draw(RenderWindow& window, View& view);
 
-	vector<Enemy*> getEnemyList();
+	vector<Enemy*>& getEnemyList();
 };

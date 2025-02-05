@@ -46,7 +46,7 @@ void Chaser::movement(float deltaTime, Player& p)
         else { orientation = 90; }
 
     }
-    if (canMove)
+    if (canMove && sqrt((pPos.x - pos.x) * (pPos.x - pos.x) + (pPos.y - pos.y) * (pPos.y - pos.y)) < playerDetectionDistance)
     {
         setPos(Vector2f(pos.x + dx, pos.y + dy));
     }

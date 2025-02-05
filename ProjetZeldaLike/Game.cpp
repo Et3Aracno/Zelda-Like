@@ -24,7 +24,7 @@ void Game::run()
 	Map mapp(window);
 	mapp.initall();
 	mapp.initM(currentMap);
-	mapp.DrawM(player, view, currentMap);
+	mapp.DrawM(player, view, currentMap, enemyManager);
 
 
 	while (window.isOpen()) {
@@ -42,7 +42,7 @@ void Game::run()
 		boss.update(deltaTime, player);
 
 		mapp.eDonj(player,view,currentMap);
-		mapp.DrawM(player, view,currentMap);
+		mapp.DrawM(player, view,currentMap, enemyManager);
 
 		player.draw(window, view);
 		enemyManager.draw(window, view);

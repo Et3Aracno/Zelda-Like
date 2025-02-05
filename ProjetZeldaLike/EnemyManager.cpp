@@ -38,7 +38,7 @@ void EnemyManager::draw(RenderWindow& window, View& view)
 	}
 }
 
-vector<Enemy*> EnemyManager::getEnemyList()
+vector<Enemy*>& EnemyManager::getEnemyList()
 {
 	return enemyList;
 }

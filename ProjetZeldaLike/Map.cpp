@@ -1,4 +1,5 @@
 #include "Map.h"
+
 Map::Map(RenderWindow& w) : window(w),cMap(false){
 
 };
@@ -118,7 +119,7 @@ void Map::initM(string fileM) {
 	file.close();
 	cMap = true;
 }
-void Map::DrawM(Player& p, View& v, string& currentMap) {
+void Map::DrawM(Player& p, View& v, string& currentMap, EnemyManager& enemyManager) {
 	try {
 		if (vM[0].empty()) {
 			throw runtime_error("le fichier texte est vide");
@@ -223,9 +224,6 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 					vPnj.emplace_back(move(Pnj));
 					break;
 				}
-
-				
-
 				case 'D':
 				{ //tp droit
 					auto solext = make_unique<RectangleShape>(Vector2f(67, 54));
@@ -267,15 +265,12 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 				//	soldj->setTexture(&txtSd);
 				//	soldj->setPosition(j * 67, i * 56);
 				//	vSol.emplace_back(move(soldj));
-
-
 				//	auto pp_dmg = make_unique<RectangleShape>(Vector2f(67, 54));
 				//	pp_dmg->setPosition(Vector2f(67 * j, 54 * i));
 				//	pp_dmg->setTexture(&txtPp_dmg);
 				//	pp_dmg->setPosition(j * Width, i * Height);
 				//	vTp.emplace_back(move(pp_dmg));
 				//	break;
-
 
 				//}
 				case '1':
@@ -292,6 +287,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 					patrol->setPos(Vector2f(j * 67, i * 56));
 					vE.emplace_back(patrol);*/
 					/*vE.emplace_back(new Patroler(100, 1, 0.2f, Vector2f(500, 400), 1));*/
+					enemyManager.getEnemyList().push_back(new Patroler(100, 1, 0.2f, Vector2f(67 * j, 56 * i), 1));
 					break;
 
 
@@ -309,6 +305,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap) {
 					/*chaser->setPos(Vector2f(67 *j, 56 * i));
 					vE.emplace_back(chaser);*/
 					/*vE.emplace_back(new Chaser(100, 1, 0.20f, Vector2f(200, 200)));*/
+					enemyManager.getEnemyList().push_back(new Chaser(100, 1, 0.2f, Vector2f(67 * j, 56 * i)));
 					break;
 
 
@@ -624,9 +621,9 @@ void Map::updatemap(View& v, Player& p) {
 	for (auto& porte : dD) {
 		window.draw(*porte);
 	}
-	for (auto& Enemy : vE) {
-		window.draw(Enemy->getSprite());
-	}
+	//for (auto& Enemy : vE) {
+	//	window.draw(Enemy->getSprite());
+	//}
 	if(Keyrecup!= true){
 		for (auto& key : vKey) {
 			window.draw(*key);

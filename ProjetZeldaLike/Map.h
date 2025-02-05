@@ -7,11 +7,11 @@
 #include<sstream>
 #include "Player.h"
 #include<SFML/Audio.hpp>
-#include "enemyChaser.h"
-#include "enemyPatrol.h"
 #include "Boss.h"
 #include "potionDMG.h"
 #include "enemy.h"
+#include "EnemyManager.h"
+
 #include <chrono>
 
 using namespace std;
@@ -34,7 +34,7 @@ public:
 	void initM(string);
 	void initF();
 	void initT();
-	void DrawM(Player&, View& v, string& currentMap);
+	void DrawM(Player&, View& v, string& currentMap, EnemyManager& enemyManager);
 	void initall();
 	void updatemap(View& v, Player& p);
 	void coliM(Player& p);
