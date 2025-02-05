@@ -57,7 +57,7 @@ public:
 	vector<unique_ptr<RectangleShape>>vPorte;
 	vector<unique_ptr<RectangleShape>>vTp;
 	vector<unique_ptr<RectangleShape>>dD;
-	/*vector <shared_ptr<Chaser>>vC;*/
+	vector<unique_ptr<RectangleShape>>vMurext;
 	vector <shared_ptr<Patroler>>vE;
 	vector <unique_ptr<RectangleShape>>vPnj;
 	vector <unique_ptr<RectangleShape>>vKey;

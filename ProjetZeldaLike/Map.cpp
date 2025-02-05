@@ -274,7 +274,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap, EnemyManager& enemyManag
 
 				//}
 				case '1':
-				{ //Patroler
+				{ //Patroler verti
 					auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
 					soldj->setPosition(Vector2f(67 * j, 56 * i));
 					soldj->setTexture(&txtSd);
@@ -290,6 +290,22 @@ void Map::DrawM(Player& p, View& v, string& currentMap, EnemyManager& enemyManag
 
 				}
 				case '2':
+				{ //Patroler horison
+					auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
+					soldj->setPosition(Vector2f(67 * j, 56 * i));
+					soldj->setTexture(&txtSd);
+					soldj->setPosition(j * 67, i * 56);
+					vSol.emplace_back(move(soldj));
+
+
+
+
+					enemyManager.getEnemyList().push_back(new Patroler(100, 1, 0.2f, Vector2f(67 * j, 56 * i), 0));
+					break;
+
+
+				}
+				case '3':
 				{ //Chaser
 					auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
 					soldj->setPosition(Vector2f(67 * j, 56 * i));
@@ -304,7 +320,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap, EnemyManager& enemyManag
 
 
 				}
-				case '3':
+				case '4':
 				{ //Boss
 					/*auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
 					soldj->setPosition(Vector2f(67 * j, 56 * i));
@@ -422,7 +438,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap, EnemyManager& enemyManag
 				}
 				default: { //vide donjon
 					auto vide = make_unique<RectangleShape>(Vector2f(67, 56));
-					vide->setFillColor(Color::Red);
+					vide->setFillColor(Color::Black);
 					vide->setPosition(Vector2f(67 * j, 56 * i));
 					vMur.emplace_back(move(vide));
 					break;
@@ -440,26 +456,27 @@ updatemap(v, p,enemyManager);
 }
 void Map::coliM(Player& p) {
 	for (auto& mur : vMur) {
-		if (p.getSprite().getGlobalBounds().intersects(mur->getGlobalBounds())) {
+		
+			if (p.getSprite().getGlobalBounds().intersects(mur->getGlobalBounds())) {
 
-			if (p.getPos().x > mur->getPosition().x) { //coli mur gauche
-				p.setPos(Vector2f(p.getPos().x + 3, p.getPos().y));
+				if (p.getPos().x > mur->getPosition().x) { //coli mur gauche
+					p.setPos(Vector2f(p.getPos().x + 3, p.getPos().y));
 
+				}
+
+				if (p.getPos().x < mur->getPosition().x) {//coli mur droit
+					p.setPos(Vector2f(p.getPos().x - 3, p.getPos().y));
+
+				}
+				if (p.getPos().y > mur->getPosition().y) {//coli mur du bas
+					p.setPos(Vector2f(p.getPos().x, p.getPos().y + 3));
+
+				}
+				if (p.getPos().y < mur->getPosition().y) {//coli mur haut
+					p.setPos(Vector2f(p.getPos().x, p.getPos().y - 3));
+
+				}
 			}
-
-			if (p.getPos().x < mur->getPosition().x) {//coli mur droit
-				p.setPos(Vector2f(p.getPos().x - 3, p.getPos().y));
-
-			}
-			if (p.getPos().y > mur->getPosition().y) {//coli mur du bas
-				p.setPos(Vector2f(p.getPos().x, p.getPos().y + 3));
-
-			}
-			if (p.getPos().y < mur->getPosition().y) {//coli mur haut
-				p.setPos(Vector2f(p.getPos().x, p.getPos().y - 3));
-
-			}
-		}
 	}
 	
 }
@@ -504,30 +521,31 @@ void Map::coliD(Player& p) {
 		}
 
 }
-void Map::coliE(EnemyManager& enemyManager) {
-	for (auto& enemy : enemyManager.getEnemyList()) {
-		for (auto& mur : vMur) {
-			if (enemy->getPos().x > mur->getPosition().x) { //coli mur gauche avec enemy 
-				enemy->setPos(Vector2f(enemy->getPos().x + 3, enemy->getPos().y));
-			}
-
-			if (enemy->getPos().x < mur->getPosition().x) {//coli mur droit avec enemy 
-				enemy->setPos(Vector2f(enemy->getPos().x - 3, enemy->getPos().y));
-
-			}
-			if (enemy->getPos().y > mur->getPosition().y) {//coli mur bas avec enemy 
-				enemy->setPos(Vector2f(enemy->getPos().x, enemy->getPos().y + 3));
-
-			}
-			if (enemy->getPos().y < mur->getPosition().y) {//coli mur haut avec enemy 
-				enemy->setPos(Vector2f(enemy->getPos().x, enemy->getPos().y - 3));
-
-			}
-		}
-	}
-
-
-}
+//void Map::coliE(EnemyManager& enemyManager) {
+//	for (auto& enemy : enemyManager.getEnemyList()) {
+//		for (auto& mur : vMur) {
+//			if (enemy->getSprite().getPosition().x > mur->getPosition().x) { //coli mur gauche avec enemy 
+//				enemy->setPos(Vector2f(enemy->getSprite().getPosition().x+1, enemy->getSprite().getPosition().y));
+//				
+//			}
+//
+//			if (enemy->getSprite().getPosition().x < mur->getPosition().x) {//coli mur droit avec enemy 
+//				enemy->setPos(Vector2f(enemy->getSprite().getPosition().x-1, enemy->getSprite().getPosition().y));
+//				
+//			}
+//			if (enemy->getSprite().getPosition().y > mur->getPosition().y) {//coli mur bas avec enemy 
+//				enemy->setPos(Vector2f(enemy->getSprite().getPosition().x, enemy->getSprite().getPosition().y-1));
+//				
+//			}
+//			if (enemy->getSprite().getPosition().y < mur->getPosition().y) {//coli mur haut avec enemy 
+//				enemy->setPos(Vector2f(enemy->getSprite().getPosition().x, enemy->getSprite().getPosition().y-1));
+//				
+//			}
+//		}
+//	}
+//
+//
+//}
 void Map::tpTxt(Player& p) {
 	for (auto& tp : vTp) {
 		if (tp->getGlobalBounds().intersects(p.getSprite().getGlobalBounds())) {
@@ -614,9 +632,9 @@ void Map::updatemap(View& v, Player& p, EnemyManager& enemyManager) {
 	for (auto& porte : dD) {
 		window.draw(*porte);
 	}
-	/*for (auto& enemy : enemyManager.getEnemyList()) {
-		enemy->getSprite().setScale
-	}*/
+	for (auto& enemy : enemyManager.getEnemyList()) {
+		enemy->update(deltaTime,p);
+	}
 	if(Keyrecup!= true){
 		for (auto& key : vKey) {
 			window.draw(*key);
@@ -629,7 +647,7 @@ void Map::updatemap(View& v, Player& p, EnemyManager& enemyManager) {
 		isDialogueActive = false;
 		utilitaire.clear();
 	}
-	/*coliE(enemyManager);*/
+	coliE(enemyManager);
 	tpTxt(p);
 	pnjTxt(p);
 	coliM(p);
