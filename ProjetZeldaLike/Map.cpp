@@ -275,18 +275,15 @@ void Map::DrawM(Player& p, View& v, string& currentMap, EnemyManager& enemyManag
 				//}
 				case '1':
 				{ //Patroler
-					/*auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
+					auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
 					soldj->setPosition(Vector2f(67 * j, 56 * i));
 					soldj->setTexture(&txtSd);
 					soldj->setPosition(j * 67, i * 56);
-					vSol.emplace_back(move(soldj));*/
+					vSol.emplace_back(move(soldj));
 
 
 
-					/*auto patrol = make_shared<Patroler>(100, 1, 0.20f,Vector2f(67, 56),0);
-					patrol->setPos(Vector2f(j * 67, i * 56));
-					vE.emplace_back(patrol);*/
-					/*vE.emplace_back(new Patroler(100, 1, 0.2f, Vector2f(500, 400), 1));*/
+					
 					enemyManager.getEnemyList().push_back(new Patroler(100, 1, 0.2f, Vector2f(67 * j, 56 * i), 1));
 					break;
 
@@ -294,18 +291,15 @@ void Map::DrawM(Player& p, View& v, string& currentMap, EnemyManager& enemyManag
 				}
 				case '2':
 				{ //Chaser
-					/*auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
+					auto soldj = make_unique<RectangleShape>(Vector2f(67, 56));
 					soldj->setPosition(Vector2f(67 * j, 56 * i));
 					soldj->setTexture(&txtSd);
 					soldj->setPosition(j * 67, i * 56);
-					vSol.emplace_back(move(soldj));*/
+					vSol.emplace_back(move(soldj));
 
-					/*auto chaser = make_shared<Chaser>(100, 1, 0.20f, Vector2f(67, 56));*/
-					
-					/*chaser->setPos(Vector2f(67 *j, 56 * i));
-					vE.emplace_back(chaser);*/
-					/*vE.emplace_back(new Chaser(100, 1, 0.20f, Vector2f(200, 200)));*/
+
 					enemyManager.getEnemyList().push_back(new Chaser(100, 1, 0.2f, Vector2f(67 * j, 56 * i)));
+
 					break;
 
 
@@ -441,7 +435,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap, EnemyManager& enemyManag
 		}
 		cMap = false;
 	}
-updatemap(v, p);
+updatemap(v, p,enemyManager);
 	
 }
 void Map::coliM(Player& p) {
@@ -510,23 +504,22 @@ void Map::coliD(Player& p) {
 		}
 
 }
-void Map::coliE() {
-	for (auto& enemy : vE) {
+void Map::coliE(EnemyManager& enemyManager) {
+	for (auto& enemy : enemyManager.getEnemyList()) {
 		for (auto& mur : vMur) {
-			if (enemy->getPos().x > mur->getPosition().x) { //coli porte gauche
+			if (enemy->getPos().x > mur->getPosition().x) { //coli mur gauche avec enemy 
 				enemy->setPos(Vector2f(enemy->getPos().x + 3, enemy->getPos().y));
-
 			}
 
-			if (enemy->getPos().x < mur->getPosition().x) {//coli porte droit
+			if (enemy->getPos().x < mur->getPosition().x) {//coli mur droit avec enemy 
 				enemy->setPos(Vector2f(enemy->getPos().x - 3, enemy->getPos().y));
 
 			}
-			if (enemy->getPos().y > mur->getPosition().y) {//coli porte du bas
+			if (enemy->getPos().y > mur->getPosition().y) {//coli mur bas avec enemy 
 				enemy->setPos(Vector2f(enemy->getPos().x, enemy->getPos().y + 3));
 
 			}
-			if (enemy->getPos().y < mur->getPosition().y) {//coli porte haut
+			if (enemy->getPos().y < mur->getPosition().y) {//coli mur haut avec enemy 
 				enemy->setPos(Vector2f(enemy->getPos().x, enemy->getPos().y - 3));
 
 			}
@@ -600,7 +593,7 @@ void Map::DialPnj(Player& p) {
 
 	}
 }
-void Map::updatemap(View& v, Player& p) {
+void Map::updatemap(View& v, Player& p, EnemyManager& enemyManager) {
 	coliKey(p);
 	coliD(p);
 	for (auto& sol : vSol) {
@@ -621,9 +614,9 @@ void Map::updatemap(View& v, Player& p) {
 	for (auto& porte : dD) {
 		window.draw(*porte);
 	}
-	//for (auto& Enemy : vE) {
-	//	window.draw(Enemy->getSprite());
-	//}
+	/*for (auto& enemy : enemyManager.getEnemyList()) {
+		enemy->getSprite().setScale
+	}*/
 	if(Keyrecup!= true){
 		for (auto& key : vKey) {
 			window.draw(*key);
@@ -636,7 +629,7 @@ void Map::updatemap(View& v, Player& p) {
 		isDialogueActive = false;
 		utilitaire.clear();
 	}
-	coliE();
+	/*coliE(enemyManager);*/
 	tpTxt(p);
 	pnjTxt(p);
 	coliM(p);

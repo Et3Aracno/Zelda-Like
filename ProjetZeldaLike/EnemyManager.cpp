@@ -2,8 +2,8 @@
 
 EnemyManager::EnemyManager()
 {
-	enemyList.push_back(new Chaser(100, 1, 0.20f, Vector2f(200, 200)));
-	enemyList.push_back(new Patroler(100, 1, 0.2f, Vector2f(500, 400), 1));
+	/*enemyList.push_back(new Chaser(100, 1, 0.20f, Vector2f(200, 200)));
+	enemyList.push_back(new Patroler(100, 1, 0.2f, Vector2f(500, 400), 1));*/
 }
 
 void EnemyManager::update(float deltaTime, Player& p)

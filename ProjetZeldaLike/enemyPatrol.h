@@ -19,8 +19,6 @@ public:
 	Clock clockHit;	
 	bool getHit = false;
 
-	RectangleShape sprite;
-
 	Patroler(int health, int damage, float s, Vector2f p, int iD);
 
 	void moveHor3s(float deltaTime);
@@ -28,6 +26,6 @@ public:
 
 	void update(float deltaTime, Player& p);
 
-	RectangleShape& getSprite();
+	Sprite& getSprite();
 	void hitColor();
 };

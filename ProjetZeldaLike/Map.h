@@ -36,7 +36,7 @@ public:
 	void initT();
 	void DrawM(Player&, View& v, string& currentMap, EnemyManager& enemyManager);
 	void initall();
-	void updatemap(View& v, Player& p);
+	void updatemap(View& v, Player& p, EnemyManager& enemyManager);
 	void coliM(Player& p);
 	void coliD(Player& p);
 	void coliKey(Player& p);
@@ -44,7 +44,7 @@ public:
 	void pnjTxt(Player& p);
 	void eDonj(Player& p, View& v, string& currentMap);
 	void DialPnj(Player& p);
-	void coliE();
+	void coliE(EnemyManager& enemyManager);
 
 	RenderWindow& window;//ajouter �a dans le game pour appeler la window et commencer la boucle de jeux  Map map; /*map.initM(); while (map.window) {}*/
 	Texture txtArbre, txtSext, txtTour, txtPnj, txtTombe, txtChemin, txtMu, txtS, txtP, txtKeyB, txtTpG, txtTpD, txtPp_dmg, txtPp_vie, txtSd, txtPf, txtMais;
