@@ -48,11 +48,11 @@ void Boss::animationUpdate(float deltaTime)
 
 void Boss::update(float deltaTime, Player& p)
 {
-	//timeSinceLastAttack += deltaTime;
-	//if (timeSinceLastAttack > timeBetweenAttacks) 
-	//{
-	//	attack1(deltaTime, p);
-	//}
+	timeSinceLastAttack += deltaTime;
+	if (timeSinceLastAttack > timeBetweenAttacks) 
+	{
+		attack1(deltaTime, p);
+	}
 	//Attaque tête chercheuses
 	//Attaque rapide demi cercle
 	//Un autre truc
@@ -61,25 +61,25 @@ void Boss::update(float deltaTime, Player& p)
 	bulletUpdate(deltaTime, p);
 }
 
-//void Boss::attack1(float deltaTime, Player& p)
-//{
-//	if (bulletAlreadyShotInTheAttack < bulletByAttack)
-//	{
-//		timeSinceLastBulletShot += deltaTime;
-//		if (timeSinceLastBulletShot > timeBetweenBulletShots)
-//		{
-//			timeSinceLastBulletShot = 0;
-//			bulletAlreadyShotInTheAttack += 1;
-//
-//			bossBulletList.push_back(BossBullet(bulletDamage, bulletSpeed, pos, (rand()%int(M_PI*200))/100));
-//		}
-//	}
-//	else
-//	{
-//		bulletAlreadyShotInTheAttack = 0;
-//		timeSinceLastAttack = 0;
-//	}
-//}
+void Boss::attack1(float deltaTime, Player& p)
+{
+	if (bulletAlreadyShotInTheAttack < bulletByAttack)
+	{
+		timeSinceLastBulletShot += deltaTime;
+		if (timeSinceLastBulletShot > timeBetweenBulletShots)
+		{
+			timeSinceLastBulletShot = 0;
+			bulletAlreadyShotInTheAttack += 1;
+
+			bossBulletList.emplace_back(BossBullet(bulletDamage, bulletSpeed, pos, (rand()%int(M_PI*200))/100));
+		}
+	}
+	else
+	{
+		bulletAlreadyShotInTheAttack = 0;
+		timeSinceLastAttack = 0;
+	}
+}
 
 void Boss::move(float deltaTime)
 {
@@ -117,6 +117,7 @@ void Boss::draw(RenderWindow& window, View& view)
 
 	for (auto& b : bossBulletList)
 	{
+		b.spritebullet.setTexture(b.texturebullet);
 		b.draw(window, view);
 	}
 }
