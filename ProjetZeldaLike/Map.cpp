@@ -540,27 +540,32 @@ void Map::coliD(Player& p) {
 
 }
 void Map::coliE(EnemyManager& enemyManager) {
-	//for (auto& enemy : enemyManager.getEnemyList()) {
-	//	for (auto& mur : vMur) {
-	//		if (enemy->getPos().x > mur->getPosition().x) { //coli mur gauche avec enemy 
-	//			enemy->setPos(Vector2f(enemy->getPos().x +1, enemy->getPos().y));
-	//			
-	//		}
+	
+	for (auto& enemy : enemyManager.getEnemyList()) {
+		for (auto& mur : vMur) {
+			if (enemy == dynamic_cast<Chaser*>(enemy)) {
+				if (enemy->getSprite().getGlobalBounds().intersects(mur->getGlobalBounds())) {
+					if (enemy->getPos().x > mur->getPosition().x) { //coli mur gauche avec enemy 
+						enemy->setPos(Vector2f(enemy->getPos().x + 3, enemy->getPos().y));
 
-	//		if (enemy->getPos().x < mur->getPosition().x) {//coli mur droit avec enemy 
-	//			enemy->setPos(Vector2f(enemy->getSprite().getPosition().x-1, enemy->getPos().y));
-	//			
-	//		}
-	//		if (enemy->getPos().y > mur->getPosition().y) {//coli mur bas avec enemy 
-	//			enemy->setPos(Vector2f(enemy->getSprite().getPosition().x, enemy->getPos().y-1));
-	//			
-	//		}
-	//		if (enemy->getPos().y < mur->getPosition().y) {//coli mur haut avec enemy 
-	//			enemy->setPos(Vector2f(enemy->getPos().x, enemy->getPos().y-1));
-	//			
-	//		}
-	//	}
-	//}
+					}
+
+					if (enemy->getPos().x < mur->getPosition().x) {//coli mur droit avec enemy 
+						enemy->setPos(Vector2f(enemy->getPos().x - 3, enemy->getPos().y));
+
+					}
+					if (enemy->getPos().y > mur->getPosition().y) {//coli mur bas avec enemy 
+						enemy->setPos(Vector2f(enemy->getPos().x, enemy->getPos().y + 3));
+
+					}
+					if (enemy->getPos().y < mur->getPosition().y) {//coli mur haut avec enemy 
+						enemy->setPos(Vector2f(enemy->getPos().x, enemy->getPos().y - 3));
+
+					}
+				}
+			}
+		}
+	}
 
 
 }

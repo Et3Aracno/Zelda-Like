@@ -12,7 +12,7 @@ protected:
 	int health;
 	int damage;
 	Vector2f pos;
-	RectangleShape sprite;
+	Sprite sprite;
 	float speed;
 	int orientation = 180;
 
@@ -31,5 +31,5 @@ public:
 	int getDamage();
 	void setHealth(int h);
 	int getHealth();
-	Sprite getSprite();
+	//Sprite getSprite();
 };

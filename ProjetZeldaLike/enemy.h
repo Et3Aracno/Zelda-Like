@@ -44,6 +44,8 @@ public:
 
 	void giveStunt(float time);
 	void stuntManager(float deltaTime);
+	
+	Sprite& getSprite();
 
 
 };
