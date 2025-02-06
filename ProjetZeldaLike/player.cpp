@@ -31,10 +31,9 @@ Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s
     }
 
     sprite.setTexture(textureIdle);
-    sprite.setScale(Vector2f(4, 4));
 
     weaponSprite.setTexture(weapon1);
-    weaponSprite.setScale(Vector2f(4, 4));
+    weaponSprite.setScale(Vector2f(3, 3));
 }
 
 void Player::update(float deltaTime, vector<Enemy*> p)

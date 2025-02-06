@@ -12,20 +12,16 @@ Game::Game()
 
 void Game::run()
 {
-	RenderWindow window = RenderWindow(VideoMode(1920, 1080), "zelda");
+	RenderWindow window = RenderWindow(VideoMode(1920, 1080), "BetterThanZelda");
 	window.setFramerateLimit(60);
 	
-	//PotionDMG pot({ 90,90 });
 	Player player(100, 50, 0.35f, Vector2f(1548, 883));
 	EnemyManager enemyManager;
 	Boss boss(1000, 10, 0.1f, Vector2f(300, 300));
-	
-
 	Map mapp(window);
+
 	mapp.initall();
 	mapp.initM(currentMap);
-	mapp.DrawM(player, view, currentMap, enemyManager);
-
 
 	while (window.isOpen()) {
 		Event event;
