@@ -121,7 +121,7 @@ void Map::initM(string fileM) {
 }
 void Map::DrawM(Player& p, View& v, string& currentMap, EnemyManager& enemyManager) {
 	try {
-		if (vM[0].empty()) {
+	if (vM[0].empty()) {
 			throw runtime_error("le fichier texte est vide");
 		}
 	}
@@ -521,7 +521,7 @@ void Map::coliD(Player& p) {
 		}
 
 }
-//void Map::coliE(EnemyManager& enemyManager) {
+void Map::coliE(EnemyManager& enemyManager) {
 //	for (auto& enemy : enemyManager.getEnemyList()) {
 //		for (auto& mur : vMur) {
 //			if (enemy->getSprite().getPosition().x > mur->getPosition().x) { //coli mur gauche avec enemy 
@@ -545,7 +545,7 @@ void Map::coliD(Player& p) {
 //	}
 //
 //
-//}
+}
 void Map::tpTxt(Player& p) {
 	for (auto& tp : vTp) {
 		if (tp->getGlobalBounds().intersects(p.getSprite().getGlobalBounds())) {
