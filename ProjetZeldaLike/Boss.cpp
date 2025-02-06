@@ -121,7 +121,7 @@ void Boss::draw(RenderWindow& window, View& view)
 	}
 }
 
-void Boss::getHit(int dmg)
+void Boss::BossHit(int dmg)
 {
 	health -= dmg;
 }

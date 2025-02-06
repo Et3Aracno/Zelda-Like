@@ -55,5 +55,5 @@ public:
 
 	void draw(RenderWindow& window, View& view) override;
 	Sprite& getSprite();
-	void getHit(int dmg);
+	void BossHit(int dmg);
 };
