@@ -36,6 +36,8 @@ void Player::update(float deltaTime, vector<Enemy*> p, Boss boss)
     animationUpdate(deltaTime);
 }
 
+
+
 void Player::animationUpdate(float deltaTime) 
 {
     timer += deltaTime;
@@ -192,10 +194,13 @@ void Player::usePowerUp()
 {
     if (buff)
     {
-        setDamage(3);
+        cout << getDamage() << endl;
+        setDamage(getDamage() + 20);
         sprite.setColor(Color::Blue);
+        cout << getDamage();
     }
 }
+
 
 void Player::draw(RenderWindow& window, View& view)
 {

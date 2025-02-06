@@ -48,6 +48,8 @@ private:
 	float timeSinceLastAttack = 0;
 	bool canMove = true;
 
+
+	Clock buffTimer;
 public:
 	bool attackstate = false;
 
