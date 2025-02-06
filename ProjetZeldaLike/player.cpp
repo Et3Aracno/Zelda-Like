@@ -1,12 +1,5 @@
-#include <iostream>
-#include <vector>
-#define _USE_MATH_DEFINES
-#include <math.h>
-
 #include "player.h"
-#include "enemy.h"
-#include <SFML/Graphics/View.hpp>
-
+#include "Boss.h"
 using namespace sf;
 using namespace std;
 
@@ -36,10 +29,10 @@ Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s
     weaponSprite.setScale(Vector2f(3, 3));
 }
 
-void Player::update(float deltaTime, vector<Enemy*> p)
+void Player::update(float deltaTime, vector<Enemy*> p, Boss boss)
 {
     move(deltaTime);
-    attack(deltaTime, p);
+    attack(deltaTime, p, boss);
     animationUpdate(deltaTime);
 }
 
@@ -154,7 +147,7 @@ bool isInside(Vector2f edges[4], Vector2f posPoint) {
     return count % 2 == 1;
 }
 
-void Player::attack(float deltaTime, vector<Enemy*> ennemy)
+void Player::attack(float deltaTime, vector<Enemy*> ennemy, Boss boss)
 {
     timeSinceLastAttack += deltaTime;
     if (timeSinceLastAttack > attackDuration)
@@ -184,6 +177,11 @@ void Player::attack(float deltaTime, vector<Enemy*> ennemy)
                         e->takeHit(getDamage());
                         e->giveStunt(100.f);
                     }
+                }
+                if (isInside(attackHitBox, boss.getSprite().getPosition()))
+                {
+                    boss.BossHit(damage);
+                    cout << damage;
                 }
             }
         }

@@ -16,7 +16,6 @@ protected:
 	float speed;
 	int orientation = 180;
 
-
 public:
 	Entity(int health, int dmg, float s, Vector2f p);
 
