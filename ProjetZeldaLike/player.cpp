@@ -219,6 +219,11 @@ Sprite& Player::getSprite()
     return sprite;
 }
 
+Sprite& Player::getweaponSprite()
+{
+    return weaponSprite;
+}
+
 void Player::setWeaponOrientation()
 {
     if (orientation == 0 || orientation == 90)

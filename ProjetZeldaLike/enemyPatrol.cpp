@@ -86,7 +86,6 @@ void Patroler::moveVer3s(float deltaTime)
 void Patroler::hitColor()
 {
 	health += -damage;
-	/*sprite.setFillColor(Color::Red);*/
 	clockHit.restart();
 	getHit = true;
 }

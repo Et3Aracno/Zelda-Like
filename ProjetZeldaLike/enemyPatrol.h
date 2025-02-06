@@ -14,6 +14,7 @@ private:
 	int intDir;
 public:
 
+
 	Clock clockHit;	
 	bool getHit = false;
 

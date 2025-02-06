@@ -56,6 +56,7 @@ public:
 	void update(float deltaTime, vector<Enemy*> p);
 
 	Sprite& getSprite();
+	Sprite& getweaponSprite();
 	void setWeaponOrientation();
 
 };
