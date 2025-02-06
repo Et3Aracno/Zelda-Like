@@ -48,18 +48,12 @@ void Boss::animationUpdate(float deltaTime)
 
 void Boss::update(float deltaTime, Player& p)
 {
-	timeSinceLastAttack += deltaTime;
-	if (timeSinceLastAttack > timeBetweenAttacks) 
-	{
-		attack1(deltaTime, p);
-	}
-	//Attaque tête chercheuses
-	//Attaque rapide demi cercle
-	//Un autre truc
+
 	move(deltaTime);
 	animationUpdate(deltaTime);
 	bulletUpdate(deltaTime, p);
 }
+
 
 void Boss::attack1(float deltaTime, Player& p)
 {
@@ -125,6 +119,8 @@ void Boss::draw(RenderWindow& window, View& view)
 void Boss::BossHit(int dmg)
 {
 	health -= dmg;
+	bossSprite.setColor(Color::Red);
+	timeSinceLastHit = 0;
 }
 
 

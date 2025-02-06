@@ -29,7 +29,7 @@ Player::Player(int health, int dmg, float s, Vector2f p) : Entity(health, dmg, s
     weaponSprite.setScale(Vector2f(3, 3));
 }
 
-void Player::update(float deltaTime, vector<Enemy*> p, Boss boss)
+void Player::update(float deltaTime, vector<Enemy*> p, Boss& boss)
 {
     move(deltaTime);
     attack(deltaTime, p, boss);
@@ -149,7 +149,7 @@ bool isInside(Vector2f edges[4], Vector2f posPoint) {
     return count % 2 == 1;
 }
 
-void Player::attack(float deltaTime, vector<Enemy*> ennemy, Boss boss)
+void Player::attack(float deltaTime, vector<Enemy*> ennemy, Boss& boss)
 {
     timeSinceLastAttack += deltaTime;
     if (timeSinceLastAttack > attackDuration)
