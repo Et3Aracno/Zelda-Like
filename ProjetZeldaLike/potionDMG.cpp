@@ -3,6 +3,15 @@
 
 bool activePotDMG = true;
 
+
+
+
+void PotionDMG::update(float deltaTime, Player& player_)
+{
+	itmget();
+	itemEffect(player_);
+}
+
 void PotionDMG::draw(RenderWindow& game)
 {
 	if (activePotDMG)

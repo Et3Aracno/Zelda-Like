@@ -2,6 +2,12 @@
 
 bool activePot = true;
 
+void Potion::update(float deltaTime, Player& player_)
+{
+	itmget();
+	itemEffect(player_);
+}
+
 void Potion::draw(RenderWindow& game)
 {
 	if (activePot)
@@ -17,6 +23,7 @@ void Potion::itmget()
 
 void Potion::itemEffect(Player& player_)
 {
+	player_.setHealth(player_.getHealth() + 10);
 }
 
 
