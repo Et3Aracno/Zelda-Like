@@ -41,15 +41,21 @@ void Boss::animationUpdate(float deltaTime)
 		timer = 0;
 		currentFrame = (currentFrame + 1) % 2;
 	}
-
+	timeSinceLastHit += deltaTime;
+	if (timeSinceLastHit > 1000)
+	{
+		bossSprite.setColor(Color::White);
+	}
 
 	bossSprite.setTextureRect(IntRect(0, currentFrame * frameHeight, frameWidth, frameHeight));
 }
 
 void Boss::update(float deltaTime, Player& p)
 {
-
 	move(deltaTime);
+	if (timeSinceLastAttack > timeBetweenAttacks) {
+		attack1(deltaTime, p);
+	}
 	animationUpdate(deltaTime);
 	bulletUpdate(deltaTime, p);
 }
@@ -64,7 +70,7 @@ void Boss::attack1(float deltaTime, Player& p)
 		{
 			timeSinceLastBulletShot = 0;
 			bulletAlreadyShotInTheAttack += 1;
-
+			
 			bossBulletList.emplace_back(BossBullet(bulletDamage, bulletSpeed, pos, (rand()%int(M_PI*200))/100));
 		}
 	}
