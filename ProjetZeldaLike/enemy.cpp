@@ -108,3 +108,8 @@ void Enemy::attack(float deltaTime, Player& p)
         }
     }
 }
+
+Sprite& Enemy::getSprite()
+{
+    return sprite;
+}

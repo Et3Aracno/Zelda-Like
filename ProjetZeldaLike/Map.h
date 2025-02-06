@@ -36,7 +36,7 @@ public:
 	void initT();
 	void DrawM(Player&, View& v, string& currentMap, EnemyManager& enemyManager);
 	void initall();
-	void updatemap(View& v, Player& p, EnemyManager& enemyManager);
+	void updatemap(View& v, Player& p, EnemyManager& enemyManager, string& currentMap);
 	void coliM(Player& p);
 	void coliD(Player& p);
 	void coliKey(Player& p);

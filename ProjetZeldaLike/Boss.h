@@ -1,6 +1,5 @@
 #pragma once
 #include "player.h"
-
 #include "bossBullet.h"
 
 class Boss : Entity
@@ -15,8 +14,6 @@ public:
 
 
 	bool getHit = false;
-
-
 
 	int bulletByAttack = 3;
 	int bulletAlreadyShotInTheAttack = 0;

@@ -451,7 +451,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap, EnemyManager& enemyManag
 		}
 		cMap = false;
 	}
-updatemap(v, p,enemyManager);
+updatemap(v, p,enemyManager, currentMap);
 	
 }
 void Map::coliM(Player& p) {
@@ -540,27 +540,32 @@ void Map::coliD(Player& p) {
 
 }
 void Map::coliE(EnemyManager& enemyManager) {
-	//for (auto& enemy : enemyManager.getEnemyList()) {
-	//	for (auto& mur : vMur) {
-	//		if (enemy->getPos().x > mur->getPosition().x) { //coli mur gauche avec enemy 
-	//			enemy->setPos(Vector2f(enemy->getPos().x +1, enemy->getPos().y));
-	//			
-	//		}
+	
+	for (auto& enemy : enemyManager.getEnemyList()) {
+		for (auto& mur : vMur) {
+			if (enemy == dynamic_cast<Chaser*>(enemy)) {
+				if (enemy->getSprite().getGlobalBounds().intersects(mur->getGlobalBounds())) {
+					if (enemy->getPos().x > mur->getPosition().x) { //coli mur gauche avec enemy 
+						enemy->setPos(Vector2f(enemy->getPos().x + 3, enemy->getPos().y));
 
-	//		if (enemy->getPos().x < mur->getPosition().x) {//coli mur droit avec enemy 
-	//			enemy->setPos(Vector2f(enemy->getSprite().getPosition().x-1, enemy->getPos().y));
-	//			
-	//		}
-	//		if (enemy->getPos().y > mur->getPosition().y) {//coli mur bas avec enemy 
-	//			enemy->setPos(Vector2f(enemy->getSprite().getPosition().x, enemy->getPos().y-1));
-	//			
-	//		}
-	//		if (enemy->getPos().y < mur->getPosition().y) {//coli mur haut avec enemy 
-	//			enemy->setPos(Vector2f(enemy->getPos().x, enemy->getPos().y-1));
-	//			
-	//		}
-	//	}
-	//}
+					}
+
+					if (enemy->getPos().x < mur->getPosition().x) {//coli mur droit avec enemy 
+						enemy->setPos(Vector2f(enemy->getPos().x - 3, enemy->getPos().y));
+
+					}
+					if (enemy->getPos().y > mur->getPosition().y) {//coli mur bas avec enemy 
+						enemy->setPos(Vector2f(enemy->getPos().x, enemy->getPos().y + 3));
+
+					}
+					if (enemy->getPos().y < mur->getPosition().y) {//coli mur haut avec enemy 
+						enemy->setPos(Vector2f(enemy->getPos().x, enemy->getPos().y - 3));
+
+					}
+				}
+			}
+		}
+	}
 
 
 }
@@ -629,7 +634,7 @@ void Map::DialPnj(Player& p) {
 
 	}
 }
-void Map::updatemap(View& v, Player& p, EnemyManager& enemyManager) {
+void Map::updatemap(View& v, Player& p, EnemyManager& enemyManager, string& currentMap) {
 	coliKey(p);
 	coliD(p);
 	for (auto& sol : vSol) {
@@ -658,7 +663,7 @@ void Map::updatemap(View& v, Player& p, EnemyManager& enemyManager) {
 			window.draw(*key);
 		}
 	}
-	if (isDialogueActive == true) {
+	if (isDialogueActive == true and currentMap == "Assets/hub.txt" ) {
 		window.draw(dialogueAc);
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Escape)) {

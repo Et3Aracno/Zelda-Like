@@ -13,7 +13,7 @@ Chaser::Chaser(int health, int damage, float speed, Vector2f pos) : Enemy(health
     }
 
     sprite.setTexture(textureWalk);
-    sprite.setScale(Vector2f(4,4));
+    sprite.setScale(Vector2f(3,3));
 }
 
 void Chaser::update(float deltaTime, Player& p)
@@ -56,10 +56,7 @@ void Chaser::movement(float deltaTime, Player& p)
         setPos(Vector2f(pos.x - dx*3, pos.y - dy*3));
     }
 }
-Sprite& Chaser::getSprite()
-{
-    return sprite;
-}
+
 
 
 

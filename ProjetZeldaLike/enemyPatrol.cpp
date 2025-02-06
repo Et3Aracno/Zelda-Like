@@ -16,7 +16,7 @@ Patroler::Patroler(int health, int damage, float speed, Vector2f pos, int iD) : 
 	}
 
 	sprite.setTexture(textureWalk);
-	sprite.setScale(Vector2f(4, 4));
+	sprite.setScale(Vector2f(3, 3));
 	
 	intDir = iD;
 }
