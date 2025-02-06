@@ -451,7 +451,7 @@ void Map::DrawM(Player& p, View& v, string& currentMap, EnemyManager& enemyManag
 		}
 		cMap = false;
 	}
-updatemap(v, p,enemyManager);
+updatemap(v, p,enemyManager, currentMap);
 	
 }
 void Map::coliM(Player& p) {
@@ -634,7 +634,7 @@ void Map::DialPnj(Player& p) {
 
 	}
 }
-void Map::updatemap(View& v, Player& p, EnemyManager& enemyManager) {
+void Map::updatemap(View& v, Player& p, EnemyManager& enemyManager, string& currentMap) {
 	coliKey(p);
 	coliD(p);
 	for (auto& sol : vSol) {
@@ -663,7 +663,7 @@ void Map::updatemap(View& v, Player& p, EnemyManager& enemyManager) {
 			window.draw(*key);
 		}
 	}
-	if (isDialogueActive == true) {
+	if (isDialogueActive == true and currentMap == "Assets/hub.txt" ) {
 		window.draw(dialogueAc);
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Escape)) {
