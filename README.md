@@ -26,7 +26,7 @@ Développé en C++ avec SFML, ce projet met en avant des mécaniques d’explora
 
 📂 CODE
 
-Le code source du projet se trouve dans la branche Zelda-Like-code du dépôt.
+Le code source du projet se trouve dans la branche Zelda-like-code du dépôt.
 
 📸 CAPTURES D'ÉCRAN
 
