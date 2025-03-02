@@ -18,6 +18,7 @@ public:
 	RenderWindow window;
 	View view;
 	Clock clock;
+
 	float deltaTime;
 	Game();
 
