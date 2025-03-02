@@ -5,44 +5,17 @@ Bienvenue dans Zelda-Like, un jeu en C++ avec SFML où vous incarnez un héros e
 📝 DESCRIPTION
 
 Dans ce jeu, vous incarnez un héros légendaire qui doit explorer un monde mystérieux, vaincre des ennemis et accéder au donjon final pour terrasser un puissant boss.
-Votre objectif est de collecter des équipements, résoudre des énigmes et combattre des ennemis pour progresser dans l’aventure ! ⚔️
+Votre objectif est de combattre des ennemis pour progresser dans l’aventure ! ⚔️
 
-Développé en C++ avec SFML, ce projet met en avant des mécaniques d’exploration libre, de combats en temps réel et de gestion d’inventaire.
+Développé en C++ avec SFML, ce projet met en avant des mécaniques d’exploration libre et de combats en temps réel.
 
 🎮 FONCTIONNALITÉS
 
 ✔ Exploration d’un monde ouvert 🌍
 ✔ Combats en temps réel avec des ennemis dynamiques 🏹
-✔ Donjons remplis d’énigmes et de pièges 🔥
 ✔ Boss final à affronter dans l’ultime donjon 💀
-✔ Système d’inventaire et d’amélioration d’équipement 🎒
 ✔ Graphismes et animations fluides via SFML 🎨
-✔ Musique et effets sonores immersifs 🎶
 
-🛠 INSTALLATION
-
-📌 PRÉREQUIS
-
-C++
-
-SFML installé sur votre machine
-
-Un compilateur C++ compatible (GCC, Clang, MSVC, etc.)
-
-⚙️ COMPILATION & EXÉCUTION
-
-1️⃣ Cloner le repo :
-
-git clone https://github.com/VotreNomUtilisateur/ZeldaLike.git
-cd ZeldaLike
-
-2️⃣ Compiler le programme avec g++ :
-
-g++ -o zeldalike main.cpp -lsfml-graphics -lsfml-window -lsfml-system
-
-3️⃣ Exécuter le jeu :
-
-./zeldalike
 
 🕹 COMMANDES
 
@@ -53,7 +26,7 @@ g++ -o zeldalike main.cpp -lsfml-graphics -lsfml-window -lsfml-system
 
 📂 CODE
 
-Le code source du projet se trouve dans la branche master du dépôt.
+Le code source du projet se trouve dans la branche Zelda-Like-code du dépôt.
 
 📸 CAPTURES D'ÉCRAN
 
@@ -71,6 +44,6 @@ Le code source du projet se trouve dans la branche master du dépôt.
 
 📧 CONTACT
 
-Créé par Maxime Luhat ,  - 📩 luhatmaxime@gmail.com
+Créé par Maxime Luhat , Amadéo Ponce, Théo DOUBLET et Matheo BELLOCHE  - 📩 luhatmaxime@gmail.com , amaponce@yahoo.com
 
-📢 N’hésitez pas à me contacter par mail si vous avez des questions ! 🚀
+📢 N’hésitez pas à nous contacter par mail si vous avez des questions ! 🚀
