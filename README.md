@@ -40,7 +40,8 @@ Le code source du projet se trouve dans la branche Zelda-like-code du dépôt.
 
 ![image](https://github.com/user-attachments/assets/8ff68f72-f35e-4764-89b1-08ca7fcd17e8)
 
-![image](https://github.com/user-attachments/assets/865a9c44-3aed-460b-b474-a6846b6eb87e)
+![image](https://github.com/user-attachments/assets/d4030821-901d-4ab4-8556-60e022bdabb0)
+
 
 
 
