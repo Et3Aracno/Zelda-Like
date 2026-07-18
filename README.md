@@ -1,15 +1,15 @@
-🏹 ZELDA-LIKE - AVENTURE ET DONJONS ⚔️
+ ZELDA-LIKE - AVENTURE ET DONJONS 
 
 Bienvenue dans Zelda-Like, un jeu en C++ avec SFML où vous incarnez un héros en quête de gloire, explorant un vaste monde rempli de dangers et de donjons à conquérir ! 🏰🔥
 
-📝 DESCRIPTION
+ DESCRIPTION
 
 Dans ce jeu, vous incarnez un héros légendaire qui doit explorer un monde mystérieux, vaincre des ennemis et accéder au donjon final pour terrasser un puissant boss.
 Votre objectif est de combattre des ennemis pour progresser dans l’aventure ! ⚔️
 
 Développé en C++ avec SFML, ce projet met en avant des mécaniques d’exploration libre et de combats en temps réel.
 
-🎮 FONCTIONNALITÉS
+FONCTIONNALITÉS
 
 ✔ Exploration d’un monde ouvert 🌍
 ✔ Combats en temps réel avec des ennemis dynamiques 🏹
@@ -17,18 +17,18 @@ Développé en C++ avec SFML, ce projet met en avant des mécaniques d’explora
 ✔ Graphismes et animations fluides via SFML 🎨
 
 
-🕹 COMMANDES
+ COMMANDES
 
 🔹 ZQSD : Déplacer le héros ⬆️⬇️⬅️➡️  
 🔹 Clique gauche de la souris : Attaquer ⚔️  
 🔹 E : Interagir avec les objets et PNJ 🗨️  
 🔹 Explorer, combattre et accéder au donjon final ! 🏰  
 
-📂 CODE
+CODE
 
 Le code source du projet se trouve dans la branche Zelda-like-code du dépôt.
 
-📸 CAPTURES D'ÉCRAN
+ CAPTURES D'ÉCRAN
 
 ![image](https://github.com/user-attachments/assets/ee846af8-ec92-4bd6-a9fc-357e4b2ef55c)
 
@@ -45,8 +45,8 @@ Le code source du projet se trouve dans la branche Zelda-like-code du dépôt.
 
 
 
-📧 CONTACT
+ CONTACT
 
 Créé par Maxime Luhat , Amadéo Ponce, Théo DOUBLET et Matheo BELLOCHE  - 📩 luhatmaxime@gmail.com , amaponce@yahoo.com , theo.doublet@yahoo.com
 
-📢 N’hésitez pas à nous contacter par mail si vous avez des questions ! 🚀
+ N’hésitez pas à nous contacter par mail si vous avez des questions ! 🚀
