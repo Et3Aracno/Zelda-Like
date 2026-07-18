@@ -47,6 +47,6 @@ Le code source du projet se trouve dans la branche Zelda-like-code du dépôt.
 
  CONTACT
 
-Créé par Maxime Luhat , Amadéo Ponce, Théo DOUBLET et Matheo BELLOCHE  -  luhatmaxime@gmail.com , amaponce@yahoo.com , theo.doublet@yahoo.com
+Créé par Maxime Luhat , Amadéo Ponce, Théo DOUBLET -  luhatmaxime@gmail.com , amaponce@yahoo.com , theo.doublet@yahoo.com
 
  N’hésitez pas à nous contacter par mail si vous avez des questions ! 
